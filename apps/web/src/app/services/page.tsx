@@ -4,12 +4,17 @@ import Link from "next/link"
 import { ArrowRight, ShieldCheck } from "lucide-react"
 import { SERVICES_DATA } from "@/config/data"
 
+import BackButton from "@/components/shared/BackButton"
+
 export default function ServicesPage() {
 
   return (
     <div className="bg-cream min-h-screen pb-24">
       {/* Hero Header - Updated to light theme for maximum visibility */}
-      <section className="bg-cream border-b border-orange-100 pt-32 md:pt-44 pb-20 px-4 md:px-6 relative overflow-hidden">
+      <section className="bg-cream border-b border-orange-100 pt-32 md:pt-40 pb-20 px-4 md:px-6 relative overflow-hidden">
+        <div className="container mx-auto relative z-10 max-w-6xl mb-8">
+            <BackButton />
+        </div>
         <div className="container mx-auto relative z-10 text-center max-w-3xl">
           <span className="mb-4 text-amber-600 font-bold tracking-widest uppercase text-sm md:text-base inline-block">
             Our Sacred Offerings

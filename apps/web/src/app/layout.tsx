@@ -33,8 +33,15 @@ export default function RootLayout({
         <main className="flex-1">
           {children}
         </main>
-        <Footer />
+        {/* Hide footer on dashboard pages */}
+        <FooterWrapper />
       </body>
     </html>
   );
+}
+
+function FooterWrapper() {
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+  if (pathname.startsWith('/dashboard')) return null;
+  return <Footer />;
 }

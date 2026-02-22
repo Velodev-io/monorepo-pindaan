@@ -16,6 +16,8 @@ const STEPS = [
   "Payment"
 ]
 
+import BackButton from "@/components/shared/BackButton"
+
 export default function BookingFlow() {
   const [currentStep, setCurrentStep] = useState(0)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -143,7 +145,8 @@ export default function BookingFlow() {
 
   return (
     <div className="container mx-auto px-4 pt-32 md:pt-40 pb-20 max-w-3xl min-h-[70vh]">
-      <div className="mb-12">
+      <div className="mb-8">
+        <BackButton className="mb-6 -ml-2" />
         <h1 className="font-serif text-3xl md:text-5xl text-orange-950 font-bold mb-4 text-center">Arrange a Ritual</h1>
         
         {/* Stepper Progress Bar */}

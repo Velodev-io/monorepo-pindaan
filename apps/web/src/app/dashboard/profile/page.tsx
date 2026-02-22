@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/Button"
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/Card"
 import { User as UserIcon, LogOut, Mail, Phone, Calendar } from "lucide-react"
 
+import BackButton from "@/components/shared/BackButton"
+
 export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
@@ -47,6 +49,7 @@ export default function ProfilePage() {
 
   return (
     <div className="max-w-2xl mx-auto py-8 lg:py-12">
+      <BackButton className="mb-6 -ml-2" />
       <Card className="overflow-hidden border-orange-100 shadow-sm transition-all hover:shadow-md">
         <div className="bg-orange-50 p-8 flex flex-col items-center border-b border-orange-100">
           <div className="h-24 w-24 rounded-full bg-white border-4 border-amber-500 flex items-center justify-center text-amber-600 mb-4 shadow-sm">

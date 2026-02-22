@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { prisma } from "@pinddaan/db";
 import { createBookingSchema } from "@pinddaan/schemas";
+import { EmailService } from "../services/email.service";
 
 export const createBooking = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -28,7 +29,26 @@ export const createBooking = async (req: Request, res: Response, next: NextFunct
                 address: data.address,
                 cremationDate: data.cremationDate ? new Date(data.cremationDate) : null,
                 fatherName: data.fatherName
+            },
+            include: {
+                service: true,
+                location: true
             }
+        });
+
+        // Trigger Emails (Asynchronously)
+        EmailService.sendUserConfirmation(user.email, user.name, {
+            departedName: booking.departedName,
+            ritualDate: booking.ritualDate,
+            locationName: booking.location?.name
+        });
+
+        EmailService.sendAdminNotification(user, {
+            serviceName: booking.service?.name,
+            locationName: booking.location?.name,
+            departedName: booking.departedName,
+            gotra: booking.gotra,
+            ritualDate: booking.ritualDate
         });
 
         return res.status(201).json({ success: true, booking });

@@ -56,3 +56,126 @@
 Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
 [02:24:48.206] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [02:25:12.653] Server  LOG     ✓ Compiled in 280ms
+[02:43:39.320] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:46:34.628] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:51:58.497] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:52:10.736] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:52:13.496] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:54:47.934] Server  LOG     ✓ Compiled in 322ms
+[02:55:06.692] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:55:24.556] Server  LOG     ✓ Compiled in 102ms
+[02:55:35.449] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:56:12.650] Server  LOG     ✓ Compiled in 70ms
+[02:57:08.993] Server  LOG     ✓ Compiled in 53ms
+[02:57:09.436] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[02:57:58.406] Server  LOG     ✓ Compiled in 72ms
+[02:59:00.458] Server  LOG     ✓ Compiled in 89ms
+[02:59:55.287] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:59:57.483] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:59:59.399] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:00:00.976] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:02:15.196] Server  LOG     ✓ Compiled in 131ms
+[03:02:15.821] Browser ERROR   ./projects/Pinddaan/apps/web/src/app/dashboard/layout.tsx:55:29
+Parsing ecmascript source code failed
+  53 |                 key={link.href}
+  54 |                 href={link.href} 
+> 55 |                 className={`flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-semibold transition-all ${
+     |                             ^^^^
+  56 |                   isActive 
+  57 |                     ? "bg-amber-600/20 text-white shadow-inner border-l-4 border-amber-500 pl-2" 
+  58 |                     : "text-orange-200/70 hover:bg-white/5 hover:text-white"
+
+Expected ';', '}' or <eof>
+
+Import traces:
+  Client Component Browser:
+    ./projects/Pinddaan/apps/web/src/app/dashboard/layout.tsx [Client Component Browser]
+    ./projects/Pinddaan/apps/web/src/app/dashboard/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/Pinddaan/apps/web/src/app/dashboard/layout.tsx [Client Component SSR]
+    ./projects/Pinddaan/apps/web/src/app/dashboard/layout.tsx [Server Component]
+[03:02:31.381] Server  LOG     ✓ Compiled in 37ms
+[03:02:41.195] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:03:34.338] Server  LOG     ✓ Compiled in 198ms
+[03:03:45.042] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:03:57.733] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:03:58.911] Server  LOG     ✓ Compiled in 61ms
+[03:04:46.560] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:06:12.974] Server  LOG     ✓ Compiled in 580ms
+[03:09:30.813] Server  LOG     ✓ Compiled in 549ms
+[03:09:39.561] Server  LOG     ✓ Compiled in 81ms
+[03:09:47.925] Server  LOG     ✓ Compiled in 90ms
+[03:12:27.318] Server  LOG     ✓ Compiled in 157ms
+[03:13:12.753] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:13:58.310] Server  LOG     ✓ Compiled in 236ms
+[03:14:05.145] Server  LOG     ✓ Compiled in 361ms
+[03:14:36.042] Server  LOG     ✓ Compiled in 257ms
+[03:14:44.823] Browser ERROR   ./projects/Pinddaan/apps/web/src/app/auth/login/page.tsx:84:56
+Parsing ecmascript source code failed
+  82 |   const [error, setError] = useState("")
+  83 |
+> 84 |   const handleEmailLogin = async (e: React.FormEvent) => {
+     |                                                        ^
+  85 |     e.preventDefault()
+  86 |     setIsLoading(true)
+  87 |     setError("")
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+[03:14:58.041] Server  LOG     ✓ Compiled in 81ms
+[03:15:54.594] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:17:25.684] Server  LOG     ✓ Compiled in 335ms
+[03:17:25.823] Browser ERROR   ./projects/Pinddaan/apps/web/src/components/shared/Navbar.tsx:144:11
+Parsing ecmascript source code failed
+  142 |
+  143 |   const dashboardLinks = [
+> 144 |     { name: "Dashboard Overview", href: "/dashboard" },
+      |           ^
+  145 |     { name: "Account Profile", href: "/dashboard/profile" },
+  146 |     { name: "Ritual Bookings", href: "/dashboard/bookings" },
+  147 |     { name: "Download Proofs", href: "/dashboard/proofs" },
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./projects/Pinddaan/apps/web/src/components/shared/Navbar.tsx
+    ./projects/Pinddaan/apps/web/src/app/layout.tsx
+[03:17:44.718] Server  LOG     ✓ Compiled in 321ms
+[03:18:17.303] Server  LOG     ✓ Compiled in 36ms
+[03:18:24.227] Server  LOG     ✓ Compiled in 63ms
+[03:18:24.823] Browser ERROR   ./projects/Pinddaan/apps/web/src/components/shared/Navbar.tsx:102:10
+Parsing ecmascript source code failed
+  100 |             />
+  101 |           </Link>
+> 102 |         )}
+      |          ^
+  103 |         
+  104 |         {/* Desktop Navigation */}
+  105 |         <nav className="hidden md:flex gap-8">
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import trace:
+  Server Component:
+    ./projects/Pinddaan/apps/web/src/components/shared/Navbar.tsx
+    ./projects/Pinddaan/apps/web/src/app/layout.tsx
+[03:18:32.105] Server  LOG     ✓ Compiled in 71ms
+[03:20:18.775] Server  LOG     ✓ Compiled in 241ms
+[03:20:19.821] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[03:20:35.649] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[03:21:39.708] Server  LOG     ✓ Compiled in 256ms
+[03:21:54.084] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[03:22:41.437] Server  LOG     ✓ Compiled in 238ms
+[03:23:03.716] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[03:24:24.883] Server  LOG     ✓ Compiled in 552ms
+[03:24:36.592] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[03:24:44.922] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[03:25:57.264] Server  LOG     ✓ Compiled in 329ms
+[03:27:52.581] Server  LOG     ✓ Compiled in 266ms
+[03:27:58.478] Server  LOG     ✓ Compiled in 447ms
+[03:27:59.507] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:28:08.871] Server  LOG     ✓ Compiled in 63ms
+[03:28:20.170] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[03:28:25.163] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:28:25.356] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
