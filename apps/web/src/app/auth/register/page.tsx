@@ -1,0 +1,123 @@
+"use client"
+
+import { useState } from "react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+import { auth } from "@/lib/firebase"
+import { Button } from "@/components/ui/Button"
+
+export default function RegisterPage() {
+  const router = useRouter()
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+    setError("")
+
+    try {
+      // Create user in Firebase
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+      
+      // Update displayName
+      await updateProfile(userCredential.user, {
+        displayName: name
+      })
+
+      // Sync user to PostgreSQL backend!
+      const token = await userCredential.user.getIdToken(true);
+      await fetch("http://localhost:3001/api/v1/users/sync", {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+         },
+         body: JSON.stringify({ name, email })
+      });
+
+      // Redirect to dashboard on success
+      router.push("/dashboard")
+    } catch (err: any) {
+      setError(err.message || "Failed to create account. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full p-8 bg-white border border-orange-100 rounded-2xl shadow-sm">
+        <div className="text-center mb-8">
+          <h2 className="font-serif text-3xl font-bold text-orange-950">Create an Account</h2>
+          <p className="mt-2 text-sm text-orange-900/60">
+            Join families worldwide honoring their loved ones securely.
+          </p>
+        </div>
+
+        {error && (
+          <div className="mb-6 p-4 bg-red-50 text-red-700 text-sm rounded-lg border border-red-100">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleRegister} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-orange-950 mb-1">Full Name</label>
+            <input 
+              type="text" 
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full h-11 px-3 rounded-md border border-orange-200 outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+              placeholder="Ramesh Sharma"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-orange-950 mb-1">Email Address</label>
+            <input 
+              type="email" 
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full h-11 px-3 rounded-md border border-orange-200 outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+              placeholder="you@example.com"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-orange-950 mb-1">Password</label>
+            <input 
+              type="password" 
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full h-11 px-3 rounded-md border border-orange-200 outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+              placeholder="••••••••"
+              minLength={8}
+            />
+            <p className="text-xs text-orange-900/40 mt-1">Must be at least 8 characters</p>
+          </div>
+
+          <Button 
+            type="submit" 
+            className="w-full h-12 mt-4 bg-amber-600 hover:bg-amber-700 text-white font-semibold"
+            disabled={isLoading}
+          >
+            {isLoading ? "Creating Account..." : "Register securely"}
+          </Button>
+        </form>
+
+        <p className="mt-8 text-center text-sm text-orange-900/60">
+          Already have an account?{" "}
+          <Link href="/auth/login" className="font-semibold text-amber-600 hover:text-amber-700">
+            Sign In
+          </Link>
+        </p>
+      </div>
+    </div>
+  )
+}

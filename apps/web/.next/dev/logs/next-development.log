@@ -1,0 +1,4 @@
+[00:00:02.326] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:02.624] Server  LOG     ✓ Ready in 2.3s
+[00:00:02.810] Browser LOG     [ChromeTransport] chromePort disconnected
+[00:00:05.297] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
