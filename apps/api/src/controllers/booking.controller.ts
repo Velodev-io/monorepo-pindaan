@@ -5,9 +5,17 @@ import { createBookingSchema } from "@pinddaan/schemas";
 export const createBooking = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user = (req as any).user;
+        console.log("Incoming Booking Body:", JSON.stringify(req.body, null, 2));
 
         // Zod validates incoming body based on shared schema
         const data = createBookingSchema.parse(req.body);
+
+        if (data.contactPhone) {
+            await prisma.user.update({
+                where: { id: user.id },
+                data: { phone: data.contactPhone }
+            });
+        }
 
         const booking = await prisma.booking.create({
             data: {

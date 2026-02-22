@@ -1,4 +1,58 @@
-[00:00:02.326] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:02.624] Server  LOG     ✓ Ready in 2.3s
-[00:00:02.810] Browser LOG     [ChromeTransport] chromePort disconnected
-[00:00:05.297] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.287] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:02.349] Server  LOG     ✓ Ready in 1839ms
+[00:01:16.904] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:52.671] Server  LOG     ✓ Compiled in 751ms
+[00:05:23.525] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:07:02.121] Server  LOG     ✓ Compiled in 259ms
+[00:10:20.973] Server  LOG     ✓ Compiled in 185ms
+[00:15:19.768] Server  LOG     ✓ Compiled in 328ms
+[00:17:52.788] Server  LOG     ✓ Compiled in 60ms
+[00:20:31.594] Server  LOG     ✓ Compiled in 157ms
+[00:21:41.323] Server  LOG     ✓ Compiled in 79ms
+[00:25:19.423] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:26:07.843] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:32:50.816] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:34:19.721] Server  LOG     ✓ Compiled in 338ms
+[00:35:51.442] Server  LOG     ✓ Compiled in 258ms
+[00:44:25.852] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:00:44.407] Server  LOG     ✓ Compiled in 451ms
+[01:00:44.448] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./projects/Pinddaan/node_modules/next/dist/client/image-component.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:00:45.344] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:00:53.659] Server  LOG     ✓ Compiled in 195ms
+[01:47:13.499] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:47:15.671] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:48:08.551] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:49:01.596] Server  LOG     ✓ Compiled in 836ms
+[01:49:02.951] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:49:08.926] Server  LOG     ✓ Compiled in 67ms
+[01:52:31.478] Server  LOG     ✓ Compiled in 293ms
+[01:55:13.250] Server  LOG     ✓ Compiled in 305ms
+[01:55:35.266] Server  LOG     ✓ Compiled in 32ms
+[01:56:25.827] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:58:21.516] Server  LOG     ✓ Compiled in 447ms
+[01:59:41.264] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:59:57.667] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:00:46.035] Server  LOG     ✓ Compiled in 162ms
+[02:01:25.404] Server  LOG     ✓ Compiled in 139ms
+[02:01:40.617] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:01:42.804] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:02:39.796] Server  LOG     ✓ Compiled in 198ms
+[02:03:56.840] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:03:58.950] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:03:59.311] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:03:59.777] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:04:00.010] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:04:00.386] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:04:00.692] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:05:24.196] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:06:02.618] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:06:04.631] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:17:11.574] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:19:30.415] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:19:52.766] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:20:50.918] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:24:46.084] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:24:46.207] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[02:24:48.206] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:25:12.653] Server  LOG     ✓ Compiled in 280ms

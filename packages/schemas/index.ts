@@ -2,14 +2,15 @@ import { z } from "zod";
 import { BookingStatus, PaymentStatus } from "@pinddaan/types";
 
 export const createBookingSchema = z.object({
-    serviceId: z.string().uuid(),
-    locationId: z.string().uuid(),
-    ritualDate: z.string().datetime(),
-    address: z.string().min(10).optional(),
-    departedName: z.string().min(2),
+    serviceId: z.string(),
+    locationId: z.string(),
+    ritualDate: z.string(),
+    address: z.string().optional(),
+    departedName: z.string(),
     gotra: z.string().optional(),
-    cremationDate: z.string().datetime().optional(),
-    fatherName: z.string().optional()
+    cremationDate: z.string().optional(),
+    fatherName: z.string().optional(),
+    contactPhone: z.string().optional()
 });
 
 export const updateBookingStatusSchema = z.object({

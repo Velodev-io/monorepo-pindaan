@@ -70,7 +70,20 @@ function LoginPage() {
         setIsLoading(true);
         setError("");
         try {
-            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f40$firebase$2f$auth$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["signInWithEmailAndPassword"])(__TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$apps$2f$web$2f$src$2f$lib$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["auth"], email, password);
+            const userCredential = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f40$firebase$2f$auth$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["signInWithEmailAndPassword"])(__TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$apps$2f$web$2f$src$2f$lib$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["auth"], email, password);
+            // Sync user to PostgreSQL backend
+            const token = await userCredential.user.getIdToken(true);
+            await fetch("http://localhost:3001/api/v1/users/sync", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    name: userCredential.user.displayName,
+                    email: userCredential.user.email
+                })
+            });
             // Redirect to dashboard on success
             router.push("/dashboard");
         } catch (err) {
@@ -83,7 +96,20 @@ function LoginPage() {
         setIsLoading(true);
         setError("");
         try {
-            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f40$firebase$2f$auth$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["signInWithPopup"])(__TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$apps$2f$web$2f$src$2f$lib$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["auth"], __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$apps$2f$web$2f$src$2f$lib$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["googleProvider"]);
+            const userCredential = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f40$firebase$2f$auth$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["signInWithPopup"])(__TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$apps$2f$web$2f$src$2f$lib$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["auth"], __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$apps$2f$web$2f$src$2f$lib$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["googleProvider"]);
+            // Sync user to PostgreSQL backend
+            const token = await userCredential.user.getIdToken(true);
+            await fetch("http://localhost:3001/api/v1/users/sync", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    name: userCredential.user.displayName,
+                    email: userCredential.user.email
+                })
+            });
             // Redirect to dashboard on success
             router.push("/dashboard");
         } catch (err) {
@@ -105,7 +131,7 @@ function LoginPage() {
                             children: "Welcome Back"
                         }, void 0, false, {
                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                            lineNumber: 52,
+                            lineNumber: 76,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -113,13 +139,13 @@ function LoginPage() {
                             children: "Securely access your Pinddaan portal."
                         }, void 0, false, {
                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                            lineNumber: 53,
+                            lineNumber: 77,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                    lineNumber: 51,
+                    lineNumber: 75,
                     columnNumber: 9
                 }, this),
                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -127,7 +153,7 @@ function LoginPage() {
                     children: error
                 }, void 0, false, {
                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                    lineNumber: 59,
+                    lineNumber: 83,
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -149,7 +175,7 @@ function LoginPage() {
                                             fill: "#4285F4"
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                            lineNumber: 71,
+                                            lineNumber: 95,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -157,7 +183,7 @@ function LoginPage() {
                                             fill: "#34A853"
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                            lineNumber: 72,
+                                            lineNumber: 96,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -165,7 +191,7 @@ function LoginPage() {
                                             fill: "#FBBC05"
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                            lineNumber: 73,
+                                            lineNumber: 97,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -173,20 +199,20 @@ function LoginPage() {
                                             fill: "#EA4335"
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                            lineNumber: 74,
+                                            lineNumber: 98,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                    lineNumber: 70,
+                                    lineNumber: 94,
                                     columnNumber: 13
                                 }, this),
                                 "Continue with Google"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                            lineNumber: 65,
+                            lineNumber: 89,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -196,7 +222,7 @@ function LoginPage() {
                                     className: "flex-grow border-t border-orange-100"
                                 }, void 0, false, {
                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                    lineNumber: 80,
+                                    lineNumber: 104,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -204,20 +230,20 @@ function LoginPage() {
                                     children: "or"
                                 }, void 0, false, {
                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                    lineNumber: 81,
+                                    lineNumber: 105,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex-grow border-t border-orange-100"
                                 }, void 0, false, {
                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                    lineNumber: 82,
+                                    lineNumber: 106,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                            lineNumber: 79,
+                            lineNumber: 103,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -231,7 +257,7 @@ function LoginPage() {
                                             children: "Email Address"
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                            lineNumber: 87,
+                                            lineNumber: 111,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -243,13 +269,13 @@ function LoginPage() {
                                             placeholder: "you@example.com"
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                            lineNumber: 88,
+                                            lineNumber: 112,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                    lineNumber: 86,
+                                    lineNumber: 110,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -262,7 +288,7 @@ function LoginPage() {
                                                     children: "Password"
                                                 }, void 0, false, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                                    lineNumber: 99,
+                                                    lineNumber: 123,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -271,13 +297,13 @@ function LoginPage() {
                                                     children: "Forgot?"
                                                 }, void 0, false, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                                    lineNumber: 100,
+                                                    lineNumber: 124,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                            lineNumber: 98,
+                                            lineNumber: 122,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -289,13 +315,13 @@ function LoginPage() {
                                             placeholder: "••••••••"
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                            lineNumber: 104,
+                                            lineNumber: 128,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                    lineNumber: 97,
+                                    lineNumber: 121,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -305,19 +331,19 @@ function LoginPage() {
                                     children: isLoading ? "Signing in..." : "Sign In"
                                 }, void 0, false, {
                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                                    lineNumber: 114,
+                                    lineNumber: 138,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                            lineNumber: 85,
+                            lineNumber: 109,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                    lineNumber: 64,
+                    lineNumber: 88,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -331,24 +357,24 @@ function LoginPage() {
                             children: "Create an account"
                         }, void 0, false, {
                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                            lineNumber: 126,
+                            lineNumber: 150,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-                    lineNumber: 124,
+                    lineNumber: 148,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-            lineNumber: 50,
+            lineNumber: 74,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/projects/Pinddaan/apps/web/src/app/auth/login/page.tsx",
-        lineNumber: 49,
+        lineNumber: 73,
         columnNumber: 5
     }, this);
 }

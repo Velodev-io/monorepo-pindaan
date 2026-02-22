@@ -20,7 +20,19 @@ export default function LoginPage() {
     setError("")
 
     try {
-      await signInWithEmailAndPassword(auth, email, password)
+      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+      
+      // Sync user to PostgreSQL backend
+      const token = await userCredential.user.getIdToken(true);
+      await fetch("http://localhost:3001/api/v1/users/sync", {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+         },
+         body: JSON.stringify({ name: userCredential.user.displayName, email: userCredential.user.email })
+      });
+
       // Redirect to dashboard on success
       router.push("/dashboard")
     } catch (err: any) {
@@ -35,7 +47,19 @@ export default function LoginPage() {
     setError("")
 
     try {
-      await signInWithPopup(auth, googleProvider)
+      const userCredential = await signInWithPopup(auth, googleProvider)
+      
+      // Sync user to PostgreSQL backend
+      const token = await userCredential.user.getIdToken(true);
+      await fetch("http://localhost:3001/api/v1/users/sync", {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+         },
+         body: JSON.stringify({ name: userCredential.user.displayName, email: userCredential.user.email })
+      });
+
       // Redirect to dashboard on success
       router.push("/dashboard")
     } catch (err: any) {

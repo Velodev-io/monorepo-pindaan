@@ -237,6 +237,7 @@ const STEPS = [
 ];
 function BookingFlow() {
     const [currentStep, setCurrentStep] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [isSubmitted, setIsSubmitted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({
         services: [],
         location: "",
@@ -245,6 +246,8 @@ function BookingFlow() {
         gotra: "",
         tithiDate: "",
         cremationDate: "",
+        countryCode: "+91",
+        contactPhone: "",
         notes: ""
     });
     // Calculate dynamic Total Price
@@ -268,8 +271,8 @@ function BookingFlow() {
                 alert("You must be logged in to complete a booking.");
                 return;
             }
-            if (formData.services.length === 0 || !formData.location || !formData.tithiDate || !formData.departedName) {
-                alert("Please fill out all required details (At least 1 Service, Location, Date, Departed Name).");
+            if (formData.services.length === 0 || !formData.location || !formData.tithiDate || !formData.departedName || !formData.fatherName || !formData.cremationDate || !formData.contactPhone) {
+                alert("Please fill out all required details (At least 1 Service, Location, Date, Departed Name, Father's Name, Cremation Date, Contact Number).");
                 return;
             }
             const locationObj = __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$apps$2f$web$2f$src$2f$config$2f$data$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["LOCATIONS_DATA"].find((l)=>l.name === formData.location);
@@ -296,18 +299,78 @@ function BookingFlow() {
                             departedName: formData.departedName,
                             fatherName: formData.fatherName || undefined,
                             cremationDate: formData.cremationDate ? new Date(formData.cremationDate).toISOString() : undefined,
+                            contactPhone: `${formData.countryCode} ${formData.contactPhone}`,
                             gotra: formData.gotra,
                             address: formData.notes
                         })
                     });
                 }
             }
-            alert("Success! Your comprehensive ritual booking has been secured.");
-            window.location.href = "/dashboard";
+            setIsSubmitted(true);
         } catch (error) {
             alert("Error creating booking: " + error.message);
         }
     };
+    if (isSubmitted) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "container mx-auto px-4 py-12 md:py-24 max-w-3xl min-h-[70vh] flex flex-col items-center justify-center text-center",
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Card"], {
+                className: "w-full relative overflow-hidden bg-white shadow-xl shadow-orange-900/5 border-orange-100 p-8 md:p-12",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mx-auto w-16 h-16 bg-orange-100 text-amber-600 rounded-full flex items-center justify-center mb-6 text-3xl",
+                        children: "🙏"
+                    }, void 0, false, {
+                        fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                        lineNumber: 110,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                        className: "font-serif text-2xl md:text-3xl text-orange-950 font-bold mb-4",
+                        children: "We are deeply grateful for your trust"
+                    }, void 0, false, {
+                        fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                        lineNumber: 113,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-orange-900/80 mb-6 text-lg leading-relaxed",
+                        children: "Our thoughts are with you and your family during this sensitive time. We have received the details for the rituals of the departed soul."
+                    }, void 0, false, {
+                        fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                        lineNumber: 114,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-orange-900/80 mb-8 text-lg leading-relaxed",
+                        children: "Our team will respectfully contact you shortly to provide guidance and assist you with the necessary arrangements."
+                    }, void 0, false, {
+                        fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                        lineNumber: 117,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
+                        variant: "outline",
+                        onClick: ()=>window.location.href = "/dashboard",
+                        className: "border-orange-200 text-orange-900 bg-orange-50 hover:bg-orange-100",
+                        children: "Return to Dashboard"
+                    }, void 0, false, {
+                        fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                        lineNumber: 120,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                lineNumber: 109,
+                columnNumber: 9
+            }, this)
+        }, void 0, false, {
+            fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+            lineNumber: 108,
+            columnNumber: 7
+        }, this);
+    }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "container mx-auto px-4 py-12 md:py-24 max-w-3xl min-h-[70vh]",
         children: [
@@ -319,7 +382,7 @@ function BookingFlow() {
                         children: "Arrange a Ritual"
                     }, void 0, false, {
                         fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                        lineNumber: 106,
+                        lineNumber: 135,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -329,7 +392,7 @@ function BookingFlow() {
                                 className: "absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-orange-200 -z-10"
                             }, void 0, false, {
                                 fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                lineNumber: 110,
+                                lineNumber: 139,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -339,7 +402,7 @@ function BookingFlow() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                lineNumber: 111,
+                                lineNumber: 140,
                                 columnNumber: 11
                             }, this),
                             STEPS.map((step, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -350,7 +413,7 @@ function BookingFlow() {
                                             children: idx + 1
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                            lineNumber: 118,
+                                            lineNumber: 147,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -358,25 +421,25 @@ function BookingFlow() {
                                             children: step
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                            lineNumber: 123,
+                                            lineNumber: 152,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, idx, true, {
                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                    lineNumber: 117,
+                                    lineNumber: 146,
                                     columnNumber: 13
                                 }, this))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                        lineNumber: 109,
+                        lineNumber: 138,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                lineNumber: 105,
+                lineNumber: 134,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Card"], {
@@ -409,7 +472,7 @@ function BookingFlow() {
                                             children: "Select Rituals"
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                            lineNumber: 143,
+                                            lineNumber: 172,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardDescription"], {
@@ -417,7 +480,7 @@ function BookingFlow() {
                                             children: "You may select multiple services to be performed concurrently."
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                            lineNumber: 144,
+                                            lineNumber: 173,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -439,12 +502,12 @@ function BookingFlow() {
                                                                             className: "h-5 w-5"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                            lineNumber: 161,
+                                                                            lineNumber: 190,
                                                                             columnNumber: 30
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                        lineNumber: 160,
+                                                                        lineNumber: 189,
                                                                         columnNumber: 28
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
@@ -452,13 +515,13 @@ function BookingFlow() {
                                                                         children: srv.title
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                        lineNumber: 163,
+                                                                        lineNumber: 192,
                                                                         columnNumber: 28
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                lineNumber: 159,
+                                                                lineNumber: 188,
                                                                 columnNumber: 26
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -469,24 +532,24 @@ function BookingFlow() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                lineNumber: 165,
+                                                                lineNumber: 194,
                                                                 columnNumber: 26
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                        lineNumber: 158,
+                                                        lineNumber: 187,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, srv.id, false, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                    lineNumber: 149,
+                                                    lineNumber: 178,
                                                     columnNumber: 21
                                                 }, this);
                                             })
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                            lineNumber: 145,
+                                            lineNumber: 174,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -497,7 +560,7 @@ function BookingFlow() {
                                                     children: "Subtotal:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                    lineNumber: 171,
+                                                    lineNumber: 200,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -508,19 +571,19 @@ function BookingFlow() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                    lineNumber: 172,
+                                                    lineNumber: 201,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                            lineNumber: 170,
+                                            lineNumber: 199,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                    lineNumber: 142,
+                                    lineNumber: 171,
                                     columnNumber: 15
                                 }, this),
                                 currentStep === 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -531,7 +594,7 @@ function BookingFlow() {
                                             children: "Select Holy Location"
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                            lineNumber: 180,
+                                            lineNumber: 209,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -548,7 +611,7 @@ function BookingFlow() {
                                                             children: loc.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 192,
+                                                            lineNumber: 221,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -556,24 +619,24 @@ function BookingFlow() {
                                                             children: loc.desc
                                                         }, void 0, false, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 193,
+                                                            lineNumber: 222,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, loc.id, true, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                    lineNumber: 183,
+                                                    lineNumber: 212,
                                                     columnNumber: 21
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                            lineNumber: 181,
+                                            lineNumber: 210,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                    lineNumber: 179,
+                                    lineNumber: 208,
                                     columnNumber: 15
                                 }, this),
                                 currentStep === 2 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -584,7 +647,7 @@ function BookingFlow() {
                                             children: "Provide Details for the Priests"
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                            lineNumber: 203,
+                                            lineNumber: 232,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -600,7 +663,7 @@ function BookingFlow() {
                                                                     children: "Name of the Departed Soul"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                    lineNumber: 207,
+                                                                    lineNumber: 236,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -614,23 +677,23 @@ function BookingFlow() {
                                                                         })
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                    lineNumber: 208,
+                                                                    lineNumber: 237,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 206,
+                                                            lineNumber: 235,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                     className: "block text-sm font-medium text-orange-900 mb-1",
-                                                                    children: "Father's Name (if known)"
+                                                                    children: "Father's Name"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                    lineNumber: 217,
+                                                                    lineNumber: 246,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -644,19 +707,19 @@ function BookingFlow() {
                                                                         })
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                    lineNumber: 218,
+                                                                    lineNumber: 247,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 216,
+                                                            lineNumber: 245,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                    lineNumber: 205,
+                                                    lineNumber: 234,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -669,7 +732,7 @@ function BookingFlow() {
                                                                     children: "Gotra (if known)"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                    lineNumber: 229,
+                                                                    lineNumber: 258,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -683,13 +746,13 @@ function BookingFlow() {
                                                                         })
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                    lineNumber: 230,
+                                                                    lineNumber: 259,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 228,
+                                                            lineNumber: 257,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -699,7 +762,7 @@ function BookingFlow() {
                                                                     children: "Preferred Ritual Date"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                    lineNumber: 239,
+                                                                    lineNumber: 268,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -712,29 +775,29 @@ function BookingFlow() {
                                                                         })
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                    lineNumber: 240,
+                                                                    lineNumber: 269,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 238,
+                                                            lineNumber: 267,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                    lineNumber: 227,
+                                                    lineNumber: 256,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                             className: "block text-sm font-medium text-orange-900 mb-1",
-                                                            children: "Cremation Date (if applicable)"
+                                                            children: "Cremation Date"
                                                         }, void 0, false, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 249,
+                                                            lineNumber: 278,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -747,25 +810,126 @@ function BookingFlow() {
                                                                 })
                                                         }, void 0, false, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 250,
+                                                            lineNumber: 279,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                    lineNumber: 248,
+                                                    lineNumber: 277,
+                                                    columnNumber: 19
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                            className: "block text-sm font-medium text-orange-900 mb-1",
+                                                            children: "Your Contact Number"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                                                            lineNumber: 287,
+                                                            columnNumber: 21
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex gap-2",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                                    className: "w-24 h-11 px-2 rounded-md border border-orange-200 outline-none focus:border-amber-500 bg-white",
+                                                                    value: formData.countryCode,
+                                                                    onChange: (e)=>setFormData({
+                                                                            ...formData,
+                                                                            countryCode: e.target.value
+                                                                        }),
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                            value: "+91",
+                                                                            children: "🇮🇳 +91"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                                                                            lineNumber: 294,
+                                                                            columnNumber: 25
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                            value: "+1",
+                                                                            children: "🇺🇸/🇨🇦 +1"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                                                                            lineNumber: 295,
+                                                                            columnNumber: 25
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                            value: "+44",
+                                                                            children: "🇬🇧 +44"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                                                                            lineNumber: 296,
+                                                                            columnNumber: 25
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                            value: "+61",
+                                                                            children: "🇦🇺 +61"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                                                                            lineNumber: 297,
+                                                                            columnNumber: 25
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                            value: "+971",
+                                                                            children: "🇦🇪 +971"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                                                                            lineNumber: 298,
+                                                                            columnNumber: 25
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                            value: "+65",
+                                                                            children: "🇸🇬 +65"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                                                                            lineNumber: 299,
+                                                                            columnNumber: 25
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                                                                    lineNumber: 289,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                    type: "tel",
+                                                                    className: "flex-1 h-11 px-3 rounded-md border border-orange-200 outline-none focus:border-amber-500 transition-all",
+                                                                    placeholder: "9876543210",
+                                                                    value: formData.contactPhone,
+                                                                    onChange: (e)=>setFormData({
+                                                                            ...formData,
+                                                                            contactPhone: e.target.value
+                                                                        })
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                                                                    lineNumber: 301,
+                                                                    columnNumber: 23
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                                                            lineNumber: 288,
+                                                            columnNumber: 21
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
+                                                    lineNumber: 286,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                            lineNumber: 204,
+                                            lineNumber: 233,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                    lineNumber: 202,
+                                    lineNumber: 231,
                                     columnNumber: 15
                                 }, this),
                                 currentStep === 3 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -776,7 +940,7 @@ function BookingFlow() {
                                             children: "Secure Checkout"
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                            lineNumber: 264,
+                                            lineNumber: 317,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardDescription"], {
@@ -784,7 +948,7 @@ function BookingFlow() {
                                             children: "Review your securely generated quote"
                                         }, void 0, false, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                            lineNumber: 265,
+                                            lineNumber: 318,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -798,7 +962,7 @@ function BookingFlow() {
                                                             children: "Selected Rituals:"
                                                         }, void 0, false, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 269,
+                                                            lineNumber: 322,
                                                             columnNumber: 21
                                                         }, this),
                                                         selectedServiceObjects.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -811,7 +975,7 @@ function BookingFlow() {
                                                                                 className: "h-4 w-4"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                                lineNumber: 272,
+                                                                                lineNumber: 325,
                                                                                 columnNumber: 100
                                                                             }, this),
                                                                             " ",
@@ -819,7 +983,7 @@ function BookingFlow() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                        lineNumber: 272,
+                                                                        lineNumber: 325,
                                                                         columnNumber: 28
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -830,19 +994,19 @@ function BookingFlow() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                        lineNumber: 273,
+                                                                        lineNumber: 326,
                                                                         columnNumber: 28
                                                                     }, this)
                                                                 ]
                                                             }, s.id, true, {
                                                                 fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                                lineNumber: 271,
+                                                                lineNumber: 324,
                                                                 columnNumber: 25
                                                             }, this))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                    lineNumber: 268,
+                                                    lineNumber: 321,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -853,7 +1017,7 @@ function BookingFlow() {
                                                             children: "Holy Location:"
                                                         }, void 0, false, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 278,
+                                                            lineNumber: 331,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -861,13 +1025,13 @@ function BookingFlow() {
                                                             children: formData.location || "Not selected"
                                                         }, void 0, false, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 279,
+                                                            lineNumber: 332,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                    lineNumber: 277,
+                                                    lineNumber: 330,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -878,7 +1042,7 @@ function BookingFlow() {
                                                             children: "Departed Name:"
                                                         }, void 0, false, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 282,
+                                                            lineNumber: 335,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -886,13 +1050,13 @@ function BookingFlow() {
                                                             children: formData.departedName || "Not provided"
                                                         }, void 0, false, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 283,
+                                                            lineNumber: 336,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                    lineNumber: 281,
+                                                    lineNumber: 334,
                                                     columnNumber: 19
                                                 }, this),
                                                 formData.fatherName && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -903,7 +1067,7 @@ function BookingFlow() {
                                                             children: "Father's Name:"
                                                         }, void 0, false, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 287,
+                                                            lineNumber: 340,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -911,13 +1075,13 @@ function BookingFlow() {
                                                             children: formData.fatherName
                                                         }, void 0, false, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 288,
+                                                            lineNumber: 341,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                    lineNumber: 286,
+                                                    lineNumber: 339,
                                                     columnNumber: 23
                                                 }, this),
                                                 formData.cremationDate && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -928,7 +1092,7 @@ function BookingFlow() {
                                                             children: "Cremation Date:"
                                                         }, void 0, false, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 293,
+                                                            lineNumber: 346,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -936,13 +1100,13 @@ function BookingFlow() {
                                                             children: formData.cremationDate
                                                         }, void 0, false, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 294,
+                                                            lineNumber: 347,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                    lineNumber: 292,
+                                                    lineNumber: 345,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -953,7 +1117,7 @@ function BookingFlow() {
                                                             children: "Total Pricing:"
                                                         }, void 0, false, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 298,
+                                                            lineNumber: 351,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -964,19 +1128,19 @@ function BookingFlow() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                            lineNumber: 299,
+                                                            lineNumber: 352,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                    lineNumber: 297,
+                                                    lineNumber: 350,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                            lineNumber: 267,
+                                            lineNumber: 320,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -987,37 +1151,37 @@ function BookingFlow() {
                                                     children: "🔒"
                                                 }, void 0, false, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                    lineNumber: 304,
+                                                    lineNumber: 357,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     children: "Your payment is secured by Stripe. A verified Pandit will be securely assigned immediately upon success."
                                                 }, void 0, false, {
                                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                                    lineNumber: 305,
+                                                    lineNumber: 358,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                            lineNumber: 303,
+                                            lineNumber: 356,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                    lineNumber: 263,
+                                    lineNumber: 316,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, currentStep, true, {
                             fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                            lineNumber: 133,
+                            lineNumber: 162,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                        lineNumber: 132,
+                        lineNumber: 161,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardFooter"], {
@@ -1031,36 +1195,36 @@ function BookingFlow() {
                                 children: "Back"
                             }, void 0, false, {
                                 fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                lineNumber: 313,
+                                lineNumber: 366,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$projects$2f$Pinddaan$2f$apps$2f$web$2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
                                 variant: "default",
                                 onClick: currentStep === STEPS.length - 1 ? handleCheckout : nextStep,
-                                disabled: currentStep === 0 && formData.services.length === 0,
-                                className: "w-32 bg-amber-600 hover:bg-amber-700 disabled:opacity-50",
+                                disabled: currentStep === 0 && formData.services.length === 0 || currentStep === 1 && !formData.location || currentStep === 2 && (!formData.departedName || !formData.tithiDate || !formData.fatherName || !formData.cremationDate || !formData.contactPhone),
+                                className: "w-32 bg-amber-600 hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed",
                                 children: currentStep === STEPS.length - 1 ? `Pay $${totalPrice}` : "Continue"
                             }, void 0, false, {
                                 fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                                lineNumber: 322,
+                                lineNumber: 375,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                        lineNumber: 312,
+                        lineNumber: 365,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-                lineNumber: 131,
+                lineNumber: 160,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/projects/Pinddaan/apps/web/src/app/booking/page.tsx",
-        lineNumber: 104,
+        lineNumber: 133,
         columnNumber: 5
     }, this);
 }

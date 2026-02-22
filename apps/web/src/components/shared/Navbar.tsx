@@ -4,22 +4,44 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
 import { Button } from "../ui/Button"
-import { Menu } from "lucide-react"
+import { Menu, UserCircle, LogOut } from "lucide-react"
 import Image from "next/image"
+import { auth } from "@/lib/firebase"
+import { onAuthStateChanged, signOut, User } from "firebase/auth"
+import { useRouter } from "next/navigation"
 
 export default function Navbar() {
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
+  const router = useRouter()
   
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
     }
+    
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+    })
+
     window.addEventListener("scroll", handleScroll)
     // Initial check
     handleScroll()
-    return () => window.removeEventListener("scroll", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      unsubscribe()
+    }
   }, [])
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth)
+      router.push("/")
+    } catch (error) {
+      console.error(error)
+    }
+  }
   
   const navLinks = [
     { name: "Services", href: "/services" },
@@ -75,11 +97,26 @@ export default function Navbar() {
         </nav>
         
         <div className="hidden md:flex items-center gap-4">
-          <Link href="/auth/login">
-            <Button variant="ghost" className={isSolid ? "text-orange-950 hover:bg-orange-100/50" : "text-white hover:bg-white/20 hover:text-white"}>
-              Sign In
-            </Button>
-          </Link>
+          {user ? (
+            <Link href="/dashboard/profile">
+              <div 
+                className={`p-1.5 rounded-full border-2 transition-all cursor-pointer hover:scale-105 active:scale-95 ${
+                  isSolid 
+                    ? "border-amber-500 bg-amber-50 text-amber-600" 
+                    : "border-white/50 bg-white/10 text-white"
+                }`}
+                title="View Profile"
+              >
+                <UserCircle className="h-6 w-6" />
+              </div>
+            </Link>
+          ) : (
+            <Link href="/auth/login">
+              <Button variant="ghost" className={isSolid ? "text-orange-950 hover:bg-orange-100/50" : "text-white hover:bg-white/20 hover:text-white"}>
+                Sign In
+              </Button>
+            </Link>
+          )}
           <Link href="/booking">
             <Button variant="default" className="shadow-md">Assemble Ritual</Button>
           </Link>

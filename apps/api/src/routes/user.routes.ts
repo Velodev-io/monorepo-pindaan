@@ -137,7 +137,7 @@ router.get("/stats/dashboard", authMiddleware, cacheMiddleware(10), async (req: 
         const currentUser = (req as any).user;
         if (currentUser.role !== "ADMIN" && currentUser.role !== "SUPER_ADMIN") return res.status(403).json({ error: "Forbidden" });
 
-        const [usersCount, bookingsCount, pendingCount, recentBookings] = await Promise.all([
+        const [usersCount, bookingsCount, pendingCount, recentBookings, totalRevenue] = await Promise.all([
             prisma.user.count(),
             prisma.booking.count(),
             prisma.booking.count({ where: { status: "PENDING" } }),
@@ -145,10 +145,13 @@ router.get("/stats/dashboard", authMiddleware, cacheMiddleware(10), async (req: 
                 take: 4,
                 orderBy: { createdAt: "desc" },
                 include: { user: true, service: true, location: true }
+            }),
+            prisma.booking.findMany({
+                include: { service: true }
             })
         ]);
 
-        const revenue = bookingsCount * 299;
+        const revenue = totalRevenue.reduce((acc, curr) => acc + (curr.service?.basePrice || 0), 0);
 
         const responsePayload = {
             success: true,

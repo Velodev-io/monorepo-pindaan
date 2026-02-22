@@ -8,15 +8,16 @@ export default function ServicesPage() {
 
   return (
     <div className="bg-cream min-h-screen pb-24">
-      {/* Hero Header */}
-      <section className="bg-orange-950 text-orange-50 pt-24 pb-20 px-4 md:px-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/images/hero-bg.png')] bg-cover bg-center mix-blend-overlay opacity-20" />
+      {/* Hero Header - Updated to light theme for maximum visibility */}
+      <section className="bg-cream border-b border-orange-100 pt-32 md:pt-44 pb-20 px-4 md:px-6 relative overflow-hidden">
         <div className="container mx-auto relative z-10 text-center max-w-3xl">
-          <span className="mb-4 text-amber-500 font-medium tracking-widest uppercase text-sm md:text-base inline-block">
+          <span className="mb-4 text-amber-600 font-bold tracking-widest uppercase text-sm md:text-base inline-block">
             Our Sacred Offerings
           </span>
-          <h1 className="font-serif text-4xl md:text-6xl font-bold mb-6">Respectful Ritual Services</h1>
-          <p className="text-lg md:text-xl text-orange-200 font-light leading-relaxed">
+          <h1 className="font-serif text-4xl md:text-6xl font-bold text-orange-950 mb-6 drop-shadow-sm">
+            Respectful Ritual Services
+          </h1>
+          <p className="text-lg md:text-xl text-orange-900/70 font-medium leading-relaxed">
             We bridge the distance between you and the sacred rivers of India, ensuring your loved ones are honored with absolute devotion, dignity, and authenticity.
           </p>
         </div>

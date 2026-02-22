@@ -17,6 +17,15 @@ export default function BookingsPage() {
             .finally(() => setLoading(false));
     }, []);
 
+    const handleStatusChange = async (id: string, newStatus: BookingStatus) => {
+        try {
+            await BookingService.updateStatus(id, newStatus);
+            setBookings(prev => prev.map(b => b.id === id ? { ...b, status: newStatus } : b));
+        } catch (err: any) {
+            alert("Failed to update status: " + err.message);
+        }
+    };
+
     return (
         <div className="space-y-6">
             <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Live Ritual Bookings</h1>
@@ -58,17 +67,31 @@ export default function BookingsPage() {
                                     <tr key={row.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
                                         <td className="px-6 py-4 font-medium text-zinc-900 dark:text-zinc-100">
                                             {row.user?.name || "Unknown Customer"}
-                                            <div className="text-xs text-zinc-500 font-normal">Departed: {row.departedName}</div>
+                                            <div className="text-xs text-zinc-500 font-normal mt-1">{row.user?.email}</div>
+                                            <div className="text-xs text-zinc-500 font-normal">{row.user?.phone || "No phone provided"}</div>
+                                            <div className="text-xs text-zinc-400 font-normal mt-1">Departed: {row.departedName}</div>
                                         </td>
                                         <td className="px-6 py-4 text-zinc-500">{row.service?.name || "Pinddaan Custom"}</td>
                                         <td className="px-6 py-4 text-zinc-500">{new Date(row.ritualDate).toLocaleDateString()}</td>
                                         <td className="px-6 py-4">
-                                            <span className="px-2 py-1 rounded-md text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-500 border border-amber-500/20">
+                                            <span className={`px-2 py-1 rounded-md text-xs font-semibold border ${
+                                                row.status === 'COMPLETED' ? 'bg-green-100 text-green-800 border-green-500/20 dark:bg-green-900/40 dark:text-green-500' :
+                                                row.status === 'PENDING' ? 'bg-amber-100 text-amber-800 border-amber-500/20 dark:bg-amber-900/40 dark:text-amber-500' :
+                                                'bg-zinc-100 text-zinc-800 border-zinc-500/20 dark:bg-zinc-800 dark:text-zinc-400'
+                                            }`}>
                                                 {row.status}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4 text-right">
-                                            <button className="text-amber-600 dark:text-amber-500 hover:text-amber-700 font-medium">Process</button>
+                                            <select
+                                                value={row.status}
+                                                onChange={(e) => handleStatusChange(row.id, e.target.value as BookingStatus)}
+                                                className="px-2 py-1.5 border border-zinc-200 dark:border-zinc-700 rounded-lg text-xs bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 outline-amber-500 cursor-pointer"
+                                            >
+                                                {Object.values(BookingStatus).map(s => (
+                                                    <option key={s} value={s}>{s}</option>
+                                                ))}
+                                            </select>
                                         </td>
                                     </tr>
                                 ))}

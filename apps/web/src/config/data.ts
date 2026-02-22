@@ -40,7 +40,7 @@ export const SERVICES_DATA = [
         href: "/booking?service=tarpan",
         features: ["Can be performed from afar", "Accompanied by authentic Sanskrit chanting", "Photographic evidence provided"],
         priceUSD: 199
-    },
+    }
 ]
 
 export const LOCATIONS_DATA = [

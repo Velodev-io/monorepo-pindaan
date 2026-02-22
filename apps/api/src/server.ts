@@ -42,7 +42,12 @@ app.use("/api/v1/bookings", bookingRoutes);
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.error(err);
     if (err.name === "ZodError") {
-        return res.status(400).json({ error: "Validation Error", details: err.errors });
+        console.error("Validation Error Details:", JSON.stringify(err.errors, null, 2));
+        return res.status(400).json({
+            error: "Validation Error",
+            message: err.errors[0]?.message,
+            details: err.errors
+        });
     }
     return res.status(500).json({ error: "Internal Server Error" });
 });

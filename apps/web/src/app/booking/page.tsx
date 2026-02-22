@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/Button"
 import { Card, CardTitle, CardFooter, CardDescription } from "@/components/ui/Card"
 import { SERVICES_DATA, LOCATIONS_DATA } from "@/config/data"
+import { COUNTRY_CODES } from "@/config/countries"
 import { auth } from "@/lib/firebase"
 
 // Steps in the checkout sequence
@@ -17,6 +18,8 @@ const STEPS = [
 
 export default function BookingFlow() {
   const [currentStep, setCurrentStep] = useState(0)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
   const [formData, setFormData] = useState({
     services: [] as string[],
@@ -26,6 +29,8 @@ export default function BookingFlow() {
     gotra: "",
     tithiDate: "",
     cremationDate: "",
+    countryCode: "+1",
+    contactPhone: "",
     notes: ""
   })
 
@@ -46,15 +51,17 @@ export default function BookingFlow() {
   }
 
   const handleCheckout = async () => {
+    if (submitting) return;
     try {
+      setSubmitting(true);
       const currentUser = auth.currentUser;
       if (!currentUser) {
         alert("You must be logged in to complete a booking.");
         return;
       }
 
-      if (formData.services.length === 0 || !formData.location || !formData.tithiDate || !formData.departedName) {
-         alert("Please fill out all required details (At least 1 Service, Location, Date, Departed Name).");
+      if (formData.services.length === 0 || !formData.location || !formData.tithiDate || !formData.departedName || !formData.fatherName || !formData.cremationDate || !formData.contactPhone) {
+         alert("Please fill out all required details (At least 1 Service, Location, Date, Departed Name, Father's Name, Cremation Date, Contact Number).");
          return;
       }
 
@@ -69,10 +76,10 @@ export default function BookingFlow() {
       const token = await currentUser.getIdToken(true);
 
       // Submit each selected service as a separate booking row (or adapt backend to arrays later)
-      for (const serviceTitle of formData.services) {
+      for (const serviceTitle of Array.from(new Set(formData.services))) {
           const serviceObj = SERVICES_DATA.find(s => s.title === serviceTitle);
           if (serviceObj) {
-              await fetch("http://localhost:3001/api/v1/bookings", {
+              const res = await fetch("http://localhost:3001/api/v1/bookings", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -85,23 +92,57 @@ export default function BookingFlow() {
                   departedName: formData.departedName,
                   fatherName: formData.fatherName || undefined,
                   cremationDate: formData.cremationDate ? new Date(formData.cremationDate).toISOString() : undefined,
-                  gotra: formData.gotra,
-                  address: formData.notes
+                  contactPhone: `${formData.countryCode} ${formData.contactPhone}`,
+                  gotra: formData.gotra || undefined,
+                  address: formData.notes || undefined
                 })
               });
+              
+              if (!res.ok) {
+                 const errData = await res.json().catch(()=>({}));
+                 console.error("Booking Error Data:", errData);
+                 throw new Error(errData.message || errData.error || "Failed to create booking");
+              }
           }
       }
 
-      alert("Success! Your comprehensive ritual booking has been secured.");
-      window.location.href = "/dashboard";
+      setIsSubmitted(true);
       
     } catch (error: any) {
       alert("Error creating booking: " + error.message);
+    } finally {
+      setSubmitting(false);
     }
   };
 
+  if (isSubmitted) {
+    return (
+      <div className="container mx-auto px-4 py-12 md:py-24 max-w-3xl min-h-[70vh] flex flex-col items-center justify-center text-center">
+        <Card className="w-full relative overflow-hidden bg-white shadow-xl shadow-orange-900/5 border-orange-100 p-8 md:p-12">
+          <div className="mx-auto w-16 h-16 bg-orange-100 text-amber-600 rounded-full flex items-center justify-center mb-6 text-3xl">
+            🙏
+          </div>
+          <h2 className="font-serif text-2xl md:text-3xl text-orange-950 font-bold mb-4">We are deeply grateful for your trust</h2>
+          <p className="text-orange-900/80 mb-6 text-lg leading-relaxed">
+            Our thoughts are with you and your family during this sensitive time. We have received the details for the rituals of the departed soul.
+          </p>
+          <p className="text-orange-900/80 mb-8 text-lg leading-relaxed">
+            Our team will respectfully contact you shortly to provide guidance and assist you with the necessary arrangements.
+          </p>
+          <Button 
+            variant="outline" 
+            onClick={() => window.location.href = "/dashboard"} 
+            className="border-orange-200 text-orange-900 bg-orange-50 hover:bg-orange-100"
+          >
+            Return to Dashboard
+          </Button>
+        </Card>
+      </div>
+    );
+  }
+
   return (
-    <div className="container mx-auto px-4 py-12 md:py-24 max-w-3xl min-h-[70vh]">
+    <div className="container mx-auto px-4 pt-32 md:pt-40 pb-20 max-w-3xl min-h-[70vh]">
       <div className="mb-12">
         <h1 className="font-serif text-3xl md:text-5xl text-orange-950 font-bold mb-4 text-center">Arrange a Ritual</h1>
         
@@ -214,7 +255,7 @@ export default function BookingFlow() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-orange-900 mb-1">Father's Name (if known)</label>
+                      <label className="block text-sm font-medium text-orange-900 mb-1">Father's Name</label>
                       <input 
                         type="text" 
                         className="w-full h-11 px-3 rounded-md border border-orange-200 outline-none focus:border-amber-500 transition-all"
@@ -246,13 +287,36 @@ export default function BookingFlow() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-orange-900 mb-1">Cremation Date (if applicable)</label>
+                    <label className="block text-sm font-medium text-orange-900 mb-1">Cremation Date</label>
                     <input 
                       type="date" 
                       className="w-full h-11 px-3 rounded-md border border-orange-200 outline-none focus:border-amber-500"
                       value={formData.cremationDate}
                       onChange={(e) => setFormData({...formData, cremationDate: e.target.value})}
                     />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-orange-900 mb-1">Your Contact Number</label>
+                    <div className="flex gap-2">
+                      <select 
+                        className="w-40 h-11 px-2 text-sm rounded-md border border-orange-200 outline-none focus:border-amber-500 bg-white"
+                        value={formData.countryCode}
+                        onChange={(e) => setFormData({...formData, countryCode: e.target.value})}
+                      >
+                        {COUNTRY_CODES.map((c) => (
+                          <option key={c.name} value={c.code}>
+                            {c.flag} {c.code} {c.name.length > 15 ? c.name.substring(0,12) + "..." : c.name}
+                          </option>
+                        ))}
+                      </select>
+                      <input 
+                        type="tel" 
+                        className="flex-1 h-11 px-3 rounded-md border border-orange-200 outline-none focus:border-amber-500 transition-all"
+                        placeholder="9876543210"
+                        value={formData.contactPhone}
+                        onChange={(e) => setFormData({...formData, contactPhone: e.target.value})}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -322,10 +386,15 @@ export default function BookingFlow() {
           <Button 
             variant="default"
             onClick={currentStep === STEPS.length - 1 ? handleCheckout : nextStep}
-            disabled={currentStep === 0 && formData.services.length === 0}
-            className="w-32 bg-amber-600 hover:bg-amber-700 disabled:opacity-50"
+            disabled={
+              submitting ||
+              (currentStep === 0 && formData.services.length === 0) ||
+              (currentStep === 1 && !formData.location) ||
+              (currentStep === 2 && (!formData.departedName || !formData.tithiDate || !formData.fatherName || !formData.cremationDate || !formData.contactPhone))
+            }
+            className="w-32 bg-amber-600 hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {currentStep === STEPS.length - 1 ? `Pay $${totalPrice}` : "Continue"}
+            {submitting ? "Processing..." : (currentStep === STEPS.length - 1 ? `Pay $${totalPrice}` : "Continue")}
           </Button>
         </CardFooter>
       </Card>
