@@ -1,181 +1,36 @@
-[00:00:02.287] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:02.349] Server  LOG     ✓ Ready in 1839ms
-[00:01:16.904] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:04:52.671] Server  LOG     ✓ Compiled in 751ms
-[00:05:23.525] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:07:02.121] Server  LOG     ✓ Compiled in 259ms
-[00:10:20.973] Server  LOG     ✓ Compiled in 185ms
-[00:15:19.768] Server  LOG     ✓ Compiled in 328ms
-[00:17:52.788] Server  LOG     ✓ Compiled in 60ms
-[00:20:31.594] Server  LOG     ✓ Compiled in 157ms
-[00:21:41.323] Server  LOG     ✓ Compiled in 79ms
-[00:25:19.423] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:26:07.843] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:32:50.816] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:34:19.721] Server  LOG     ✓ Compiled in 338ms
-[00:35:51.442] Server  LOG     ✓ Compiled in 258ms
-[00:44:25.852] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:00:44.407] Server  LOG     ✓ Compiled in 451ms
-[01:00:44.448] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./projects/Pinddaan/node_modules/next/dist/client/image-component.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[01:00:45.344] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:00:53.659] Server  LOG     ✓ Compiled in 195ms
-[01:47:13.499] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:47:15.671] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:48:08.551] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:49:01.596] Server  LOG     ✓ Compiled in 836ms
-[01:49:02.951] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:49:08.926] Server  LOG     ✓ Compiled in 67ms
-[01:52:31.478] Server  LOG     ✓ Compiled in 293ms
-[01:55:13.250] Server  LOG     ✓ Compiled in 305ms
-[01:55:35.266] Server  LOG     ✓ Compiled in 32ms
-[01:56:25.827] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:58:21.516] Server  LOG     ✓ Compiled in 447ms
-[01:59:41.264] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:59:57.667] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:00:46.035] Server  LOG     ✓ Compiled in 162ms
-[02:01:25.404] Server  LOG     ✓ Compiled in 139ms
-[02:01:40.617] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:01:42.804] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:02:39.796] Server  LOG     ✓ Compiled in 198ms
-[02:03:56.840] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:03:58.950] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:03:59.311] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:03:59.777] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:04:00.010] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:04:00.386] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:04:00.692] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:05:24.196] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:06:02.618] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:06:04.631] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:17:11.574] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:19:30.415] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:19:52.766] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:20:50.918] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:24:46.084] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:24:46.207] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
-Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
-[02:24:48.206] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:25:12.653] Server  LOG     ✓ Compiled in 280ms
-[02:43:39.320] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:46:34.628] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:51:58.497] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:52:10.736] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:52:13.496] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:54:47.934] Server  LOG     ✓ Compiled in 322ms
-[02:55:06.692] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:55:24.556] Server  LOG     ✓ Compiled in 102ms
-[02:55:35.449] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:56:12.650] Server  LOG     ✓ Compiled in 70ms
-[02:57:08.993] Server  LOG     ✓ Compiled in 53ms
-[02:57:09.436] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[02:57:58.406] Server  LOG     ✓ Compiled in 72ms
-[02:59:00.458] Server  LOG     ✓ Compiled in 89ms
-[02:59:55.287] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:59:57.483] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[02:59:59.399] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:00:00.976] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:02:15.196] Server  LOG     ✓ Compiled in 131ms
-[03:02:15.821] Browser ERROR   ./projects/Pinddaan/apps/web/src/app/dashboard/layout.tsx:55:29
-Parsing ecmascript source code failed
-  53 |                 key={link.href}
-  54 |                 href={link.href} 
-> 55 |                 className={`flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-semibold transition-all ${
-     |                             ^^^^
-  56 |                   isActive 
-  57 |                     ? "bg-amber-600/20 text-white shadow-inner border-l-4 border-amber-500 pl-2" 
-  58 |                     : "text-orange-200/70 hover:bg-white/5 hover:text-white"
-
-Expected ';', '}' or <eof>
-
-Import traces:
-  Client Component Browser:
-    ./projects/Pinddaan/apps/web/src/app/dashboard/layout.tsx [Client Component Browser]
-    ./projects/Pinddaan/apps/web/src/app/dashboard/layout.tsx [Server Component]
-
-  Client Component SSR:
-    ./projects/Pinddaan/apps/web/src/app/dashboard/layout.tsx [Client Component SSR]
-    ./projects/Pinddaan/apps/web/src/app/dashboard/layout.tsx [Server Component]
-[03:02:31.381] Server  LOG     ✓ Compiled in 37ms
-[03:02:41.195] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:03:34.338] Server  LOG     ✓ Compiled in 198ms
-[03:03:45.042] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:03:57.733] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:03:58.911] Server  LOG     ✓ Compiled in 61ms
-[03:04:46.560] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:06:12.974] Server  LOG     ✓ Compiled in 580ms
-[03:09:30.813] Server  LOG     ✓ Compiled in 549ms
-[03:09:39.561] Server  LOG     ✓ Compiled in 81ms
-[03:09:47.925] Server  LOG     ✓ Compiled in 90ms
-[03:12:27.318] Server  LOG     ✓ Compiled in 157ms
-[03:13:12.753] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:13:58.310] Server  LOG     ✓ Compiled in 236ms
-[03:14:05.145] Server  LOG     ✓ Compiled in 361ms
-[03:14:36.042] Server  LOG     ✓ Compiled in 257ms
-[03:14:44.823] Browser ERROR   ./projects/Pinddaan/apps/web/src/app/auth/login/page.tsx:84:56
-Parsing ecmascript source code failed
-  82 |   const [error, setError] = useState("")
-  83 |
-> 84 |   const handleEmailLogin = async (e: React.FormEvent) => {
-     |                                                        ^
-  85 |     e.preventDefault()
-  86 |     setIsLoading(true)
-  87 |     setError("")
-
-Unexpected token. Did you mean `{'>'}` or `&gt;`?
-[03:14:58.041] Server  LOG     ✓ Compiled in 81ms
-[03:15:54.594] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:17:25.684] Server  LOG     ✓ Compiled in 335ms
-[03:17:25.823] Browser ERROR   ./projects/Pinddaan/apps/web/src/components/shared/Navbar.tsx:144:11
-Parsing ecmascript source code failed
-  142 |
-  143 |   const dashboardLinks = [
-> 144 |     { name: "Dashboard Overview", href: "/dashboard" },
-      |           ^
-  145 |     { name: "Account Profile", href: "/dashboard/profile" },
-  146 |     { name: "Ritual Bookings", href: "/dashboard/bookings" },
-  147 |     { name: "Download Proofs", href: "/dashboard/proofs" },
-
-Expected '</', got ':'
-
-Import trace:
-  Server Component:
-    ./projects/Pinddaan/apps/web/src/components/shared/Navbar.tsx
-    ./projects/Pinddaan/apps/web/src/app/layout.tsx
-[03:17:44.718] Server  LOG     ✓ Compiled in 321ms
-[03:18:17.303] Server  LOG     ✓ Compiled in 36ms
-[03:18:24.227] Server  LOG     ✓ Compiled in 63ms
-[03:18:24.823] Browser ERROR   ./projects/Pinddaan/apps/web/src/components/shared/Navbar.tsx:102:10
-Parsing ecmascript source code failed
-  100 |             />
-  101 |           </Link>
-> 102 |         )}
-      |          ^
-  103 |         
-  104 |         {/* Desktop Navigation */}
-  105 |         <nav className="hidden md:flex gap-8">
-
-Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
-
-Import trace:
-  Server Component:
-    ./projects/Pinddaan/apps/web/src/components/shared/Navbar.tsx
-    ./projects/Pinddaan/apps/web/src/app/layout.tsx
-[03:18:32.105] Server  LOG     ✓ Compiled in 71ms
-[03:20:18.775] Server  LOG     ✓ Compiled in 241ms
-[03:20:19.821] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[03:20:35.649] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[03:21:39.708] Server  LOG     ✓ Compiled in 256ms
-[03:21:54.084] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[03:22:41.437] Server  LOG     ✓ Compiled in 238ms
-[03:23:03.716] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[03:24:24.883] Server  LOG     ✓ Compiled in 552ms
-[03:24:36.592] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[03:24:44.922] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[03:25:57.264] Server  LOG     ✓ Compiled in 329ms
-[03:27:52.581] Server  LOG     ✓ Compiled in 266ms
-[03:27:58.478] Server  LOG     ✓ Compiled in 447ms
-[03:27:59.507] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:28:08.871] Server  LOG     ✓ Compiled in 63ms
-[03:28:20.170] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[03:28:25.163] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[03:28:25.356] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:02.211] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:02.365] Server  LOG     ✓ Ready in 1882ms
+[00:00:21.640] Server  LOG     ○ Compiling /dashboard ...
+[00:00:22.673] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:23.056] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:01:25.950] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:26.127] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:26.304] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:34.713] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:35.011] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:14.121] Browser WARN    Image with src "/images/triveni_sangam_hero_1771775992808.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:02:14.121] Browser WARN    Image with src "/images/kashi_ghats_1771776018344.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:02:15.107] Browser WARN    Image with src "/images/step1.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:02:15.107] Browser WARN    Image with src "/images/step2.png" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:02:46.635] Server  LOG     ✓ Compiled in 95ms
+[00:03:14.772] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:03:14.913] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:12:18.631] Server  LOG     ✓ Compiled in 421ms
+[00:12:54.070] Server  LOG     ✓ Compiled in 259ms
+[00:27:34.874] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:27:35.020] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:29:00.215] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. +61
+[00:29:00.215] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. +61
+[00:29:00.215] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. +44
+[00:29:00.215] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. +44
+[00:29:00.215] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. +262
+[00:29:00.215] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. +7
+[00:29:00.215] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. +590
+[00:29:00.215] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. +590
+[00:29:00.215] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. +47
+[00:29:00.215] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. +44
+[00:29:00.215] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. +1
+[00:29:00.215] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. +212
+[00:29:52.564] Server  LOG     ✓ Compiled in 242ms
+[00:30:07.890] Server  LOG     ✓ Compiled in 54ms
+[00:31:54.009] Browser WARN    Image with src "/images/pinddaan-logo-v3.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.

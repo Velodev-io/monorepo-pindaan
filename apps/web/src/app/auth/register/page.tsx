@@ -44,7 +44,16 @@ export default function RegisterPage() {
       // Redirect to dashboard on success
       router.push("/dashboard")
     } catch (err: any) {
-      setError(err.message || "Failed to create account. Please try again.")
+      console.error("Registration Error:", err.code, err.message);
+      if (err.code === "auth/email-already-in-use") {
+        setError("This email is already associated with an account. Please sign in instead.")
+      } else if (err.code === "auth/weak-password") {
+        setError("The password is too weak. Please use a stronger password.")
+      } else if (err.code === "auth/invalid-email") {
+        setError("Please provide a valid email address.")
+      } else {
+        setError("Failed to create account. Please check your details and try again.")
+      }
     } finally {
       setIsLoading(false)
     }

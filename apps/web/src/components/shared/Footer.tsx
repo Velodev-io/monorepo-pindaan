@@ -1,5 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
+import { SERVICES_DATA } from "@/config/data"
 
 export default function Footer() {
   return (
@@ -21,12 +22,17 @@ export default function Footer() {
         </div>
         
         <div className="space-y-4">
-          <h4 className="font-semibold text-white">Services</h4>
+          <Link href="/services">
+            <h4 className="font-semibold text-white hover:text-amber-400 transition-colors inline-block">Services</h4>
+          </Link>
           <ul className="space-y-2 text-sm text-orange-300">
-            <li><Link href="/services/asthi-visarjan" className="hover:text-amber-400 transition-colors">Asthi Visarjan</Link></li>
-            <li><Link href="/services/pind-daan" className="hover:text-amber-400 transition-colors">Pind Daan</Link></li>
-            <li><Link href="/services/shraddh" className="hover:text-amber-400 transition-colors">Shraddh</Link></li>
-            <li><Link href="/services/tarpan" className="hover:text-amber-400 transition-colors">Tarpan</Link></li>
+            {SERVICES_DATA.map((service) => (
+              <li key={service.id}>
+                <Link href={service.href} className="hover:text-amber-400 transition-colors uppercase tracking-tight font-medium">
+                  {service.title}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         

@@ -37,7 +37,14 @@ export default function LoginPage() {
       // Redirect to dashboard on success
       router.push("/dashboard")
     } catch (err: any) {
-      setError(err.message || "Failed to login. Please check your credentials.")
+      console.error("Login Error:", err.code, err.message);
+      if (err.code === "auth/invalid-credential" || err.code === "auth/user-not-found" || err.code === "auth/wrong-password") {
+        setError("Invalid email or password. Please check your credentials and try again.")
+      } else if (err.code === "auth/too-many-requests") {
+        setError("Too many failed login attempts. Please try again later or reset your password.")
+      } else {
+        setError("An unexpected error occurred. Please try again.")
+      }
     } finally {
       setIsLoading(false)
     }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
-import Footer from "@/components/shared/Footer";
+import ConditionalFooter from "@/components/shared/ConditionalFooter";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -28,20 +28,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="antialiased min-h-screen flex flex-col">
+      <body className="antialiased min-h-screen flex flex-col" suppressHydrationWarning>
         <Navbar />
         <main className="flex-1">
           {children}
         </main>
-        {/* Hide footer on dashboard pages */}
-        <FooterWrapper />
+        <ConditionalFooter />
       </body>
     </html>
   );
-}
-
-function FooterWrapper() {
-  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
-  if (pathname.startsWith('/dashboard')) return null;
-  return <Footer />;
 }

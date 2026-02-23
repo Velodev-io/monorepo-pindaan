@@ -1,12 +1,16 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState, Suspense } from "react"
+import { useSearchParams } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/Button"
-import { Card, CardTitle, CardFooter, CardDescription } from "@/components/ui/Card"
-import { SERVICES_DATA, LOCATIONS_DATA } from "@/config/data"
+import { Card, CardTitle, CardFooter, CardDescription, CardContent } from "@/components/ui/Card"
+import { LOCATIONS_DATA } from "@/config/data"
 import { COUNTRY_CODES } from "@/config/countries"
 import { auth } from "@/lib/firebase"
+import BackButton from "@/components/shared/BackButton"
+import { Loader2 } from "lucide-react"
+import { apiClient } from "@/lib/api-client"
 
 // Steps in the checkout sequence
 const STEPS = [
@@ -16,15 +20,17 @@ const STEPS = [
   "Payment"
 ]
 
-import BackButton from "@/components/shared/BackButton"
-
-export default function BookingFlow() {
+function BookingForm() {
+  const searchParams = useSearchParams()
   const [currentStep, setCurrentStep] = useState(0)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  
+  const [dynamicServices, setDynamicServices] = useState<any[]>([])
+  const [loadingServices, setLoadingServices] = useState(true)
 
   const [formData, setFormData] = useState({
-    services: [] as string[],
+    services: [] as string[], // We will store IDs here
     location: "",
     departedName: "",
     fatherName: "",
@@ -36,19 +42,69 @@ export default function BookingFlow() {
     notes: ""
   })
 
+  // Fetch alive services from DB
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const res = await apiClient("/services")
+        if (res.success) {
+          setDynamicServices(res.data.filter((s: any) => s.isActive))
+        }
+      } catch (err) {
+          console.error("Failed to fetch services", err)
+      } finally {
+          setLoadingServices(false)
+      }
+    }
+    fetchServices()
+  }, [])
+
+  // Handle URL pre-selection
+  useEffect(() => {
+    if (loadingServices) return
+
+    const serviceParam = searchParams.get('service')
+    const locationParam = searchParams.get('location')
+
+    setFormData(prev => {
+      let newServices = [...prev.services]
+      let newLocation = prev.location
+
+      if (serviceParam) {
+        const service = dynamicServices.find(s => s.id === serviceParam || s.name.toLowerCase() === serviceParam.toLowerCase())
+        if (service && !newServices.includes(service.id)) {
+          newServices = [service.id]
+        }
+      }
+
+      if (locationParam) {
+        const location = LOCATIONS_DATA.find(l => l.id === locationParam || l.name.toLowerCase() === locationParam.toLowerCase())
+        if (location) {
+          newLocation = location.name
+        }
+      }
+
+      return {
+        ...prev,
+        services: newServices,
+        location: newLocation
+      }
+    })
+  }, [searchParams, loadingServices, dynamicServices])
+
   // Calculate dynamic Total Price
-  const selectedServiceObjects = SERVICES_DATA.filter(s => formData.services.includes(s.title));
-  const totalPrice = selectedServiceObjects.reduce((sum, s) => sum + s.priceUSD, 0);
+  const selectedServiceObjects = dynamicServices.filter(s => formData.services.includes(s.id));
+  const totalPrice = selectedServiceObjects.reduce((sum, s) => sum + s.basePrice, 0);
 
   const nextStep = () => setCurrentStep((prev) => Math.min(prev + 1, STEPS.length - 1))
   const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 0))
 
-  const toggleService = (title: string) => {
+  const toggleService = (id: string) => {
       setFormData(prev => ({
           ...prev,
-          services: prev.services.includes(title) 
-              ? prev.services.filter(t => t !== title)
-              : [...prev.services, title]
+          services: prev.services.includes(id) 
+              ? prev.services.filter(t => t !== id)
+              : [...prev.services, id]
       }))
   }
 
@@ -67,44 +123,25 @@ export default function BookingFlow() {
          return;
       }
 
-      const locationObj = LOCATIONS_DATA.find(l => l.name === formData.location);
-
-      if (!locationObj) {
-         alert("Invalid location selection.");
-         return;
-      }
-
-      // Automatically refresh the token to ensure it isn't expired
-      const token = await currentUser.getIdToken(true);
-
-      // Submit each selected service as a separate booking row (or adapt backend to arrays later)
-      for (const serviceTitle of Array.from(new Set(formData.services))) {
-          const serviceObj = SERVICES_DATA.find(s => s.title === serviceTitle);
-          if (serviceObj) {
-              const res = await fetch("http://localhost:3001/api/v1/bookings", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                  serviceId: serviceObj.id,
-                  locationId: locationObj.id,
-                  ritualDate: new Date(formData.tithiDate).toISOString(),
+      // Create a booking for each selected service
+      for (const serviceId of formData.services) {
+          const res = await apiClient("/bookings", {
+              method: "POST",
+              body: JSON.stringify({
+                  serviceId,
+                  locationId: LOCATIONS_DATA.find(l => l.name === formData.location)?.id || formData.location,
+                  ritualDate: formData.tithiDate,
                   departedName: formData.departedName,
-                  fatherName: formData.fatherName || undefined,
-                  cremationDate: formData.cremationDate ? new Date(formData.cremationDate).toISOString() : undefined,
-                  contactPhone: `${formData.countryCode} ${formData.contactPhone}`,
-                  gotra: formData.gotra || undefined,
-                  address: formData.notes || undefined
-                })
-              });
-              
-              if (!res.ok) {
-                 const errData = await res.json().catch(()=>({}));
-                 console.error("Booking Error Data:", errData);
-                 throw new Error(errData.message || errData.error || "Failed to create booking");
-              }
+                  fatherName: formData.fatherName,
+                  gotra: formData.gotra,
+                  address: formData.notes,
+                  cremationDate: formData.cremationDate,
+                  contactPhone: `${formData.countryCode}${formData.contactPhone}`
+              })
+          });
+          
+          if (!res.success) {
+              throw new Error(res.message || "Failed to create one of the bookings");
           }
       }
 
@@ -152,170 +189,175 @@ export default function BookingFlow() {
         {/* Stepper Progress Bar */}
         <div className="flex justify-between items-center relative mt-8">
           <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-orange-200 -z-10" />
-          <div 
-            className="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-amber-500 transition-all duration-500 -z-10" 
-            style={{ width: `${(currentStep / (STEPS.length - 1)) * 100}%` }} 
-          />
-          
-          {STEPS.map((step, idx) => (
-            <div key={idx} className="flex flex-col items-center gap-2">
-              <div className={`h-8 w-8 rounded-full flex items-center justify-center font-bold border-2 transition-colors ${
-                idx <= currentStep ? "bg-amber-500 border-amber-500 text-white" : "bg-white border-orange-200 text-orange-400"
+          {STEPS.map((s, i) => (
+            <div key={i} className="flex flex-col items-center gap-2">
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all border-2 ${
+                i <= currentStep ? "bg-amber-500 text-white border-amber-500 shadow-lg shadow-amber-500/20 scale-110" : "bg-white text-orange-300 border-orange-200"
               }`}>
-                {idx + 1}
+                {i + 1}
               </div>
-              <span className={`text-xs md:text-sm font-medium ${idx <= currentStep ? "text-orange-950" : "text-orange-900/40"}`}>
-                {step}
+              <span className={`text-[10px] uppercase tracking-widest font-black hidden md:block ${
+                i <= currentStep ? "text-orange-950" : "text-orange-300"
+              }`}>
+                {s}
               </span>
             </div>
           ))}
         </div>
       </div>
 
-      <Card className="w-full relative overflow-hidden bg-white shadow-xl shadow-orange-900/5 border-orange-100">
+      <Card className="border-orange-100 shadow-xl shadow-orange-900/5 bg-white overflow-hidden rounded-2xl transition-all duration-500">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
+            className="p-4 md:p-8"
           >
-            {/* STEP 1: SERVICE */}
+            {/* Step 1: Services Selection */}
             {currentStep === 0 && (
-              <div className="p-6 md:p-8">
-                <CardTitle className="mb-2">Select Rituals</CardTitle>
-                <CardDescription className="mb-6">You may select multiple services to be performed concurrently.</CardDescription>
-                <div className="grid md:grid-cols-2 gap-4 border-b border-orange-100 pb-6 mb-6">
-                  {SERVICES_DATA.map((srv) => {
-                    const isSelected = formData.services.includes(srv.title);
-                    return (
-                    <button
-                      key={srv.id}
-                      onClick={() => toggleService(srv.title)}
-                      className={`text-left p-4 rounded-xl border-2 transition-all ${
-                        isSelected 
-                        ? "border-amber-500 bg-amber-50 shadow-md shadow-amber-500/10" 
-                        : "border-orange-100 hover:border-amber-300 bg-white"
-                      }`}
-                    >
-                      <div className="flex items-start justify-between">
-                         <div className="flex items-center gap-3">
-                           <div className={`p-2 rounded-lg ${isSelected ? "bg-amber-500 text-white" : "bg-orange-50 text-amber-600"}`}>
-                             <srv.icon className="h-5 w-5" />
-                           </div>
-                           <h4 className="font-semibold text-orange-950">{srv.title}</h4>
-                         </div>
-                         <div className="font-bold text-amber-600">${srv.priceUSD}</div>
+              <div className="space-y-6">
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl font-bold text-orange-950">Select Ritual Offerings</h2>
+                  <p className="text-orange-900/60 mt-1">You can select multiple rituals for the same departed soul.</p>
+                </div>
+                
+                {loadingServices ? (
+                  <div className="flex flex-col items-center justify-center py-12 gap-3">
+                    <Loader2 className="w-8 h-8 text-amber-500 animate-spin" />
+                    <p className="text-orange-900/40 italic text-sm">Validating ritual availability...</p>
+                  </div>
+                ) : (
+                  <div className="grid gap-4">
+                    {dynamicServices.map((s) => (
+                      <div 
+                        key={s.id}
+                        onClick={() => toggleService(s.id)}
+                        className={`p-5 rounded-2xl border-2 cursor-pointer transition-all flex items-center justify-between group ${
+                          formData.services.includes(s.id) 
+                            ? "border-amber-500 bg-amber-50/50" 
+                            : "border-orange-100 hover:border-orange-200 bg-white"
+                        }`}
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-colors ${
+                            formData.services.includes(s.id) ? "bg-amber-500 border-amber-500" : "border-orange-200 bg-white group-hover:border-orange-300"
+                          }`}>
+                            {formData.services.includes(s.id) && <div className="w-2 h-2 bg-white rounded-full" />}
+                          </div>
+                          <div>
+                            <p className="font-bold text-orange-950">{s.name}</p>
+                            <p className="text-xs text-orange-900/50 uppercase tracking-widest font-bold mt-0.5">{s.category || "Sacred Ritual"}</p>
+                          </div>
+                        </div>
+                        <div className="text-lg font-black text-orange-950">${s.basePrice.toLocaleString()}</div>
                       </div>
-                    </button>
-                  )})}
-                </div>
-                <div className="flex justify-between items-center px-4">
-                    <span className="font-medium text-orange-900">Subtotal:</span>
-                    <span className="font-bold text-2xl text-orange-950">${totalPrice}</span>
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
-            {/* STEP 2: LOCATION */}
+            {/* Step 2: Location Selection */}
             {currentStep === 1 && (
-              <div className="p-6 md:p-8">
-                <CardTitle className="mb-6">Select Holy Location</CardTitle>
+              <div className="space-y-6">
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl font-bold text-orange-950">Where should we perform?</h2>
+                  <p className="text-orange-900/60 mt-1">Choose the sacred Tirtha for the ceremonies.</p>
+                </div>
                 <div className="grid md:grid-cols-2 gap-4">
-                  {LOCATIONS_DATA.map((loc) => (
-                    <button
-                      key={loc.id}
-                      onClick={() => setFormData({ ...formData, location: loc.name })}
-                      className={`text-left p-4 rounded-xl border-2 transition-all ${
-                        formData.location === loc.name 
-                        ? "border-amber-500 bg-amber-50" 
-                        : "border-orange-100 hover:border-amber-300"
+                  {LOCATIONS_DATA.map((l) => (
+                    <div 
+                      key={l.id}
+                      onClick={() => setFormData({...formData, location: l.name})}
+                      className={`p-6 rounded-2xl border-2 cursor-pointer transition-all flex flex-col gap-3 group ${
+                        formData.location === l.name 
+                          ? "border-amber-500 bg-amber-50/50" 
+                          : "border-orange-100 hover:border-orange-200 bg-white"
                       }`}
                     >
-                      <h4 className="font-semibold text-orange-950">{loc.name}</h4>
-                      <p className="text-sm text-orange-900/60">{loc.desc}</p>
-                    </button>
+                      <div className="flex justify-between items-start">
+                        <p className="font-bold text-xl text-orange-950 tracking-tight">{l.name}</p>
+                        <div className={`w-5 h-5 rounded-full border-2 transition-colors ${
+                          formData.location === l.name ? "border-amber-500 bg-amber-500" : "border-orange-200 bg-white"
+                        }`} />
+                      </div>
+                      <p className="text-xs text-orange-900/60 leading-relaxed font-medium">{l.desc}</p>
+                    </div>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* STEP 3: DETAILS */}
+            {/* Step 3: Details */}
             {currentStep === 2 && (
-              <div className="p-6 md:p-8 space-y-4">
-                <CardTitle className="mb-6">Provide Details for the Priests</CardTitle>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-orange-900 mb-1">Name of the Departed Soul</label>
-                      <input 
-                        type="text" 
-                        className="w-full h-11 px-3 rounded-md border border-orange-200 outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
-                        placeholder="e.g. Ramesh Sharma"
-                        value={formData.departedName}
-                        onChange={(e) => setFormData({...formData, departedName: e.target.value})}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-orange-900 mb-1">Father's Name</label>
-                      <input 
-                        type="text" 
-                        className="w-full h-11 px-3 rounded-md border border-orange-200 outline-none focus:border-amber-500 transition-all"
-                        placeholder="e.g. Suresh Sharma"
-                        value={formData.fatherName}
-                        onChange={(e) => setFormData({...formData, fatherName: e.target.value})}
-                      />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-orange-900 mb-1">Gotra (if known)</label>
-                      <input 
-                        type="text" 
-                        className="w-full h-11 px-3 rounded-md border border-orange-200 outline-none focus:border-amber-500"
-                        placeholder="e.g. Kashyap"
-                        value={formData.gotra}
-                        onChange={(e) => setFormData({...formData, gotra: e.target.value})}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-orange-900 mb-1">Preferred Ritual Date</label>
-                      <input 
-                        type="date" 
-                        className="w-full h-11 px-3 rounded-md border border-orange-200 outline-none focus:border-amber-500"
-                        value={formData.tithiDate}
-                        onChange={(e) => setFormData({...formData, tithiDate: e.target.value})}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-orange-900 mb-1">Cremation Date</label>
+              <div className="space-y-8">
+                <div className="text-center">
+                  <h2 className="text-2xl font-bold text-orange-950">Departed Soul Details</h2>
+                  <p className="text-orange-900/60 mt-1">Please provide accurate information for the Vedic Sankalpa.</p>
+                </div>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest font-black text-orange-400">Departed Name *</label>
                     <input 
-                      type="date" 
-                      className="w-full h-11 px-3 rounded-md border border-orange-200 outline-none focus:border-amber-500"
+                      type="text"
+                      className="w-full p-4 rounded-xl border border-orange-100 bg-orange-50/30 outline-amber-500 font-bold text-orange-950"
+                      value={formData.departedName}
+                      onChange={(e) => setFormData({...formData, departedName: e.target.value})}
+                      placeholder="Name of the soul"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest font-black text-orange-400">Father / Husband Name *</label>
+                    <input 
+                      type="text"
+                      className="w-full p-4 rounded-xl border border-orange-100 bg-orange-50/30 outline-amber-500 font-bold text-orange-950"
+                      value={formData.fatherName}
+                      onChange={(e) => setFormData({...formData, fatherName: e.target.value})}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest font-black text-orange-400">Family Gotra (optional)</label>
+                    <input 
+                      type="text"
+                      className="w-full p-4 rounded-xl border border-orange-100 bg-orange-50/30 outline-amber-500 font-bold text-orange-950"
+                      value={formData.gotra}
+                      onChange={(e) => setFormData({...formData, gotra: e.target.value})}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest font-black text-orange-400">Mandatory Ritual Date *</label>
+                    <input 
+                      type="date"
+                      className="w-full p-4 rounded-xl border border-orange-100 bg-orange-50/30 outline-amber-500 font-bold text-orange-950"
+                      value={formData.tithiDate}
+                      onChange={(e) => setFormData({...formData, tithiDate: e.target.value})}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest font-black text-orange-400">Cremation Date *</label>
+                    <input 
+                      type="date"
+                      className="w-full p-4 rounded-xl border border-orange-100 bg-orange-50/30 outline-amber-500 font-bold text-orange-950"
                       value={formData.cremationDate}
                       onChange={(e) => setFormData({...formData, cremationDate: e.target.value})}
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-orange-900 mb-1">Your Contact Number</label>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest font-black text-orange-400">Contact Number (WhatsApp) *</label>
                     <div className="flex gap-2">
-                      <select 
-                        className="w-40 h-11 px-2 text-sm rounded-md border border-orange-200 outline-none focus:border-amber-500 bg-white"
+                       <select 
+                        className="w-24 p-4 rounded-xl border border-orange-100 bg-orange-50/30 outline-amber-500 font-bold text-orange-950 text-sm"
                         value={formData.countryCode}
                         onChange={(e) => setFormData({...formData, countryCode: e.target.value})}
-                      >
-                        {COUNTRY_CODES.map((c) => (
-                          <option key={c.name} value={c.code}>
-                            {c.flag} {c.code} {c.name.length > 15 ? c.name.substring(0,12) + "..." : c.name}
-                          </option>
-                        ))}
-                      </select>
-                      <input 
-                        type="tel" 
-                        className="flex-1 h-11 px-3 rounded-md border border-orange-200 outline-none focus:border-amber-500 transition-all"
-                        placeholder="9876543210"
+                       >
+                         {COUNTRY_CODES.map(c => <option key={`${c.code}-${c.name}`} value={c.code}>{c.code} ({c.name})</option>)}
+                       </select>
+                       <input 
+                        type="tel"
+                        className="flex-1 p-4 rounded-xl border border-orange-100 bg-orange-50/30 outline-amber-500 font-bold text-orange-950"
                         value={formData.contactPhone}
                         onChange={(e) => setFormData({...formData, contactPhone: e.target.value})}
                       />
@@ -325,82 +367,77 @@ export default function BookingFlow() {
               </div>
             )}
 
-            {/* STEP 4: PAYMENT MOCKUP */}
+            {/* Step 4: Summary & Payment (Mock) */}
             {currentStep === 3 && (
-              <div className="p-6 md:p-8">
-                <CardTitle className="mb-2">Secure Checkout</CardTitle>
-                <CardDescription className="mb-6">Review your securely generated quote</CardDescription>
-                
-                <div className="bg-orange-50 rounded-xl p-6 mb-6">
-                  <div className="mb-4">
-                    <span className="text-orange-900 text-sm font-medium block border-b border-orange-200 pb-2 mb-3">Selected Rituals:</span>
-                    {selectedServiceObjects.map(s => (
-                        <div key={s.id} className="flex justify-between items-center mb-2">
-                           <span className="font-semibold text-orange-950 flex items-center gap-2"><s.icon className="h-4 w-4"/> {s.title}</span>
-                           <span className="text-orange-900 border border-orange-200 px-2 py-0.5 rounded-md text-sm">${s.priceUSD}</span>
-                        </div>
-                    ))}
-                  </div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-orange-900">Holy Location:</span>
-                    <span className="font-semibold text-orange-950">{formData.location || "Not selected"}</span>
-                  </div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-orange-900">Departed Name:</span>
-                    <span className="font-semibold text-orange-950">{formData.departedName || "Not provided"}</span>
-                  </div>
-                  {formData.fatherName && (
-                      <div className="flex justify-between mb-2">
-                        <span className="text-orange-900">Father's Name:</span>
-                        <span className="font-semibold text-orange-950">{formData.fatherName}</span>
-                      </div>
-                  )}
-                  {formData.cremationDate && (
-                      <div className="flex justify-between mb-2 border-b border-orange-200 pb-4">
-                        <span className="text-orange-900">Cremation Date:</span>
-                        <span className="font-semibold text-orange-950">{formData.cremationDate}</span>
-                      </div>
-                  )}
-                  <div className="flex justify-between mt-4">
-                    <span className="font-bold text-orange-950 text-xl">Total Pricing:</span>
-                    <span className="font-bold text-2xl text-amber-600">${totalPrice}</span>
-                  </div>
+              <div className="space-y-8">
+                <div className="text-center">
+                  <h2 className="text-2xl font-bold text-orange-950">Final Assembly</h2>
+                  <p className="text-orange-900/60 mt-1">Review your selections before we begin the sacred arrangements.</p>
                 </div>
 
-                <div className="border border-green-200 bg-green-50 text-green-800 p-4 rounded-xl text-sm mb-6 flex items-start gap-3">
-                  <div className="min-w-6">🔒</div>
-                  <div>Your payment is secured by Stripe. A verified Pandit will be securely assigned immediately upon success.</div>
+                <div className="p-8 rounded-3xl bg-orange-50/30 border border-orange-100 space-y-6">
+                    <div className="flex justify-between items-end border-b border-orange-100 pb-4">
+                        <span className="text-[10px] uppercase tracking-[0.2em] font-black text-orange-400">Ritual Selections</span>
+                        <span className="text-xs font-bold text-orange-950">{formData.services.length} items</span>
+                    </div>
+                    <div className="space-y-4">
+                        {selectedServiceObjects.map((s, idx) => (
+                           <div key={idx} className="flex justify-between items-center">
+                              <span className="font-bold text-orange-900">{s.name}</span>
+                              <span className="font-black text-orange-950">${s.basePrice}</span>
+                           </div>
+                        ))}
+                    </div>
+                    <div className="pt-4 border-t border-orange-100 flex justify-between items-center text-xl font-bold">
+                        <span className="text-orange-950 font-serif">Total Commitment</span>
+                        <span className="text-amber-600">${totalPrice}</span>
+                    </div>
                 </div>
+                
+                <p className="text-center text-xs text-orange-900/40 px-10 leading-relaxed italic">
+                  By continuing, you agree to allow our certified Pandits to perform the rituals in your absence as per Vedic norms. Proof of ritual will be uploaded to your dashboard.
+                </p>
               </div>
             )}
           </motion.div>
         </AnimatePresence>
 
-        <CardFooter className="flex justify-between border-t border-orange-100 bg-orange-50/50 p-6 rounded-b-xl">
+        <CardFooter className="flex flex-row items-center justify-between border-t border-orange-100 bg-orange-50/50 p-6 rounded-b-xl">
           <Button 
             variant="outline" 
             onClick={prevStep}
-            disabled={currentStep === 0}
-            className="w-24 border-orange-200 bg-white"
+            disabled={currentStep === 0 || submitting}
+            className="border-orange-200 text-orange-900"
           >
             Back
           </Button>
-          
           <Button 
-            variant="default"
             onClick={currentStep === STEPS.length - 1 ? handleCheckout : nextStep}
             disabled={
-              submitting ||
-              (currentStep === 0 && formData.services.length === 0) ||
-              (currentStep === 1 && !formData.location) ||
-              (currentStep === 2 && (!formData.departedName || !formData.tithiDate || !formData.fatherName || !formData.cremationDate || !formData.contactPhone))
+                submitting ||
+                (currentStep === 0 && formData.services.length === 0) ||
+                (currentStep === 1 && !formData.location)
             }
-            className="w-32 bg-amber-600 hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-amber-600 hover:bg-amber-700 text-white px-8 font-bold rounded-xl shadow-lg shadow-amber-500/10 min-w-[120px]"
           >
-            {submitting ? "Processing..." : (currentStep === STEPS.length - 1 ? `Pay $${totalPrice}` : "Continue")}
+            {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : (currentStep === STEPS.length - 1 ? "Complete Payment" : "Continue")}
           </Button>
         </CardFooter>
       </Card>
+
+      <div className="mt-8 text-center">
+        <p className="text-xs text-orange-900/30 font-bold uppercase tracking-widest">Secured by Vedic Standards</p>
+      </div>
+    </div>
+  )
+}
+
+export default function BookingPage() {
+  return (
+    <div className="bg-cream min-h-screen">
+      <Suspense fallback={<div className="container mx-auto px-4 pt-32 text-center text-orange-950/20 italic">Loading ritual guide...</div>}>
+         <BookingForm />
+      </Suspense>
     </div>
   )
 }

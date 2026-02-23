@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 import { ENV } from "@pinddaan/config";
 import bookingRoutes from "./routes/booking.routes";
 import userRoutes from "./routes/user.routes";
+import ritualRoutes from "./routes/ritual.routes";
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.get("/health", (req, res) => res.json({ status: "OK" }));
 // Routes Layer
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/bookings", bookingRoutes);
+app.use("/api/v1/services", ritualRoutes);
 
 // Central Error Handler
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -54,6 +56,11 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 
 const PORT = ENV.PORT || 3001;
 
-app.listen(PORT, () => {
-    console.log(`🚀 API Server running securely on port ${PORT}`);
-});
+// Only listen if this file is run directly (not via vercel)
+if (process.env.VERCEL !== '1') {
+    app.listen(PORT, () => {
+        console.log(`🚀 API Server running securely on port ${PORT}`);
+    });
+}
+
+export default app;
