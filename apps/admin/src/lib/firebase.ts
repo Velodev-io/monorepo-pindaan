@@ -1,4 +1,4 @@
-import { initializeApp, getApps, getApp } from "firebase/app";
+import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
@@ -11,8 +11,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase safely on the client/server
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let app: any;
+let app: FirebaseApp;
 try {
     app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 } catch {
