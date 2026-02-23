@@ -10,8 +10,19 @@ const firebaseConfig = {
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase safely on the client
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+// Initialize Firebase safely on the client/server
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let app: any;
+try {
+    app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+} catch {
+    if (getApps().length) {
+        app = getApp();
+    } else {
+        // Last resort for build time
+        app = initializeApp({ ...firebaseConfig, apiKey: "dummy" });
+    }
+}
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
