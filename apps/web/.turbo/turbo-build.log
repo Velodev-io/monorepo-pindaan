@@ -1,6 +1,11 @@
 
 [2K[1G[1myarn run v1.22.21[22m
 [2K[1G[2m$ next build[22m
+[33m[1m⚠[22m[39m `eslint` configuration in next.config.ts is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+[33m[1m⚠[22m[39m Invalid next.config.ts options detected: 
+[33m[1m⚠[22m[39m     Unrecognized key(s) in object: 'turbopack' at "experimental"
+[33m[1m⚠[22m[39m     Unrecognized key(s) in object: 'eslint'
+[33m[1m⚠[22m[39m See more info here: https://nextjs.org/docs/messages/invalid-next-config
 [33m[1m⚠[22m[39m Warning: Next.js inferred your workspace root, but it may not be correct.
  We detected multiple lockfiles and selected the directory of /Users/ysingh/package-lock.json as the root directory.
  To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
@@ -9,29 +14,34 @@
    * /Users/ysingh/projects/Pinddaan/yarn.lock
 
 [1m[38;2;173;127;168m▲ Next.js 16.1.6[39m[22m (Turbopack)
+- Environments: .env
+- Experiments (use with caution):
+  ? [9mturbopack[29m (invalid experimental key)
 
 [33m[1m⚠[22m[39m The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
 [37m[1m [22m[39m Creating an optimized production build ...
-[32m[1m✓[22m[39m Compiled successfully in 3.8s
-[?25l[37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G[37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G[?25h[?25l[37m[1m [22m[39m Finished TypeScript in 3.4s  [36m.[39m[2K[1G[?25h[37m[1m [22m[39m Finished TypeScript in 3.4s    [32m[1m✓[22m[39m Finished TypeScript in 3.4s 
-[?25l[37m[1m [22m[39m Collecting page data using 7 workers  [36m.[39m[2K[1G[37m[1m [22m[39m Collecting page data using 7 workers  [36m..[39m[2K[1G[?25h[37m[1m [22m[39m Collecting page data using 7 workers in 375.6ms    [32m[1m✓[22m[39m Collecting page data using 7 workers in 375.6ms 
-[?25l[37m[1m [22m[39m Generating static pages using 7 workers (0/9)  [36m[    ][39m[2K[1G[?25hError occurred prerendering page "/auth/login". Read more: https://nextjs.org/docs/messages/prerender-error
-Error [FirebaseError]: Firebase: Error (auth/invalid-api-key).
-    at o (.next/server/chunks/ssr/projects_Pinddaan_fa86909b._.js:1:31367)
-    at p (.next/server/chunks/ssr/projects_Pinddaan_fa86909b._.js:1:31415)
-    at Q.instanceFactory (.next/server/chunks/ssr/projects_Pinddaan_fa86909b._.js:1:82714)
-    at S.getOrInitializeService (.next/server/chunks/ssr/projects_Pinddaan_fa86909b._.js:1:11871)
-    at S.initialize (.next/server/chunks/ssr/projects_Pinddaan_fa86909b._.js:1:11273)
-    at <unknown> (.next/server/chunks/ssr/projects_Pinddaan_fa86909b._.js:1:81225)
-    at aY (.next/server/chunks/ssr/projects_Pinddaan_fa86909b._.js:1:81254)
-    at module evaluation (.next/server/chunks/ssr/projects_Pinddaan_fa86909b._.js:1:84727)
-    at instantiateModule (.next/server/chunks/ssr/[turbopack]_runtime.js:740:9)
-    at getOrInstantiateModuleFromParent (.next/server/chunks/ssr/[turbopack]_runtime.js:763:12) {
-  code: [32m'auth/invalid-api-key'[39m,
-  customData: [36m[Object][39m,
-  digest: [32m'2026364107'[39m
-}
-Export encountered an error on /auth/login/page: /auth/login, exiting the build.
-[31m[1m⨯[22m[39m Next.js build worker exited with code: 1 and signal: null
-[?25h[2K[1G[31merror[39m Command failed with exit code 1.
-[2K[1G[34minfo[39m Visit [1mhttps://yarnpkg.com/en/docs/cli/run[22m for documentation about this command.
+[32m[1m✓[22m[39m Compiled successfully in 7.0s
+[37m[1m [22m[39m Skipping validation of types
+[?25l[37m[1m [22m[39m Collecting page data using 7 workers  [36m.[39m[2K[1G[1A[2K[1G[37m[1m [22m[39m Collecting page data using 7 workers  [36m..[39m[2K[1G[1A[2K[1G[37m[1m [22m[39m Collecting page data using 7 workers  [36m...[39m[2K[1G[1A[2K[1G[37m[1m [22m[39m Collecting page data using 7 workers  [36m.[39m[2K[1G[1A[2K[1G[?25h[37m[1m [22m[39m Collecting page data using 7 workers in 662.7ms    [32m[1m✓[22m[39m Collecting page data using 7 workers in 662.7ms 
+[?25l[37m[1m [22m[39m Generating static pages using 7 workers (0/13)  [36m[    ][39m[2K[1G[1A[2K[1G[37m[1m [22m[39m Generating static pages using 7 workers (8/13)  [36m[=   ][39m[2K[1G[1A[2K[1G[?25h[32m[1m✓[22m[39m Generating static pages using 7 workers (13/13) in 260.8ms
+[?25l[37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G[1A[2K[1G[37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G[1A[2K[1G[37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G[1A[2K[1G[37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G[1A[2K[1G[37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G[1A[2K[1G[37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G[1A[2K[1G[?25h[37m[1m [22m[39m Finalizing page optimization in 1104.7ms    [32m[1m✓[22m[39m Finalizing page optimization in 1104.7ms 
+
+[4mRoute (app)[24m
+┌ ○ /
+├ ○ /_not-found
+├ ○ /auth/login
+├ ○ /auth/register
+├ ○ /booking
+├ ○ /dashboard
+├ ○ /dashboard/bookings
+├ ○ /dashboard/profile
+├ ○ /how-it-works
+├ ○ /locations
+└ ○ /services
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)  prerendered as static content
+
+[?25h[2K[1G✨  Done in 11.86s.

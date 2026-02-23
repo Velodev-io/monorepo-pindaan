@@ -23,8 +23,10 @@ export async function apiClient(endpoint: string, options: RequestInit = {}) {
 
     if (response.status === 401) {
         // Clear auth and force re-login if token is invalid or expired via Backend
-        await auth.signOut();
-        window.location.href = '/login';
+        if (typeof window !== 'undefined') {
+            await auth.signOut();
+            window.location.href = '/login';
+        }
         throw new Error('Unauthorized');
     }
 
