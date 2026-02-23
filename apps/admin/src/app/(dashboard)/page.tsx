@@ -7,7 +7,7 @@ import { apiClient } from "@/lib/api-client";
 
 export default function DashboardOverview() {
     const [stats, setStats] = useState({ users: 0, bookings: 0, revenue: 0, pending: 0 });
-    const [recentBookings, setRecentBookings] = useState<any[]>([]);
+    const [recentBookings, setRecentBookings] = useState<unknown[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

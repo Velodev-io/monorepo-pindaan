@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import { LogIn } from "lucide-react";
+import { apiClient } from "@/lib/api-client";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
@@ -23,18 +24,14 @@ export default function LoginPage() {
             
             // Explicitly sync the user into the Neon DB 
             // This prevents an immediate AuthGuard 401 if they were added via Firebase Console instead of Web Registration!
-            const token = await userCredential.user.getIdToken(true);
-            await fetch("http://localhost:3001/api/v1/users/sync", {
+                        await apiClient("/users/sync", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                }
+                body: JSON.stringify({}),
             });
 
             // The AuthGuard will handle strict role verification upon redirect
             router.push("/");
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error("Login failed:", err);
             setError("Invalid credentials or unauthorized.");
         } finally {

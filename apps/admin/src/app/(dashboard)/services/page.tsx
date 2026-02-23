@@ -65,8 +65,8 @@ export default function ServicesPage() {
                 await fetchServices();
                 setIsModalOpen(false);
             }
-        } catch (err: any) {
-            alert("Error saving service: " + err.message);
+        } catch (err: unknown) {
+            alert("Error saving service: " + (err as Error).message);
         } finally {
             setActionLoading(false);
         }
@@ -81,8 +81,8 @@ export default function ServicesPage() {
             if (res.success) {
                 setServices(prev => prev.filter(s => s.id !== id));
             }
-        } catch (err: any) {
-            alert("Error deleting service: " + err.message);
+        } catch (err: unknown) {
+            alert("Error deleting service: " + (err as Error).message);
         } finally {
             setActionLoading(false);
         }
@@ -97,8 +97,8 @@ export default function ServicesPage() {
             if (res.success) {
                 setServices(prev => prev.map(s => s.id === service.id ? { ...s, isActive: !service.isActive } : s));
             }
-        } catch (err: any) {
-            alert("Error updating status: " + err.message);
+        } catch (err: unknown) {
+            alert("Error updating status: " + (err as Error).message);
         }
     };
 

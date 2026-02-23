@@ -5,7 +5,7 @@ import { BookingStatus } from "@pinddaan/types";
 import { BookingService } from "@/services/booking.service";
 
 export default function BookingsPage() {
-    const [bookings, setBookings] = useState<any[]>([]);
+    const [bookings, setBookings] = useState<unknown[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -20,9 +20,9 @@ export default function BookingsPage() {
     const handleStatusChange = async (id: string, newStatus: BookingStatus) => {
         try {
             await BookingService.updateStatus(id, newStatus);
-            setBookings(prev => prev.map(b => b.id === id ? { ...b, status: newStatus } : b));
-        } catch (err: any) {
-            alert("Failed to update status: " + err.message);
+            setBookings(prev => prev.map((b: any) => b.id === id ? { ...b, status: newStatus } : b));
+        } catch (err: unknown) {
+            alert("Failed to update status: " + (err as Error).message);
         }
     };
 
@@ -63,29 +63,29 @@ export default function BookingsPage() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800">
-                                {bookings.map(row => (
-                                    <tr key={row.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
+                                 {bookings.map((booking: any) => (
+                                    <tr key={booking.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
                                         <td className="px-6 py-4 font-medium text-zinc-900 dark:text-zinc-100">
-                                            {row.user?.name || "Unknown Customer"}
-                                            <div className="text-xs text-zinc-500 font-normal mt-1">{row.user?.email}</div>
-                                            <div className="text-xs text-zinc-500 font-normal">{row.user?.phone || "No phone provided"}</div>
-                                            <div className="text-xs text-zinc-400 font-normal mt-1">Departed: {row.departedName}</div>
+                                            {booking.user?.name || "Unknown Customer"}
+                                            <div className="text-xs text-zinc-500 font-normal mt-1">{booking.user?.email}</div>
+                                            <div className="text-xs text-zinc-500 font-normal">{booking.user?.phone || "No phone provided"}</div>
+                                            <div className="text-xs text-zinc-400 font-normal mt-1">Departed: {booking.departedName}</div>
                                         </td>
-                                        <td className="px-6 py-4 text-zinc-500">{row.service?.name || "Pinddaan Custom"}</td>
-                                        <td className="px-6 py-4 text-zinc-500">{new Date(row.ritualDate).toLocaleDateString()}</td>
+                                        <td className="px-6 py-4 text-zinc-500">{booking.service?.name || "Pinddaan Ritual"}</td>
+                                        <td className="px-6 py-4 text-zinc-500">{new Date(booking.ritualDate).toLocaleDateString()}</td>
                                         <td className="px-6 py-4">
                                             <span className={`px-2 py-1 rounded-md text-xs font-semibold border ${
-                                                row.status === 'COMPLETED' ? 'bg-green-100 text-green-800 border-green-500/20 dark:bg-green-900/40 dark:text-green-500' :
-                                                row.status === 'PENDING' ? 'bg-amber-100 text-amber-800 border-amber-500/20 dark:bg-amber-900/40 dark:text-amber-500' :
+                                                booking.status === 'COMPLETED' ? 'bg-green-100 text-green-800 border-green-500/20 dark:bg-green-900/40 dark:text-green-500' :
+                                                booking.status === 'PENDING' ? 'bg-amber-100 text-amber-800 border-amber-500/20 dark:bg-amber-900/40 dark:text-amber-500' :
                                                 'bg-zinc-100 text-zinc-800 border-zinc-500/20 dark:bg-zinc-800 dark:text-zinc-400'
                                             }`}>
-                                                {row.status}
+                                                {booking.status}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <select
-                                                value={row.status}
-                                                onChange={(e) => handleStatusChange(row.id, e.target.value as BookingStatus)}
+                                                value={booking.status}
+                                                onChange={(e) => handleStatusChange(booking.id, e.target.value as BookingStatus)}
                                                 className="px-2 py-1.5 border border-zinc-200 dark:border-zinc-700 rounded-lg text-xs bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 outline-amber-500 cursor-pointer"
                                             >
                                                 {Object.values(BookingStatus).map(s => (
