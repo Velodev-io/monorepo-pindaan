@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { ZodError } from 'zod';
+import { ZodError, ZodIssue } from 'zod';
 import { logger } from '@/lib/logger';
 
 export class ApiError extends Error {
@@ -13,11 +13,10 @@ export function handleApiError(error: unknown) {
     logger.error(error); // Using Pino for structured logging
 
     if (error instanceof ZodError) {
-        const zodError = error as any;
         return NextResponse.json({
             success: false,
             message: "Validation Error",
-            errors: zodError.errors.map((e: any) => ({ path: e.path.join('.'), message: e.message }))
+            errors: error.issues.map((e: ZodIssue) => ({ path: e.path.join('.'), message: e.message }))
         }, { status: 400 });
     }
 

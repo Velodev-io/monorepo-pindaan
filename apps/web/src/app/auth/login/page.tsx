@@ -36,11 +36,12 @@ export default function LoginPage() {
 
       // Redirect to dashboard on success
       router.push("/dashboard")
-    } catch (err: any) {
-      console.error("Login Error:", err.code, err.message);
-      if (err.code === "auth/invalid-credential" || err.code === "auth/user-not-found" || err.code === "auth/wrong-password") {
+    } catch (err: unknown) {
+      const error = err as { code?: string; message: string };
+      console.error("Login Error:", error.code, error.message);
+      if (error.code === "auth/invalid-credential" || error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
         setError("Invalid email or password. Please check your credentials and try again.")
-      } else if (err.code === "auth/too-many-requests") {
+      } else if (error.code === "auth/too-many-requests") {
         setError("Too many failed login attempts. Please try again later or reset your password.")
       } else {
         setError("An unexpected error occurred. Please try again.")
@@ -70,8 +71,8 @@ export default function LoginPage() {
 
       // Redirect to dashboard on success
       router.push("/dashboard")
-    } catch (err: any) {
-      setError(err.message || "Google sign-in failed.")
+    } catch (err: unknown) {
+      setError((err as { message: string }).message || "Google sign-in failed.")
     } finally {
       setIsLoading(false)
     }
@@ -156,7 +157,7 @@ export default function LoginPage() {
             </div>
 
             <p className="mt-8 text-center text-sm text-orange-900/60">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/auth/register" className="font-semibold text-amber-600 hover:text-amber-700">
                 Create an account
               </Link>

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
-export function proxy(request: NextRequest) {
+export function proxy() {
     // Purely structural middleware placeholder to prevent logged out
     // users from hitting strictly private dashboard paths natively.
     // Real token verification happens in our <AuthGuard> because it's client-side Firebase.

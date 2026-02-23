@@ -20,7 +20,7 @@ export default function LoginPage() {
         setError("");
 
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            await signInWithEmailAndPassword(auth, email, password);
             
             // Explicitly sync the user into the Neon DB 
             // This prevents an immediate AuthGuard 401 if they were added via Firebase Console instead of Web Registration!

@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { Users, Bookmark, FileStack, TrendingUp } from "lucide-react";
+import { Booking } from "@pinddaan/types";
 
 import { apiClient } from "@/lib/api-client";
 
 export default function DashboardOverview() {
     const [stats, setStats] = useState({ users: 0, bookings: 0, revenue: 0, pending: 0 });
-    const [recentBookings, setRecentBookings] = useState<unknown[]>([]);
+    const [recentBookings, setRecentBookings] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -77,7 +78,7 @@ export default function DashboardOverview() {
                            </div>
                         ) : recentBookings.length === 0 ? (
                             <div className="text-sm text-zinc-500">No bookings found.</div>
-                        ) : recentBookings.map((booking: any) => (
+                        ) : recentBookings.map((booking) => (
                             <div key={booking.id} className="flex items-center justify-between pb-4 border-b border-zinc-100 dark:border-zinc-800 last:border-0 last:pb-0">
                                 <div>
                                     <div className="font-medium text-zinc-900 dark:text-zinc-100">{booking.user?.name || booking.departedName || "Unknown"}</div>

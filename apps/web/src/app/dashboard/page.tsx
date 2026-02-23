@@ -5,12 +5,13 @@ import { auth } from "@/lib/firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card"
 import { BadgeCheck, PlayCircle, MapPin, Clock, CheckCircle2, XCircle, ChevronRight, X } from "lucide-react"
+import { Booking } from "@pinddaan/types"
 
 export default function DashboardPage() {
-  const [bookings, setBookings] = useState<any[]>([])
+  const [bookings, setBookings] = useState<Booking[]>([])
   const [loading, setLoading] = useState(true)
   const [userName, setUserName] = useState("")
-  const [selectedGroup, setSelectedGroup] = useState<any[] | null>(null)
+  const [selectedGroup, setSelectedGroup] = useState<Booking[] | null>(null)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -42,7 +43,7 @@ export default function DashboardPage() {
   const completedCount = bookings.filter(b => b.status === 'COMPLETED').length
 
   // Grouping Logic
-  const groupedBookings = bookings.reduce((groups: any, booking) => {
+  const groupedBookings = bookings.reduce((groups: Record<string, Booking[]>, booking) => {
     const key = `${booking.departedName}-${booking.ritualDate}-${booking.locationId}`;
     if (!groups[key]) {
       groups[key] = [];
@@ -110,10 +111,9 @@ export default function DashboardPage() {
           </Card>
         ) : (
           <div className="space-y-6">
-            {groupList.map((group: any, idx) => {
-              const mainBooking = group[0];
+            {groupList.map((group, idx) => {
+              const mainBooking = group[0] as Booking;
               const isMulti = group.length > 1;
-              const allCompleted = group.every((b: any) => b.status === 'COMPLETED');
 
               return (
                 <Card 
@@ -148,7 +148,7 @@ export default function DashboardPage() {
                         <div className="col-span-2 mt-2">
                             <span className="block text-orange-900/50 mb-2 font-medium">Services included:</span>
                             <div className="flex flex-wrap gap-2">
-                                {group.map((b: any, bIdx: number) => (
+                                {group.map((b, bIdx) => (
                                     <span key={bIdx} className="bg-orange-50 px-3 py-1 rounded-full border border-orange-100 text-orange-900 text-xs font-semibold">
                                         {b.service?.name}
                                     </span>

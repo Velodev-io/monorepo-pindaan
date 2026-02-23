@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const nextConfig: any = {
+const nextConfig: NextConfig = {
   transpilePackages: ["@pinddaan/types", "@pinddaan/schemas", "@pinddaan/config"],
   output: "standalone"
 };

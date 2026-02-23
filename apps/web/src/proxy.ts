@@ -16,7 +16,7 @@ export async function proxy(request: NextRequest) {
             if (payload.role !== 'ADMIN') {
                 return NextResponse.json({ success: false, message: 'Forbidden: Admin access required' }, { status: 403 });
             }
-        } catch (e) {
+        } catch {
             return NextResponse.json({ success: false, message: 'Invalid Token' }, { status: 401 });
         }
     }

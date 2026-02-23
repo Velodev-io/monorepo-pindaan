@@ -20,7 +20,7 @@ export const verifyAuth = async (req: NextRequest) => {
             new TextEncoder().encode(getJwtSecretKey())
         );
         return verified.payload as { id: string; email: string; role: string };
-    } catch (err) {
+    } catch {
         return null;
     }
 };

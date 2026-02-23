@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react"
 import { auth } from "@/lib/firebase"
 import { onAuthStateChanged } from "firebase/auth"
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card"
+import { Card, CardContent } from "@/components/ui/Card"
 import Link from "next/link"
+import { Booking } from "@pinddaan/types"
 import { 
   BadgeCheck, 
   PlayCircle, 
@@ -23,9 +24,9 @@ import { Button } from "@/components/ui/Button"
 import BackButton from "@/components/shared/BackButton"
 
 export default function BookingsPage() {
-  const [bookings, setBookings] = useState<any[]>([])
+  const [bookings, setBookings] = useState<Booking[]>([])
   const [loading, setLoading] = useState(true)
-  const [selectedGroup, setSelectedGroup] = useState<any[] | null>(null)
+  const [selectedGroup, setSelectedGroup] = useState<Booking[] | null>(null)
   const [filter, setFilter] = useState("ALL") // ALL, PENDING, COMPLETED, CANCELLED
 
   useEffect(() => {
@@ -54,7 +55,7 @@ export default function BookingsPage() {
   }, [])
 
   // Grouping Logic (Identical to dashboard for consistency)
-  const groupedBookings = bookings.reduce((groups: any, booking) => {
+  const groupedBookings = bookings.reduce((groups: Record<string, Booking[]>, booking) => {
     const key = `${booking.departedName}-${booking.ritualDate}-${booking.locationId}`;
     if (!groups[key]) {
       groups[key] = [];
@@ -67,10 +68,10 @@ export default function BookingsPage() {
 
   // Apply Filter
   if (filter !== "ALL") {
-    groupList = groupList.filter((group: any) => {
-        if (filter === "COMPLETED") return group.every((b: any) => b.status === "COMPLETED");
-        if (filter === "PENDING") return group.some((b: any) => b.status !== "COMPLETED" && b.status !== "CANCELLED");
-        return group.some((b: any) => b.status === filter);
+    groupList = groupList.filter((group) => {
+        if (filter === "COMPLETED") return group.every((b) => b.status === "COMPLETED");
+        if (filter === "PENDING") return group.some((b) => b.status !== "COMPLETED" && b.status !== "CANCELLED");
+        return group.some((b) => b.status === filter);
     });
   }
 
@@ -146,7 +147,7 @@ export default function BookingsPage() {
           </Card>
         ) : (
           <div className="space-y-6">
-            {groupList.map((group: any, idx) => {
+            {groupList.map((group, idx) => {
               const mainBooking = group[0];
               const isMulti = group.length > 1;
 
@@ -195,7 +196,7 @@ export default function BookingsPage() {
                         <div className="col-span-2">
                              <span className="block text-[10px] uppercase tracking-widest text-orange-900/40 mb-1 font-black">Involved Rites:</span>
                              <div className="flex flex-wrap gap-2">
-                                {group.map((b: any, bIdx: number) => (
+                                {group.map((b, bIdx) => (
                                     <span key={bIdx} className="text-[10px] font-bold text-orange-900">
                                         • {b.service?.name}
                                     </span>

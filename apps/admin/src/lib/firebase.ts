@@ -1,6 +1,5 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { ENV } from "@pinddaan/config"; // We'll add next_public checks to config later if needed, or inline
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "dummy-key-for-ssr",

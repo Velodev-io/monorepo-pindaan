@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { BookingStatus } from "@pinddaan/types";
+import { BookingStatus, Booking } from "@pinddaan/types";
 import { BookingService } from "@/services/booking.service";
 
 export default function BookingsPage() {
-    const [bookings, setBookings] = useState<unknown[]>([]);
+    const [bookings, setBookings] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -20,7 +20,7 @@ export default function BookingsPage() {
     const handleStatusChange = async (id: string, newStatus: BookingStatus) => {
         try {
             await BookingService.updateStatus(id, newStatus);
-            setBookings(prev => prev.map((b: any) => b.id === id ? { ...b, status: newStatus } : b));
+            setBookings(prev => prev.map((b) => b.id === id ? { ...b, status: newStatus } : b));
         } catch (err: unknown) {
             alert("Failed to update status: " + (err as Error).message);
         }
@@ -63,7 +63,7 @@ export default function BookingsPage() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800">
-                                 {bookings.map((booking: any) => (
+                                 {bookings.map((booking) => (
                                     <tr key={booking.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
                                         <td className="px-6 py-4 font-medium text-zinc-900 dark:text-zinc-100">
                                             {booking.user?.name || "Unknown Customer"}

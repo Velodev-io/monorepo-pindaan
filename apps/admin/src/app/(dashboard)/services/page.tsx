@@ -152,6 +152,8 @@ export default function ServicesPage() {
                 
                 {loading ? (
                     <div className="p-20 text-center text-zinc-500 animate-pulse font-medium">Synchronizing with sacred records...</div>
+                ) : error ? (
+                    <div className="p-20 text-center text-red-500 font-medium">{error}</div>
                 ) : (
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left">

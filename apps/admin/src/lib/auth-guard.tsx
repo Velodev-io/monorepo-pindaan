@@ -31,7 +31,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
                     throw new Error("UNAUTHORIZED_ROLE");
                 }
                 setIsAuthorized(true);
-            } catch (err) {
+            } catch {
                 auth.signOut();
                 router.push("/login?error=forbidden");
             } finally {

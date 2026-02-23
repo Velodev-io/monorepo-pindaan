@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, Waves, Sunrise, Sparkles, Anchor, Loader2 } from "lucide-react";
+import { ArrowRight, ShieldCheck, Sparkles, Loader2, Sunrise } from "lucide-react";
 import { SERVICES_DATA } from "@/config/data";
 import BackButton from "@/components/shared/BackButton";
 import { apiClient } from "@/lib/api-client";
+import { Service } from "@pinddaan/types";
 
 export default function ServicesPage() {
-  const [dynamicServices, setDynamicServices] = useState<any[]>([]);
+  const [dynamicServices, setDynamicServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,7 +20,7 @@ export default function ServicesPage() {
         const res = await apiClient("/services");
         if (res.success) {
           // Filter to only show active services
-          setDynamicServices(res.data.filter((s: any) => s.isActive));
+          setDynamicServices(res.data.filter((s: Service) => s.isActive));
         }
       } catch (err) {
         console.error("Failed to fetch services", err);
@@ -132,7 +133,7 @@ export default function ServicesPage() {
       <section className="mt-24 container mx-auto px-4 text-center max-w-2xl">
         <div className="bg-white p-12 rounded-[2.5rem] border border-orange-200 shadow-xl shadow-orange-900/5 relative overflow-hidden">
           <div className="absolute top-0 right-0 p-8 opacity-5">
-              <Anchor className="w-40 h-40 rotate-12" />
+              <Sunrise className="w-40 h-40 rotate-12" />
           </div>
           <ShieldCheck className="w-16 h-16 text-amber-500 mx-auto mb-6" />
           <h3 className="font-serif text-3xl font-bold text-orange-950 mb-4">A Promise of Authenticity</h3>

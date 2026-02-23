@@ -4,13 +4,14 @@ import { useEffect, useState, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/Button"
-import { Card, CardTitle, CardFooter, CardDescription, CardContent } from "@/components/ui/Card"
+import { Card, CardFooter } from "@/components/ui/Card"
 import { LOCATIONS_DATA } from "@/config/data"
 import { COUNTRY_CODES } from "@/config/countries"
 import { auth } from "@/lib/firebase"
 import BackButton from "@/components/shared/BackButton"
 import { Loader2 } from "lucide-react"
 import { apiClient } from "@/lib/api-client"
+import { Service } from "@pinddaan/types"
 
 // Steps in the checkout sequence
 const STEPS = [
@@ -26,7 +27,7 @@ function BookingForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   
-  const [dynamicServices, setDynamicServices] = useState<any[]>([])
+  const [dynamicServices, setDynamicServices] = useState<Service[]>([])
   const [loadingServices, setLoadingServices] = useState(true)
 
   const [formData, setFormData] = useState({
@@ -48,7 +49,7 @@ function BookingForm() {
       try {
         const res = await apiClient("/services")
         if (res.success) {
-          setDynamicServices(res.data.filter((s: any) => s.isActive))
+          setDynamicServices(res.data.filter((s: Service) => s.isActive))
         }
       } catch (err) {
           console.error("Failed to fetch services", err)
@@ -147,8 +148,8 @@ function BookingForm() {
 
       setIsSubmitted(true);
       
-    } catch (error: any) {
-      alert("Error creating booking: " + error.message);
+    } catch (error: unknown) {
+      alert("Error creating booking: " + (error as Error).message);
     } finally {
       setSubmitting(false);
     }
@@ -248,7 +249,7 @@ function BookingForm() {
                           </div>
                           <div>
                             <p className="font-bold text-orange-950">{s.name}</p>
-                            <p className="text-xs text-orange-900/50 uppercase tracking-widest font-bold mt-0.5">{s.category || "Sacred Ritual"}</p>
+                            <p className="text-xs text-orange-900/50 uppercase tracking-widest font-bold mt-0.5">{(s as Service).category || "Sacred Ritual"}</p>
                           </div>
                         </div>
                         <div className="text-lg font-black text-orange-950">${s.basePrice.toLocaleString()}</div>
