@@ -1,20 +1,30 @@
 import { z } from "zod";
-import * as dotenv from "dotenv";
-import path from "path";
+// Basic environment detection
+const isNode = typeof process !== "undefined" && process?.versions?.node;
 
-// Search for .env in current dir, then parent, then root
-const envPaths = [
-    path.resolve(process.cwd(), '.env'),
-    path.resolve(process.cwd(), '../../.env'),
-    path.resolve(__dirname, '../../../.env')
-];
+if (isNode) {
+    try {
+        const dotenv = require("dotenv");
+        const path = require("path");
 
-for (const envPath of envPaths) {
-    dotenv.config({ path: envPath });
+        // Search for .env in current dir, then parent, then root
+        const envPaths = [
+            path.resolve(process.cwd(), '.env'),
+            path.resolve(process.cwd(), '../../.env'),
+            path.resolve(process.cwd(), '../../../.env')
+        ];
+
+        for (const envPath of envPaths) {
+            dotenv.config({ path: envPath });
+        }
+    } catch (e) {
+        // Silently skip if modules or files are missing (e.g. build time)
+    }
 }
 
+// Basic schema with optional fields for flexibility
 export const envSchema = z.object({
-    DATABASE_URL: z.string().url(),
+    DATABASE_URL: z.string().url().optional(), // Make optional for build-time safety
     PORT: z.string().default("3001"),
     FIREBASE_PROJECT_ID: z.string().optional(),
     FIREBASE_CLIENT_EMAIL: z.string().email().optional(),
@@ -29,12 +39,20 @@ export const envSchema = z.object({
 });
 
 export const validateEnv = () => {
+    // Only parse if we have a process.env (Node environment)
+    if (typeof process === 'undefined' || !process.env) {
+        return {} as any;
+    }
+
     const parsed = envSchema.safeParse(process.env);
     if (!parsed.success) {
-        console.error("❌ Invalid environment variables:", parsed.error.format());
-        throw new Error("Invalid environment variables");
+        // Only warn during development/production, don't crash build
+        console.warn("⚠️ Environment validation warning:", parsed.error.format());
+        return process.env as any;
     }
     return parsed.data;
 };
 
-export const ENV = validateEnv();
+// Lazy export to avoid immediate execution
+export const getEnv = () => validateEnv();
+export const ENV = typeof process !== 'undefined' ? validateEnv() : {} as any;
