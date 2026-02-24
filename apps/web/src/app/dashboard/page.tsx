@@ -6,6 +6,7 @@ import { onAuthStateChanged } from "firebase/auth"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card"
 import { BadgeCheck, PlayCircle, MapPin, Clock, CheckCircle2, XCircle, ChevronRight, X } from "lucide-react"
 import { Booking } from "@pinddaan/types"
+import { apiClient } from "@/lib/api-client"
 
 export default function DashboardPage() {
   const [bookings, setBookings] = useState<Booking[]>([])
@@ -18,13 +19,7 @@ export default function DashboardPage() {
       if (user) {
         setUserName(user.displayName || "User")
         try {
-          const token = await user.getIdToken()
-          const res = await fetch("http://localhost:3001/api/v1/bookings", {
-            headers: {
-              "Authorization": `Bearer ${token}`
-            }
-          })
-          const json = await res.json()
+          const json = await apiClient("/bookings")
           if (json.success) {
             setBookings(json.data)
           }

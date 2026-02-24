@@ -6,6 +6,7 @@ import { onAuthStateChanged } from "firebase/auth"
 import { Card, CardContent } from "@/components/ui/Card"
 import Link from "next/link"
 import { Booking } from "@pinddaan/types"
+import { apiClient } from "@/lib/api-client"
 import { 
   BadgeCheck, 
   PlayCircle, 
@@ -33,13 +34,7 @@ export default function BookingsPage() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
-          const token = await user.getIdToken()
-          const res = await fetch("http://localhost:3001/api/v1/bookings", {
-            headers: {
-              "Authorization": `Bearer ${token}`
-            }
-          })
-          const json = await res.json()
+          const json = await apiClient("/bookings")
           if (json.success) {
             setBookings(json.data)
           }

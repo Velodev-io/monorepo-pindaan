@@ -7,6 +7,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { auth } from "@/lib/firebase"
 import { Button } from "@/components/ui/Button"
 import BackButton from "@/components/shared/BackButton"
+import { apiClient } from "@/lib/api-client"
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -31,13 +32,8 @@ export default function RegisterPage() {
       })
 
       // Sync user to PostgreSQL backend!
-      const token = await userCredential.user.getIdToken(true);
-      await fetch("http://localhost:3001/api/v1/users/sync", {
+      await apiClient("/users/sync", {
          method: "POST",
-         headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-         },
          body: JSON.stringify({ name, email })
       });
 
