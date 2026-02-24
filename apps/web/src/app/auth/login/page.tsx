@@ -8,6 +8,8 @@ import { auth, googleProvider } from "@/lib/firebase"
 import { Button } from "@/components/ui/Button"
 import BackButton from "@/components/shared/BackButton"
 import { apiClient } from "@/lib/api-client"
+import SacredLoading from "@/components/shared/SacredLoading"
+import { AnimatePresence } from "framer-motion"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -70,7 +72,11 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen pt-24 md:pt-32 pb-20 px-4 flex items-center justify-center">
+    <>
+      <AnimatePresence>
+        {isLoading && <SacredLoading message="Verifying Divine Credentials..." />}
+      </AnimatePresence>
+      <div className="min-h-screen pt-24 md:pt-32 pb-20 px-4 flex items-center justify-center">
       <div className="max-w-md w-full">
         <BackButton className="mb-6 -ml-2" />
         <div className="p-8 bg-white border border-orange-100 rounded-2xl shadow-sm">
@@ -156,5 +162,6 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+    </>
   )
 }

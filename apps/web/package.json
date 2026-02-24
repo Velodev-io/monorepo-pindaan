@@ -32,6 +32,7 @@
     "tailwind-merge": "^3.5.0",
     "zod": "^4.3.6",
     "@pinddaan/schemas": "*",
+    "@pinddaan/shared": "*",
     "@pinddaan/types": "*",
     "@pinddaan/config": "*"
   },

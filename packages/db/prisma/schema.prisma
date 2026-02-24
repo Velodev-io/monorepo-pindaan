@@ -35,12 +35,36 @@ model Service {
   bookings    Booking[]
 }
 
+enum ServiceKey {
+  ASTHI_VISARJAN
+  PIND_DAAN
+  SHRADDH
+  TARPAN
+}
+
 model Location {
-  id          String   @id @default(uuid())
-  name        String
-  isActive    Boolean  @default(true)
-  bookings    Booking[]
-  pandits     Pandit[]
+  id               String            @id @default(cuid())
+  name             String
+  state            String
+  slug             String            @unique
+  description      String?
+  isActive         Boolean           @default(true)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  locationServices LocationService[]
+  bookings         Booking[]
+  pandits          Pandit[]
+}
+
+model LocationService {
+  id         String     @id @default(cuid())
+  locationId String
+  location   Location   @relation(fields: [locationId], references: [id])
+  service    ServiceKey
+  isPrimary  Boolean    @default(false)
+  notes      String?
+
+  @@unique([locationId, service])
 }
 
 model Pandit {

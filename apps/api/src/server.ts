@@ -6,6 +6,8 @@ import { ENV } from "@pinddaan/config";
 import bookingRoutes from "./routes/booking.routes";
 import userRoutes from "./routes/user.routes";
 import ritualRoutes from "./routes/ritual.routes";
+import locationRoutes from "./routes/location.routes";
+import publicLocationRoutes from "./routes/public_location.routes";
 
 const app = express();
 
@@ -39,6 +41,8 @@ app.get("/health", (req, res) => res.json({ status: "OK" }));
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/bookings", bookingRoutes);
 app.use("/api/v1/services", ritualRoutes);
+app.use("/api/admin/locations", locationRoutes);
+app.use("/api/locations", publicLocationRoutes);
 
 // Central Error Handler
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {

@@ -12,6 +12,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@pinddaan/config": "*",
     "@pinddaan/schemas": "*",
+    "@pinddaan/shared": "*",
     "@pinddaan/types": "*",
     "clsx": "^2.1.1",
     "firebase": "^12.9.0",
