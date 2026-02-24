@@ -88,6 +88,26 @@ export default function LocationSelector({ selectedServices, onSelectionChange }
         </div>
       ) : (
         <>
+          {/* Debug Info in Console */}
+          {(() => {
+            console.log("[DEBUG] LocationSelector - Selected Services:", selectedServices);
+            console.log("[DEBUG] LocationSelector - API Response Data:", data);
+            return null;
+          })()}
+
+          {/* Fallback if no locations found at all */}
+          {(!data || ((data.commonLocations?.length === 0) && Object.values(data.serviceLocations || {}).every((arr: any) => !arr || arr.length === 0))) && (
+            <div className="flex flex-col items-center justify-center p-12 bg-zinc-50 rounded-3xl border-2 border-dashed border-zinc-200 text-center">
+              <div className="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mb-4">
+                <MapPin className="text-zinc-300" size={32} />
+              </div>
+              <h3 className="text-xl font-bold text-zinc-900">No sacred locations available</h3>
+              <p className="text-zinc-500 max-w-xs mt-2">
+                We couldn't find any locations matching your selected rituals. Please try a different combination or contact support.
+              </p>
+            </div>
+          )}
+
           {/* Section 1: Common Locations (Only for multiple services) */}
           {data?.commonLocations && data.commonLocations.length > 0 && selectedServices.length > 1 && (
             <div className={`space-y-6 transition-all duration-300 ${selectionType === 'individual' ? 'opacity-40 grayscale pointer-events-none' : ''}`}>
@@ -104,7 +124,7 @@ export default function LocationSelector({ selectedServices, onSelectionChange }
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {data.commonLocations.map((loc) => (
+                {data.commonLocations.map((loc: any) => (
                   <button
                     key={loc.id}
                     onClick={() => handleSelectCommon(loc.id)}
@@ -137,7 +157,7 @@ export default function LocationSelector({ selectedServices, onSelectionChange }
                     <p className="text-sm text-amber-900 font-bold">Smart Selection Locked</p>
                     <p className="text-sm text-amber-800/80">
                       All selected rituals will be performed at <span className="font-bold">
-                        {data.commonLocations.find(l => l.id === commonLocationId)?.name}
+                        {data.commonLocations.find((l: any) => l.id === commonLocationId)?.name}
                       </span>.
                     </p>
                   </div>
@@ -170,7 +190,7 @@ export default function LocationSelector({ selectedServices, onSelectionChange }
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {data?.serviceLocations[sk]?.map((loc) => (
+                  {data?.serviceLocations[sk]?.map((loc: any) => (
                     <button
                       key={loc.id}
                       onClick={() => handleSelectIndividual(sk, loc.id)}

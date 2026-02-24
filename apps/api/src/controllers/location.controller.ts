@@ -63,7 +63,7 @@ export const createLocation = async (req: Request, res: Response) => {
         return res.status(201).json({ success: true, data: location });
     } catch (error) {
         if (error instanceof z.ZodError) {
-            return res.status(400).json({ error: "Validation Error", details: error.errors });
+            return res.status(400).json({ error: "Validation Error", details: error.issues });
         }
         console.error("Create Location Error:", error);
         return res.status(500).json({ error: "Internal Server Error" });
@@ -156,7 +156,7 @@ export const updateLocation = async (req: Request, res: Response) => {
         return res.json({ success: true, data: result });
     } catch (error) {
         if (error instanceof z.ZodError) {
-            return res.status(400).json({ error: "Validation Error", details: error.errors });
+            return res.status(400).json({ error: "Validation Error", details: error.issues });
         }
         console.error("Update Location Error:", error);
         return res.status(500).json({ error: "Internal Server Error" });
@@ -236,6 +236,7 @@ export const getMultiServiceLocations = async (req: Request, res: Response) => {
         }
 
         const serviceKeys = (services as string).split(",") as any[];
+        console.log("[DEBUG] getMultiServiceLocations - Requested Services:", serviceKeys);
 
         // Fetch all active locations that support at least one of these services
         const locations = await prisma.location.findMany({
@@ -252,6 +253,8 @@ export const getMultiServiceLocations = async (req: Request, res: Response) => {
             },
         });
 
+        console.log(`[DEBUG] getMultiServiceLocations - Found ${locations.length} locations matching at least one service`);
+
         const commonLocations: any[] = [];
         const serviceLocations: Record<string, any[]> = {};
 
@@ -262,10 +265,12 @@ export const getMultiServiceLocations = async (req: Request, res: Response) => {
 
         locations.forEach(loc => {
             const supportedServices = loc.locationServices.map(ls => ls.service);
+            console.log(`[DEBUG] Location ${loc.name} supports:`, supportedServices);
 
             // Check if common (supports ALL requested services)
             const isCommon = serviceKeys.every(sk => supportedServices.includes(sk));
             if (isCommon) {
+                console.log(`[DEBUG] Adding ${loc.name} to commonLocations`);
                 commonLocations.push({
                     id: loc.id,
                     name: loc.name,
@@ -276,6 +281,7 @@ export const getMultiServiceLocations = async (req: Request, res: Response) => {
             // Add to individual service lists if supported
             serviceKeys.forEach(sk => {
                 if (supportedServices.includes(sk)) {
+                    console.log(`[DEBUG] Adding ${loc.name} to serviceLocations[${sk}]`);
                     serviceLocations[sk].push({
                         id: loc.id,
                         name: loc.name,
@@ -283,6 +289,12 @@ export const getMultiServiceLocations = async (req: Request, res: Response) => {
                     });
                 }
             });
+        });
+
+        console.log("[DEBUG] getMultiServiceLocations - Final Response Data:", {
+            commonLocationsCount: commonLocations.length,
+            serviceLocationsKeys: Object.keys(serviceLocations),
+            serviceLocationsCounts: Object.entries(serviceLocations).map(([k, v]) => `${k}: ${v.length}`)
         });
 
         return res.json({

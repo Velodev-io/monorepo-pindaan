@@ -42,7 +42,7 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/bookings", bookingRoutes);
 app.use("/api/v1/services", ritualRoutes);
 app.use("/api/admin/locations", locationRoutes);
-app.use("/api/locations", publicLocationRoutes);
+app.use("/api/v1/locations", publicLocationRoutes);
 
 // Central Error Handler
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
