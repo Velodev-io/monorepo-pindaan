@@ -12,6 +12,8 @@ import BackButton from "@/components/shared/BackButton"
 import { Loader2 } from "lucide-react"
 import { apiClient } from "@/lib/api-client"
 import { Service } from "@pinddaan/types"
+import LocationSelector, { SelectionData } from "@/components/booking/LocationSelector"
+import { ServiceKey } from "@pinddaan/shared"
 
 // Steps in the checkout sequence
 const STEPS = [
@@ -30,9 +32,9 @@ function BookingForm() {
   const [dynamicServices, setDynamicServices] = useState<Service[]>([])
   const [loadingServices, setLoadingServices] = useState(true)
 
+  const [selectionData, setSelectionData] = useState<SelectionData | null>(null)
   const [formData, setFormData] = useState({
-    services: [] as string[], // We will store IDs here
-    location: "",
+    services: [] as string[], // These are ServiceKey strings now
     departedName: "",
     fatherName: "",
     gotra: "",
@@ -65,30 +67,20 @@ function BookingForm() {
     if (loadingServices) return
 
     const serviceParam = searchParams.get('service')
-    const locationParam = searchParams.get('location')
 
     setFormData(prev => {
       let newServices = [...prev.services]
-      let newLocation = prev.location
 
       if (serviceParam) {
-        const service = dynamicServices.find(s => s.id === serviceParam || s.name.toLowerCase() === serviceParam.toLowerCase())
+        const service = dynamicServices.find(s => s.id === serviceParam || s.name.toLowerCase() === serviceParam.toLowerCase() || s.id.toLowerCase() === serviceParam.toLowerCase())
         if (service && !newServices.includes(service.id)) {
           newServices = [service.id]
-        }
-      }
-
-      if (locationParam) {
-        const location = LOCATIONS_DATA.find(l => l.id === locationParam || l.name.toLowerCase() === locationParam.toLowerCase())
-        if (location) {
-          newLocation = location.name
         }
       }
 
       return {
         ...prev,
         services: newServices,
-        location: newLocation
       }
     })
   }, [searchParams, loadingServices, dynamicServices])
@@ -107,6 +99,8 @@ function BookingForm() {
               ? prev.services.filter(t => t !== id)
               : [...prev.services, id]
       }))
+      // Reset location selection when services change
+      setSelectionData(null);
   }
 
   const handleCheckout = async () => {
@@ -119,18 +113,25 @@ function BookingForm() {
         return;
       }
 
-      if (formData.services.length === 0 || !formData.location || !formData.tithiDate || !formData.departedName || !formData.fatherName || !formData.cremationDate || !formData.contactPhone) {
-         alert("Please fill out all required details (At least 1 Service, Location, Date, Departed Name, Father's Name, Cremation Date, Contact Number).");
+      if (formData.services.length === 0 || !selectionData || !formData.tithiDate || !formData.departedName || !formData.fatherName || !formData.cremationDate || !formData.contactPhone) {
+         alert("Please fill out all required details (Services, Location, Date, Departed Name, Father's Name, Cremation Date, Contact Number).");
          return;
       }
 
       // Create a booking for each selected service
       for (const serviceId of formData.services) {
+          let locationId = "";
+          if (selectionData.type === "common") {
+            locationId = selectionData.commonLocationId!;
+          } else {
+            locationId = selectionData.individualSelections![serviceId as ServiceKey];
+          }
+
           const res = await apiClient("/bookings", {
               method: "POST",
               body: JSON.stringify({
                   serviceId,
-                  locationId: LOCATIONS_DATA.find(l => l.name === formData.location)?.id || formData.location,
+                  locationId,
                   ritualDate: formData.tithiDate,
                   departedName: formData.departedName,
                   fatherName: formData.fatherName,
@@ -263,31 +264,15 @@ function BookingForm() {
             {/* Step 2: Location Selection */}
             {currentStep === 1 && (
               <div className="space-y-6">
-                <div className="text-center mb-8">
-                  <h2 className="text-2xl font-bold text-orange-950">Where should we perform?</h2>
-                  <p className="text-orange-900/60 mt-1">Choose the sacred Tirtha for the ceremonies.</p>
+                <div className="text-center mb-10">
+                  <h2 className="text-3xl font-bold font-serif text-orange-950">Where should we perform?</h2>
+                  <p className="text-orange-900/60 mt-2">Our system finds the best sacred Tirthas based on your ritual selection.</p>
                 </div>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {LOCATIONS_DATA.map((l) => (
-                    <div 
-                      key={l.id}
-                      onClick={() => setFormData({...formData, location: l.name})}
-                      className={`p-6 rounded-2xl border-2 cursor-pointer transition-all flex flex-col gap-3 group ${
-                        formData.location === l.name 
-                          ? "border-amber-500 bg-amber-50/50" 
-                          : "border-orange-100 hover:border-orange-200 bg-white"
-                      }`}
-                    >
-                      <div className="flex justify-between items-start">
-                        <p className="font-bold text-xl text-orange-950 tracking-tight">{l.name}</p>
-                        <div className={`w-5 h-5 rounded-full border-2 transition-colors ${
-                          formData.location === l.name ? "border-amber-500 bg-amber-500" : "border-orange-200 bg-white"
-                        }`} />
-                      </div>
-                      <p className="text-xs text-orange-900/60 leading-relaxed font-medium">{l.desc}</p>
-                    </div>
-                  ))}
-                </div>
+                
+                <LocationSelector 
+                  selectedServices={formData.services as ServiceKey[]}
+                  onSelectionChange={(data) => setSelectionData(data)}
+                />
               </div>
             )}
 
@@ -417,7 +402,7 @@ function BookingForm() {
             disabled={
                 submitting ||
                 (currentStep === 0 && formData.services.length === 0) ||
-                (currentStep === 1 && !formData.location)
+                (currentStep === 1 && !selectionData)
             }
             className="bg-amber-600 hover:bg-amber-700 text-white px-8 font-bold rounded-xl shadow-lg shadow-amber-500/10 min-w-[120px]"
           >

@@ -2,8 +2,8 @@
 **/.next
 **/dist
 **/.turbo
-apps/admin
-apps/api
+# apps/admin
+# apps/api
 .git
 .git_backup
 .vercel

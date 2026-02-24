@@ -15,7 +15,12 @@ const LOCATIONS = [
     { name: "Somnath", state: "Gujarat" },
 ];
 
-const SERVICES = ["ASTHI_VISARJAN", "PIND_DAAN", "SHRADDH", "TARPAN"];
+const SERVICES_DATA = [
+    { id: "ASTHI_VISARJAN", name: "Asthi Visarjan", basePrice: 299 },
+    { id: "PIND_DAAN", name: "Pind Daan", basePrice: 349 },
+    { id: "SHRADDH", name: "Shraddh", basePrice: 249 },
+    { id: "TARPAN", name: "Tarpan", basePrice: 199 },
+];
 
 const slugify = (text) => {
     return text
@@ -28,7 +33,18 @@ const slugify = (text) => {
 };
 
 async function main() {
-    console.log("Seeding new location mapping system...");
+    console.log("Seeding services...");
+    for (const s of SERVICES_DATA) {
+        await prisma.service.upsert({
+            where: { id: s.id },
+            update: { basePrice: s.basePrice, name: s.name },
+            create: s,
+        });
+    }
+
+    console.log("Seeding locations mapping system...");
+
+    const SERVICE_KEYS = SERVICES_DATA.map((s) => s.id);
 
     for (const loc of LOCATIONS) {
         const slug = slugify(loc.name);
@@ -44,10 +60,10 @@ async function main() {
                 description: `Sacred rituals performed at ${loc.name}, ${loc.state}.`,
                 isActive: true,
                 locationServices: {
-                    create: SERVICES.map((service, index) => ({
+                    create: SERVICE_KEYS.map((service) => ({
                         service,
-                        isPrimary: service === "PIND_DAAN", // Default PIND_DAAN as primary
-                        notes: `Traditional ${service.replace('_', ' ')} services available at ${loc.name}.`,
+                        isPrimary: service === "PIND_DAAN",
+                        notes: `Traditional ${service.replace("_", " ")} services available at ${loc.name}.`,
                     })),
                 },
             },
