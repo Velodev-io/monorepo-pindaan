@@ -1,6 +1,10 @@
 import { auth } from './firebase';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
+console.log('Using API_BASE_URL:', API_BASE_URL);
+if (API_BASE_URL.includes('localhost')) {
+    console.warn('⚠️ WARNING: API_BASE_URL is falling back to localhost!');
+}
 
 export async function apiClient(endpoint: string, options: RequestInit = {}) {
     const user = auth.currentUser;
