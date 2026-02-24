@@ -19,12 +19,19 @@ export default function DashboardPage() {
       if (user) {
         setUserName(user.displayName || "User")
         try {
+          // 1. Sync User first (ensures user exists in DB)
+          await apiClient("/users/sync", {
+              method: "POST",
+              body: JSON.stringify({ name: user.displayName, email: user.email })
+          });
+
+          // 2. Fetch Bookings
           const json = await apiClient("/bookings")
           if (json.success) {
             setBookings(json.data)
           }
         } catch (err) {
-          console.error("Failed to fetch bookings", err)
+          console.error("Failed to fetch dashboard data", err)
         } finally {
           setLoading(false)
         }

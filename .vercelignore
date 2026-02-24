@@ -1,0 +1,10 @@
+**/node_modules
+**/.next
+**/dist
+**/.turbo
+apps/admin
+apps/api
+.git
+.git_backup
+.vercel
+node_modules

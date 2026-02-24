@@ -16,6 +16,24 @@ export default function UsersPage() {
             .finally(() => setLoading(false));
     }, []);
 
+    const handleToggleActive = async (id: string) => {
+        try {
+            await UserService.disableUser(id);
+            setUsers(prev => prev.map(u => u.id === id ? { ...u, isActive: !u.isActive } : u));
+        } catch (err) {
+            alert("Failed to update status: " + (err as Error).message);
+        }
+    };
+
+    const handleRoleChange = async (id: string, newRole: string) => {
+        try {
+            await UserService.updateUserRole(id, newRole);
+            setUsers(prev => prev.map(u => u.id === id ? { ...u, role: newRole as any } : u));
+        } catch (err) {
+            alert("Failed to update role: " + (err as Error).message);
+        }
+    };
+
     return (
         <div className="space-y-6">
             <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Users</h1>
@@ -45,15 +63,29 @@ export default function UsersPage() {
                             <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800">
                                 {users.map(user => (
                                     <tr key={user.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
-                                        <td className="px-6 py-4 font-medium text-zinc-900 dark:text-zinc-100">{user.name || "Unknown"}</td>
+                                        <td className="px-6 py-4">
+                                            <div className="font-medium text-zinc-900 dark:text-zinc-100">{user.name || "Unknown"}</div>
+                                            <div className="text-[10px] text-zinc-400 font-normal italic mt-0.5">{user.address || "No address provided"}</div>
+                                        </td>
                                         <td className="px-6 py-4 text-zinc-500">{user.email}</td>
                                         <td className="px-6 py-4">
-                                            <span className={`px-2 py-1 rounded-md text-xs font-semibold ${user.role === "ADMIN" ? "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-500" : "bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"}`}>
-                                                {user.role}
-                                            </span>
+                                            <select 
+                                                value={user.role} 
+                                                onChange={(e) => handleRoleChange(user.id, e.target.value)}
+                                                className={`px-2 py-1 rounded-md text-xs font-semibold bg-transparent border border-zinc-200 dark:border-zinc-700 outline-amber-500 cursor-pointer ${user.role === "ADMIN" ? "text-amber-600" : "text-zinc-600"}`}
+                                            >
+                                                <option value="USER">USER</option>
+                                                <option value="ADMIN">ADMIN</option>
+                                                <option value="SUPER_ADMIN">SUPER_ADMIN</option>
+                                            </select>
                                         </td>
                                         <td className="px-6 py-4 text-right">
-                                            <button className="text-amber-600 dark:text-amber-500 hover:underline font-medium">Manage</button>
+                                            <button 
+                                                onClick={() => handleToggleActive(user.id)}
+                                                className={`text-xs font-bold px-3 py-1.5 rounded-lg transition-colors ${user.isActive ? "bg-red-50 text-red-600 hover:bg-red-100" : "bg-green-50 text-green-600 hover:bg-green-100"}`}
+                                            >
+                                                {user.isActive ? "Disable Access" : "Grant Access"}
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}

@@ -25,6 +25,7 @@ export interface User {
     email: string;
     name: string;
     phone?: string;
+    address?: string;
     isActive: boolean;
     role: UserRole;
     createdAt: Date;

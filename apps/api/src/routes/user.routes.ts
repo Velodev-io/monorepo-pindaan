@@ -17,6 +17,36 @@ router.get("/me/role", authMiddleware, async (req: Request, res: Response): Prom
     }
 });
 
+// GET current user profile
+router.get("/me", authMiddleware, async (req: Request, res: Response): Promise<any> => {
+    try {
+        const user = (req as any).user;
+        return res.json({ success: true, user });
+    } catch (error: any) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
+// Update current user profile (address/phone)
+router.patch("/me/update", authMiddleware, async (req: Request, res: Response): Promise<any> => {
+    try {
+        const currentUser = (req as any).user;
+        const { phone, address } = req.body;
+
+        const updatedUser = await prisma.user.update({
+            where: { id: currentUser.id },
+            data: {
+                ...(phone !== undefined && { phone }),
+                ...(address !== undefined && { address })
+            }
+        });
+
+        return res.json({ success: true, user: updatedUser });
+    } catch (error: any) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
 // Sync Firebase Auth with Prisma PostgreSQL
 router.post("/sync", verifyFirebaseTokenMiddleware, async (req: Request, res: Response): Promise<any> => {
     try {

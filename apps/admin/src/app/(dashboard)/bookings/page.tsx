@@ -69,8 +69,12 @@ export default function BookingsPage() {
                                             {booking.user?.name || "Unknown Customer"}
                                             <div className="text-xs text-zinc-500 font-normal mt-1">{booking.user?.email}</div>
                                             <div className="text-xs text-zinc-500 font-normal">{booking.user?.phone || "No phone provided"}</div>
-                                            <div className="text-xs text-zinc-400 font-normal mt-1">Departed: {booking.departedName}</div>
-                                        </td>
+                                            <div className="text-xs text-zinc-500 font-normal mt-1">Departed: {booking.departedName}</div>
+                                            <div className="text-xs text-amber-600 font-normal mt-1 border-t border-zinc-100 pt-1">Ritual Address: {booking.address || "Contact for address"}</div>
+                                            {booking.user?.address && (
+                                                <div className="text-[10px] text-zinc-400 font-normal italic mt-0.5">User Profile Address: {booking.user.address}</div>
+                                            )}
+                                         </td>
                                         <td className="px-6 py-4 text-zinc-500">{booking.service?.name || "Pinddaan Ritual"}</td>
                                         <td className="px-6 py-4 text-zinc-500">{new Date(booking.ritualDate).toLocaleDateString()}</td>
                                         <td className="px-6 py-4">

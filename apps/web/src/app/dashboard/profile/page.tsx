@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation"
 import { Card, CardContent, CardFooter } from "@/components/ui/Card"
 import { User as UserIcon, LogOut, Mail, Phone, Calendar, Edit2, MapPin, Check, X } from "lucide-react"
 
+import { apiClient } from "@/lib/api-client"
 import BackButton from "@/components/shared/BackButton"
 
 export default function ProfilePage() {
@@ -19,12 +20,18 @@ export default function ProfilePage() {
   const router = useRouter()
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser)
-        setPhoneNumber(currentUser.phoneNumber || "")
-        // Mock address - in a real app this would come from the database
-        setAddress("123 Sacred Ghat Road, Kashi, Uttar Pradesh")
+        try {
+          const res = await apiClient("/users/me")
+          if (res.success) {
+            setPhoneNumber(res.user.phone || "")
+            setAddress(res.user.address || "")
+          }
+        } catch (err) {
+          console.error("Failed to fetch user profile", err)
+        }
       } else {
         router.push("/auth/login")
       }
@@ -43,14 +50,28 @@ export default function ProfilePage() {
     }
   }
 
-  const handleSavePhone = () => {
-    setIsEditingPhone(false)
-    // Here you would typically call a backend API to update the user profile
+  const handleSavePhone = async () => {
+    try {
+      await apiClient("/users/me/update", {
+        method: "PATCH",
+        body: JSON.stringify({ phone: phoneNumber })
+      })
+      setIsEditingPhone(false)
+    } catch (err) {
+      alert("Failed to save phone: " + (err as Error).message)
+    }
   }
 
-  const handleSaveAddress = () => {
-    setIsEditingAddress(false)
-    // Here you would typically call a backend API to update the user profile
+  const handleSaveAddress = async () => {
+    try {
+      await apiClient("/users/me/update", {
+        method: "PATCH",
+        body: JSON.stringify({ address: address })
+      })
+      setIsEditingAddress(false)
+    } catch (err) {
+      alert("Failed to save address: " + (err as Error).message)
+    }
   }
 
   if (loading) {

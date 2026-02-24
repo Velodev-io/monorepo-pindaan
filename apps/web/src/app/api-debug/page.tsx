@@ -3,9 +3,17 @@ import { useEffect, useState } from 'react';
 
 export default function ApiDebug() {
     const [envValue, setEnvValue] = useState<string | undefined>("Loading...");
+    const [userId, setUserId] = useState<string | null>("Checking...");
 
     useEffect(() => {
         setEnvValue(process.env.NEXT_PUBLIC_API_URL);
+        
+        // Check current Firebase User
+        const { auth } = require('@/lib/firebase');
+        const { onAuthStateChanged } = require('firebase/auth');
+        onAuthStateChanged(auth, (user: any) => {
+            setUserId(user ? user.uid : "Not Logged In");
+        });
     }, []);
 
     return (
@@ -13,6 +21,7 @@ export default function ApiDebug() {
             <h1>🔍 Deployment Debugger</h1>
             <hr />
             <p><strong>URL in Browser:</strong> {typeof window !== 'undefined' ? window.location.href : 'N/A'}</p>
+            <p><strong>Firebase User ID:</strong> {userId}</p>
             <p><strong>NEXT_PUBLIC_API_URL Value:</strong> 
                 <span style={{ color: envValue ? 'green' : 'red', fontWeight: 'bold', marginLeft: '10px' }}>
                     {envValue || "UNDEFINED (This is why it is failing)"}

@@ -34,6 +34,13 @@ export default function BookingsPage() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
+          // 1. Sync User first
+          await apiClient("/users/sync", {
+              method: "POST",
+              body: JSON.stringify({ name: user.displayName, email: user.email })
+          });
+
+          // 2. Fetch Bookings
           const json = await apiClient("/bookings")
           if (json.success) {
             setBookings(json.data)
