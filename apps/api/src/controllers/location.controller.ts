@@ -29,6 +29,15 @@ const slugify = (text: string) => {
         .replace(/--+/g, "-");
 };
 
+const formatLocation = (loc: any) => {
+    if (!loc) return null;
+    const { locationServices, ...rest } = loc;
+    return {
+        ...rest,
+        services: locationServices || []
+    };
+};
+
 export const createLocation = async (req: Request, res: Response) => {
     try {
         const validatedData = createLocationSchema.parse(req.body);
@@ -60,7 +69,7 @@ export const createLocation = async (req: Request, res: Response) => {
             },
         });
 
-        return res.status(201).json({ success: true, data: location });
+        return res.status(201).json({ success: true, data: formatLocation(location) });
     } catch (error) {
         if (error instanceof z.ZodError) {
             return res.status(400).json({ error: "Validation Error", details: error.issues });
@@ -79,7 +88,7 @@ export const getAllLocations = async (req: Request, res: Response) => {
             orderBy: { name: "asc" },
         });
 
-        return res.json({ success: true, data: locations });
+        return res.json({ success: true, data: locations.map(formatLocation) });
     } catch (error) {
         console.error("Get All Locations Error:", error);
         return res.status(500).json({ error: "Internal Server Error" });
@@ -100,7 +109,7 @@ export const getLocationById = async (req: Request, res: Response) => {
             return res.status(404).json({ error: "Location not found" });
         }
 
-        return res.json({ success: true, data: location });
+        return res.json({ success: true, data: formatLocation(location) });
     } catch (error) {
         console.error("Get Location By ID Error:", error);
         return res.status(500).json({ error: "Internal Server Error" });
@@ -153,7 +162,7 @@ export const updateLocation = async (req: Request, res: Response) => {
             });
         });
 
-        return res.json({ success: true, data: result });
+        return res.json({ success: true, data: formatLocation(result) });
     } catch (error) {
         if (error instanceof z.ZodError) {
             return res.status(400).json({ error: "Validation Error", details: error.issues });
