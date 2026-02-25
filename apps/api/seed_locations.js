@@ -4,15 +4,15 @@ require('dotenv').config();
 const prisma = new PrismaClient();
 
 const LOCATIONS = [
-    { name: "Gaya", state: "Bihar" },
-    { name: "Varanasi", state: "UP" },
-    { name: "Haridwar", state: "Uttarakhand" },
-    { name: "Prayagraj", state: "UP" },
-    { name: "Kurukshetra", state: "Haryana" },
-    { name: "Siddhpur", state: "Gujarat" },
-    { name: "Nashik", state: "Maharashtra" },
-    { name: "Pushkar", state: "Rajasthan" },
-    { name: "Somnath", state: "Gujarat" },
+    { name: "Gaya", state: "Bihar", services: ["PIND_DAAN", "SHRADDH", "TARPAN"] },
+    { name: "Varanasi", state: "UP", services: ["ASTHI_VISARJAN", "PIND_DAAN", "SHRADDH", "TARPAN"] },
+    { name: "Haridwar", state: "Uttarakhand", services: ["ASTHI_VISARJAN", "PIND_DAAN", "SHRADDH", "TARPAN"] },
+    { name: "Prayagraj", state: "UP", services: ["ASTHI_VISARJAN", "PIND_DAAN", "SHRADDH", "TARPAN"] },
+    { name: "Kurukshetra", state: "Haryana", services: ["PIND_DAAN", "SHRADDH", "TARPAN"] },
+    { name: "Siddhpur", state: "Gujarat", services: ["PIND_DAAN", "SHRADDH"] },
+    { name: "Nashik", state: "Maharashtra", services: ["ASTHI_VISARJAN", "PIND_DAAN", "SHRADDH", "TARPAN"] },
+    { name: "Pushkar", state: "Rajasthan", services: ["PIND_DAAN", "SHRADDH", "TARPAN"] },
+    { name: "Somnath", state: "Gujarat", services: ["ASTHI_VISARJAN", "PIND_DAAN"] },
 ];
 
 const SERVICES_DATA = [
@@ -42,32 +42,43 @@ async function main() {
         });
     }
 
-    console.log("Seeding locations mapping system...");
+    console.log("Cleaning up old location services...");
+    await prisma.locationService.deleteMany({});
 
-    const SERVICE_KEYS = SERVICES_DATA.map((s) => s.id);
+    console.log("Seeding diversified locations mapping system...");
 
     for (const loc of LOCATIONS) {
         const slug = slugify(loc.name);
-        console.log(`Processing ${loc.name}...`);
+        console.log(`Processing ${loc.name} with ${loc.services.length} services...`);
 
         await prisma.location.upsert({
             where: { slug },
-            update: {},
+            update: {
+                name: loc.name,
+                state: loc.state,
+                isActive: true,
+            },
             create: {
                 name: loc.name,
                 state: loc.state,
                 slug,
                 description: `Sacred rituals performed at ${loc.name}, ${loc.state}.`,
                 isActive: true,
-                locationServices: {
-                    create: SERVICE_KEYS.map((service) => ({
-                        service,
-                        isPrimary: service === "PIND_DAAN",
-                        notes: `Traditional ${service.replace("_", " ")} services available at ${loc.name}.`,
-                    })),
-                },
             },
         });
+
+        const location = await prisma.location.findUnique({ where: { slug } });
+
+        if (location) {
+            await prisma.locationService.createMany({
+                data: loc.services.map((service) => ({
+                    locationId: location.id,
+                    service,
+                    isPrimary: service === "PIND_DAAN" || (loc.name === "Somnath" && service === "ASTHI_VISARJAN"),
+                    notes: `Traditional ${service.replace("_", " ")} services available at ${loc.name}.`,
+                })),
+            });
+        }
     }
 
     console.log("Seeding complete!");
