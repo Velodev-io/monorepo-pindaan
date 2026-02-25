@@ -23,6 +23,7 @@ export default function LocationsPage() {
     name: "",
     state: "",
     description: "",
+    image: "",
     isActive: true,
     services: [] as { service: ServiceKey; isPrimary: boolean; notes: string }[],
   });
@@ -50,6 +51,7 @@ export default function LocationsPage() {
         name: location.name,
         state: location.state,
         description: location.description || "",
+        image: location.image || "",
         isActive: location.isActive,
         services: location.services.map(s => ({
           service: s.service,
@@ -63,6 +65,7 @@ export default function LocationsPage() {
         name: "",
         state: "",
         description: "",
+        image: "",
         isActive: true,
         services: [],
       });
@@ -181,8 +184,25 @@ export default function LocationsPage() {
               {locations.map((loc) => (
                 <tr key={loc.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-colors">
                   <td className="px-6 py-4">
-                    <div className="font-bold text-zinc-900 dark:text-white">{loc.name}</div>
-                    <div className="text-xs text-zinc-500">{loc.state}</div>
+                    <div className="flex items-center gap-3">
+                      <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-zinc-100 dark:bg-zinc-800">
+                        {loc.image ? (
+                          <img 
+                            src={loc.image} 
+                            alt={loc.name} 
+                            className="object-cover w-full h-full"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <AlertCircle size={16} className="text-zinc-300" />
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        <div className="font-bold text-zinc-900 dark:text-white leading-tight">{loc.name}</div>
+                        <div className="text-[10px] text-zinc-500 font-medium uppercase tracking-wider mt-0.5">{loc.state}</div>
+                      </div>
+                    </div>
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex flex-wrap gap-1">
@@ -276,6 +296,16 @@ export default function LocationsPage() {
                     placeholder="e.g. Uttar Pradesh"
                   />
                 </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">Image URL</label>
+                <input
+                  value={formData.image}
+                  onChange={e => setFormData({ ...formData, image: e.target.value })}
+                  className="w-full px-4 py-2 border border-zinc-200 dark:border-zinc-700 rounded-lg bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  placeholder="e.g. /images/vashik.png"
+                />
               </div>
 
               <div className="space-y-2">

@@ -12,6 +12,7 @@ const createLocationSchema = z.object({
     name: z.string().min(1),
     state: z.string().min(1),
     description: z.string().optional(),
+    image: z.string().optional(),
     isActive: z.boolean().default(true),
     services: z.array(locationServiceSchema).min(1).refine(
         (services) => services.filter(s => s.isPrimary).length <= 1,
@@ -55,6 +56,7 @@ export const createLocation = async (req: Request, res: Response) => {
                 state: validatedData.state,
                 slug,
                 description: validatedData.description,
+                image: validatedData.image,
                 isActive: validatedData.isActive,
                 locationServices: {
                     create: validatedData.services.map((s) => ({
@@ -130,6 +132,7 @@ export const updateLocation = async (req: Request, res: Response) => {
             name: validatedData.name,
             state: validatedData.state,
             description: validatedData.description,
+            image: validatedData.image,
             isActive: validatedData.isActive,
         };
 
@@ -283,7 +286,8 @@ export const getMultiServiceLocations = async (req: Request, res: Response) => {
                 commonLocations.push({
                     id: loc.id,
                     name: loc.name,
-                    state: loc.state
+                    state: loc.state,
+                    image: loc.image
                 });
             }
 
@@ -294,7 +298,8 @@ export const getMultiServiceLocations = async (req: Request, res: Response) => {
                     serviceLocations[sk].push({
                         id: loc.id,
                         name: loc.name,
-                        state: loc.state
+                        state: loc.state,
+                        image: loc.image
                     });
                 }
             });

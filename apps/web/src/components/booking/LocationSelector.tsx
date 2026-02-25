@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ServiceKey, SERVICE_LABELS, MultiLocationResponse } from "@pinddaan/shared";
 import { LocationService } from "@/services/location.service";
 import { MapPin, CheckCircle2, AlertCircle, Info } from "lucide-react";
+import Image from "next/image";
 
 export type SelectionData = {
   type: "common" | "individual";
@@ -128,22 +129,40 @@ export default function LocationSelector({ selectedServices, onSelectionChange }
                   <button
                     key={loc.id}
                     onClick={() => handleSelectCommon(loc.id)}
-                    className={`group relative p-6 text-left rounded-3xl border-2 transition-all duration-300 hover:shadow-lg active:scale-[0.98] ${
+                    className={`group relative p-4 text-left rounded-3xl border-2 transition-all duration-300 hover:shadow-lg active:scale-[0.98] overflow-hidden ${
                       commonLocationId === loc.id
-                        ? "border-amber-500 bg-amber-50/30 ring-4 ring-amber-500/10"
+                        ? "border-amber-500 bg-amber-50/20 ring-4 ring-amber-500/10"
                         : "border-zinc-100 bg-white hover:border-amber-200"
                     }`}
                   >
-                    <div className={`absolute top-5 right-5 w-7 h-7 rounded-full flex items-center justify-center border-2 transition-all ${
-                      commonLocationId === loc.id ? 'bg-amber-500 border-amber-500' : 'border-zinc-200 group-hover:border-amber-300'
-                    }`}>
-                      {commonLocationId === loc.id && <CheckCircle2 className="text-white" size={18} />}
+                    <div className="flex gap-4 items-center">
+                      <div className="relative w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0">
+                        {loc.image ? (
+                          <Image 
+                            src={loc.image} 
+                            alt={loc.name} 
+                            fill 
+                            className="object-cover transition-transform group-hover:scale-110"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-zinc-100 flex items-center justify-center">
+                            <MapPin size={24} className="text-zinc-300" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0 pr-8">
+                        <h4 className="text-xl font-extrabold text-zinc-900 truncate">{loc.name}</h4>
+                        <span className="inline-block px-2 py-0.5 bg-zinc-100 text-zinc-600 text-[10px] font-bold uppercase rounded-md tracking-wider">
+                          {loc.state}
+                        </span>
+                      </div>
+                      
+                      <div className={`absolute top-4 right-4 w-7 h-7 rounded-full flex items-center justify-center border-2 transition-all ${
+                        commonLocationId === loc.id ? 'bg-amber-500 border-amber-500' : 'border-zinc-200 group-hover:border-amber-300'
+                      }`}>
+                        {commonLocationId === loc.id && <CheckCircle2 className="text-white" size={18} />}
+                      </div>
                     </div>
-                    
-                    <h4 className="text-xl font-extrabold text-zinc-900 mb-1">{loc.name}</h4>
-                    <span className="inline-block px-2 py-0.5 bg-zinc-100 text-zinc-600 text-[10px] font-bold uppercase rounded-md tracking-wider">
-                      {loc.state}
-                    </span>
                   </button>
                 ))}
               </div>
@@ -194,18 +213,41 @@ export default function LocationSelector({ selectedServices, onSelectionChange }
                     <button
                       key={loc.id}
                       onClick={() => handleSelectIndividual(sk, loc.id)}
-                      className={`relative p-5 text-left rounded-2xl border-2 transition-all duration-300 active:scale-[0.98] ${
+                      className={`group relative p-4 text-left rounded-3xl border-2 transition-all duration-300 active:scale-[0.98] overflow-hidden ${
                         individualSelections[sk] === loc.id
-                          ? "border-zinc-900 bg-zinc-900 shadow-xl shadow-zinc-900/20 translate-y-[-2px]"
+                          ? "border-zinc-900 shadow-xl shadow-zinc-900/10"
                           : "border-zinc-100 bg-white hover:border-zinc-300"
                       }`}
                     >
-                      <h5 className={`font-bold text-base ${individualSelections[sk] === loc.id ? 'text-white' : 'text-zinc-900'}`}>
-                        {loc.name}
-                      </h5>
-                      <p className={`text-xs mt-0.5 ${individualSelections[sk] === loc.id ? 'text-zinc-400' : 'text-zinc-500'}`}>
-                        {loc.state}
-                      </p>
+                      <div className="flex gap-4 items-center">
+                        <div className="relative w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0">
+                          {loc.image ? (
+                            <Image 
+                              src={loc.image} 
+                              alt={loc.name} 
+                              fill 
+                              className="object-cover transition-transform group-hover:scale-110"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-zinc-100 flex items-center justify-center">
+                              <MapPin size={20} className="text-zinc-300" />
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h5 className="font-bold text-base text-zinc-900 truncate">
+                            {loc.name}
+                          </h5>
+                          <p className="text-xs text-zinc-500 truncate">
+                            {loc.state}
+                          </p>
+                        </div>
+                        {individualSelections[sk] === loc.id && (
+                          <div className="w-6 h-6 rounded-full bg-zinc-900 text-white flex items-center justify-center shrink-0">
+                            <CheckCircle2 size={12} />
+                          </div>
+                        )}
+                      </div>
                     </button>
                   ))}
                 </div>

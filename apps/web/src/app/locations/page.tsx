@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/Button"
 
 const LOCATIONS = [
   {
-    id: "kashi",
+    id: "varanasi",
     name: "Kashi (Varanasi)",
     title: "The Eternal City of Light",
     description: "Kashi is the spiritual heart of India. Performing rituals on the Dashashwamedh and Manikarnika Ghats is believed to liberate the soul from the cycle of birth and death.",
@@ -17,12 +17,12 @@ const LOCATIONS = [
     accent: "orange"
   },
   {
-    id: "prayagraj",
-    name: "Prayagraj",
-    title: "King of All Pilgrimage Sites",
-    description: "The holy Triveni Sangam – the confluence of Ganga, Yamuna, and the mythical Saraswati. A dip here during the Kumbh is the ultimate purification.",
-    longDescription: "Prayagraj is the 'Teerthraj', the king of all holy places. The Triveni Sangam serves as the most powerful point for ancestor rites, where the earthly and divine waters meet to carry offerings to the ancestors.",
-    image: "/images/triveni_sangam_hero_1771775992808.png",
+    id: "gaya",
+    name: "Gaya",
+    title: "The Land of Salvation",
+    description: "Crucial for Pitru Dosha Nivaran. The Phalgu River and Vishnupad Temple hold the footprints of Lord Vishnu, ensuring peace for the departed.",
+    longDescription: "Gaya is uniquely designated for Pind Daan. It is said that Lord Ram himself performed the first ritual here for his father, Dasharatha. The spiritual vibrations of Gaya are unmatched for ancestral liberation.",
+    image: "/images/gaya_vishnupad_temple_1771776066448.png",
     accent: "amber"
   },
   {
@@ -35,13 +35,58 @@ const LOCATIONS = [
     accent: "orange"
   },
   {
-    id: "gaya",
-    name: "Gaya",
-    title: "The Land of Salvation",
-    description: "Crucial for Pitru Dosha Nivaran. The Phalgu River and Vishnupad Temple hold the footprints of Lord Vishnu, ensuring peace for the departed.",
-    longDescription: "Gaya is uniquely designated for Pind Daan. It is said that Lord Ram himself performed the first ritual here for his father, Dasharatha. The spiritual vibrations of Gaya are unmatched for ancestral liberation.",
-    image: "/images/gaya_vishnupad_temple_1771776066448.png",
+    id: "prayagraj",
+    name: "Prayagraj",
+    title: "King of All Pilgrimage Sites",
+    description: "The holy Triveni Sangam – the confluence of Ganga, Yamuna, and the mythical Saraswati. A dip here during the Kumbh is the ultimate purification.",
+    longDescription: "Prayagraj is the 'Teerthraj', the king of all holy places. The Triveni Sangam serves as the most powerful point for ancestor rites, where the earthly and divine waters meet to carry offerings to the ancestors.",
+    image: "/images/triveni_sangam_hero_1771775992808.png",
     accent: "amber"
+  },
+  {
+    id: "kurukshetra",
+    name: "Kurukshetra",
+    title: "The Field of Righteousness",
+    description: "The site of the ancient Mahabharata battle and where the Bhagavad Gita was spoken. The Brahma Sarovar is a supreme site for Pind Daan.",
+    longDescription: "Kurukshetra is is of immense spiritual significance. The Brahma Sarovar is believed to have been created by Lord Brahma himself, making it a highly auspicious location for performing rites for ancestors.",
+    image: "/images/kurukshetra.png",
+    accent: "orange"
+  },
+  {
+    id: "nashik",
+    name: "Nashik",
+    title: "The Holy Panchavati",
+    description: "Bathing in the holy Ram Kund and performing rituals on the Godavari banks offers immense peace. It is where Lord Ram stayed during exile.",
+    longDescription: "Nashik, particularly the Panchavati area, is deeply connected to the Ramayana. The Ram Kund is where thousands gather for Asthi Visarjan and ancestor worship in the holy Godavari waters.",
+    image: "/images/nashik.png",
+    accent: "amber"
+  },
+  {
+    id: "pushkar",
+    name: "Pushkar",
+    title: "The Abode of Lord Brahma",
+    description: "One of the five sacred 'Sarovars'. Pushkar is the only place in the world with a temple dedicated to Lord Brahma, ideal for Pitru Tarpan.",
+    longDescription: "Pushkar is a mystical town where the desert meets the divine. A ritual at the 52 ghats of Pushkar Lake is considered equivalent to a full pilgrimage, especially for releasing the souls of ancestors.",
+    image: "/images/pushkar.png",
+    accent: "orange"
+  },
+  {
+    id: "somnath",
+    name: "Somnath",
+    title: "The Eternal Shore of Shiva",
+    description: "Where the Triveni Sangam meets the Arabian Sea. Somnath offers a unique spiritual experience for releasing the soul into the eternal.",
+    longDescription: "The Somnath Temple stands as a symbol of eternal resurrection. The Triveni Sangam here – the meeting of three rivers and the sea – is a powerful portal for performing last rites and immersion.",
+    image: "/images/somnath.png",
+    accent: "amber"
+  },
+  {
+    id: "siddhpur",
+    name: "Siddhpur",
+    title: "The Matru Gaya of India",
+    description: "Bindu Sarovar in Siddhpur is the only place in the world specifically for rituals honoring one's mother (Matru Gaya).",
+    longDescription: "Siddhpur is the counterpart to Gaya, specifically meant for Matru-Shraddh. Legend says Lord Parshuram performed the ritual for his mother here at the Bindu Sarovar, sanctifying it for all mothers.",
+    image: "/images/siddhpur.png",
+    accent: "orange"
   }
 ]
 

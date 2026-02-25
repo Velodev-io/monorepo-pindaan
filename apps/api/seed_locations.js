@@ -4,15 +4,15 @@ require('dotenv').config();
 const prisma = new PrismaClient();
 
 const LOCATIONS = [
-    { name: "Gaya", state: "Bihar", services: ["PIND_DAAN", "SHRADDH", "TARPAN"] },
-    { name: "Varanasi", state: "UP", services: ["ASTHI_VISARJAN", "PIND_DAAN", "SHRADDH", "TARPAN"] },
-    { name: "Haridwar", state: "Uttarakhand", services: ["ASTHI_VISARJAN", "PIND_DAAN", "SHRADDH", "TARPAN"] },
-    { name: "Prayagraj", state: "UP", services: ["ASTHI_VISARJAN", "PIND_DAAN", "SHRADDH", "TARPAN"] },
-    { name: "Kurukshetra", state: "Haryana", services: ["PIND_DAAN", "SHRADDH", "TARPAN"] },
-    { name: "Siddhpur", state: "Gujarat", services: ["PIND_DAAN", "SHRADDH"] },
-    { name: "Nashik", state: "Maharashtra", services: ["ASTHI_VISARJAN", "PIND_DAAN", "SHRADDH", "TARPAN"] },
-    { name: "Pushkar", state: "Rajasthan", services: ["PIND_DAAN", "SHRADDH", "TARPAN"] },
-    { name: "Somnath", state: "Gujarat", services: ["ASTHI_VISARJAN", "PIND_DAAN"] },
+    { name: "Gaya", state: "Bihar", image: "/images/gaya_vishnupad_temple_1771776066448.png", services: ["PIND_DAAN", "SHRADDH", "TARPAN"] },
+    { name: "Varanasi", state: "UP", image: "/images/kashi_ghats_1771776018344.png", services: ["ASTHI_VISARJAN", "PIND_DAAN", "SHRADDH", "TARPAN"] },
+    { name: "Haridwar", state: "Uttarakhand", image: "/images/haridwar_landing_1771776044242.png", services: ["ASTHI_VISARJAN", "PIND_DAAN", "SHRADDH", "TARPAN"] },
+    { name: "Prayagraj", state: "UP", image: "/images/triveni_sangam_hero_1771775992808.png", services: ["ASTHI_VISARJAN", "PIND_DAAN", "SHRADDH", "TARPAN"] },
+    { name: "Kurukshetra", state: "Haryana", image: "/images/kurukshetra.png", services: ["PIND_DAAN", "SHRADDH", "TARPAN"] },
+    { name: "Siddhpur", state: "Gujarat", image: "/images/siddhpur.png", services: ["PIND_DAAN", "SHRADDH"] },
+    { name: "Nashik", state: "Maharashtra", image: "/images/nashik.png", services: ["ASTHI_VISARJAN", "PIND_DAAN", "SHRADDH", "TARPAN"] },
+    { name: "Pushkar", state: "Rajasthan", image: "/images/pushkar.png", services: ["PIND_DAAN", "SHRADDH", "TARPAN"] },
+    { name: "Somnath", state: "Gujarat", image: "/images/somnath.png", services: ["ASTHI_VISARJAN", "PIND_DAAN"] },
 ];
 
 const SERVICES_DATA = [
@@ -56,12 +56,14 @@ async function main() {
             update: {
                 name: loc.name,
                 state: loc.state,
+                image: loc.image,
                 isActive: true,
             },
             create: {
                 name: loc.name,
                 state: loc.state,
                 slug,
+                image: loc.image,
                 description: `Sacred rituals performed at ${loc.name}, ${loc.state}.`,
                 isActive: true,
             },

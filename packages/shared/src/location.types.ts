@@ -14,6 +14,7 @@ export interface Location {
     state: string;
     slug: string;
     description?: string | null;
+    image?: string | null;
     isActive: boolean;
     services: LocationService[];
     createdAt: string | Date;
@@ -24,6 +25,7 @@ export interface CreateLocationDto {
     name: string;
     state: string;
     description?: string;
+    image?: string;
     isActive?: boolean;
     services: {
         service: ServiceKey;
@@ -35,6 +37,6 @@ export interface CreateLocationDto {
 export interface UpdateLocationDto extends Partial<CreateLocationDto> { }
 
 export interface MultiLocationResponse {
-    commonLocations: { id: string; name: string; state: string }[];
-    serviceLocations: Partial<Record<ServiceKey, { id: string; name: string; state: string }[]>>;
+    commonLocations: { id: string; name: string; state: string; image?: string | null }[];
+    serviceLocations: Partial<Record<ServiceKey, { id: string; name: string; state: string; image?: string | null }[]>>;
 }
