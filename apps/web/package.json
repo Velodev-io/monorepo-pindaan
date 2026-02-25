@@ -12,7 +12,12 @@
     "@aws-sdk/client-s3": "^3.995.0",
     "@aws-sdk/s3-request-presigner": "^3.995.0",
     "@hookform/resolvers": "^5.2.2",
+    "@pinddaan/config": "*",
+    "@pinddaan/schemas": "*",
+    "@pinddaan/shared": "*",
+    "@pinddaan/types": "*",
     "@prisma/client": "^5.22.0",
+    "@vercel/analytics": "^1.6.1",
     "bcrypt": "^6.0.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
@@ -30,11 +35,7 @@
     "react-hook-form": "^7.71.2",
     "stripe": "^20.3.1",
     "tailwind-merge": "^3.5.0",
-    "zod": "^4.3.6",
-    "@pinddaan/schemas": "*",
-    "@pinddaan/shared": "*",
-    "@pinddaan/types": "*",
-    "@pinddaan/config": "*"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

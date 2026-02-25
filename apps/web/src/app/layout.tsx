@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import ConditionalFooter from "@/components/shared/ConditionalFooter";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -34,6 +35,7 @@ export default function RootLayout({
           {children}
         </main>
         <ConditionalFooter />
+        <Analytics />
       </body>
     </html>
   );

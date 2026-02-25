@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Admin Portal | Pinddaan.store",
@@ -15,6 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-zinc-950 antialiased font-sans">
         {children}
+        <Analytics />
       </body>
     </html>
   );

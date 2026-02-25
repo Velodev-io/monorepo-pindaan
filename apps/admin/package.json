@@ -14,6 +14,7 @@
     "@pinddaan/schemas": "*",
     "@pinddaan/shared": "*",
     "@pinddaan/types": "*",
+    "@vercel/analytics": "^1.6.1",
     "clsx": "^2.1.1",
     "firebase": "^12.9.0",
     "lucide-react": "^0.575.0",

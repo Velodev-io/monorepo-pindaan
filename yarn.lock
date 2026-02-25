@@ -1569,6 +1569,10 @@
     "@pinddaan/types" "*"
     zod "^3.22.4"
 
+"@pinddaan/shared@*", "@pinddaan/shared@file:/Users/ysingh/projects/Pinddaan/packages/shared":
+  version "1.0.0"
+  resolved "file:packages/shared"
+
 "@pinddaan/types@*", "@pinddaan/types@file:/Users/ysingh/projects/Pinddaan/packages/types":
   version "1.0.0"
   resolved "file:packages/types"
@@ -2563,6 +2567,11 @@
   resolved "https://registry.npmjs.org/@unrs/resolver-binding-darwin-arm64/-/resolver-binding-darwin-arm64-1.11.1.tgz"
   integrity sha512-gPVA1UjRu1Y/IsB/dQEsp2V1pm44Of6+LWvbLc9SDk1c2KhhDRDBUkQCYVWe6f26uJb3fOK8saWMgtX8IrMk3g==
 
+"@vercel/analytics@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.npmjs.org/@vercel/analytics/-/analytics-1.6.1.tgz"
+  integrity sha512-oH9He/bEM+6oKlv3chWuOOcp8Y6fo6/PSro8hEkgCW3pu9/OiCXiUpRUogDh3Fs3LH2sosDrx8CxeOLBEE+afg==
+
 abort-controller@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/abort-controller/-/abort-controller-3.0.0.tgz"
@@ -2602,6 +2611,7 @@ acorn-walk@^8.1.1:
     "@hookform/resolvers" "^5.2.2"
     "@pinddaan/config" "*"
     "@pinddaan/schemas" "*"
+    "@pinddaan/shared" "*"
     "@pinddaan/types" "*"
     clsx "^2.1.1"
     firebase "^12.9.0"
@@ -2663,6 +2673,7 @@ anymatch@~3.1.2:
     "@pinddaan/config" "*"
     "@pinddaan/db" "*"
     "@pinddaan/schemas" "*"
+    "@pinddaan/shared" "*"
     "@pinddaan/types" "*"
     cors "^2.8.5"
     express "^4.18.2"
@@ -4983,7 +4994,7 @@ next-themes@^0.4.6:
   resolved "https://registry.npmjs.org/next-themes/-/next-themes-0.4.6.tgz"
   integrity sha512-pZvgD5L0IEvX5/9GWyHMf3m8BKiVQwsCMHfoFosXtXBMnaS0ZnIJ9ST4b4NqLVKDEm8QBxoNNGNaBv2JNF6XNA==
 
-next@16.1.6:
+"next@>= 13", next@16.1.6:
   version "16.1.6"
   resolved "https://registry.npmjs.org/next/-/next-16.1.6.tgz"
   integrity sha512-hkyRkcu5x/41KoqnROkfTm2pZVbKxvbZRuNvKXLRXxs3VfyO0WhY50TQS40EuKO9SW3rBj/sF3WbVwDACeMZyw==
@@ -5238,8 +5249,10 @@ picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.3.1:
     "@hookform/resolvers" "^5.2.2"
     "@pinddaan/config" "*"
     "@pinddaan/schemas" "*"
+    "@pinddaan/shared" "*"
     "@pinddaan/types" "*"
     "@prisma/client" "^5.22.0"
+    "@vercel/analytics" "^1.6.1"
     bcrypt "^6.0.0"
     clsx "^2.1.1"
     date-fns "^4.1.0"
@@ -5465,7 +5478,7 @@ react-is@^16.13.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-"react@^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc", "react@^16.8.0 || ^17 || ^18 || ^19", "react@^18.0.0 || ^19.0.0", "react@^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0", react@^19.2.3, "react@>= 16.8.0 || 17.x.x || ^18.0.0-0 || ^19.0.0-0", react@19.2.3:
+"react@^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc", "react@^16.8.0 || ^17 || ^18 || ^19", "react@^18 || ^19 || ^19.0.0-rc", "react@^18.0.0 || ^19.0.0", "react@^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0", react@^19.2.3, "react@>= 16.8.0 || 17.x.x || ^18.0.0-0 || ^19.0.0-0", react@19.2.3:
   version "19.2.3"
   resolved "https://registry.npmjs.org/react/-/react-19.2.3.tgz"
   integrity sha512-Ku/hhYbVjOQnXDZFv2+RibmLFGwFdeeKHFcOTlrt7xplBnya5OGn/hIRDsqDiSUcfORsDC7MPxwork8jBwsIWA==
@@ -6150,8 +6163,6 @@ turbo-darwin-arm64@2.8.10:
 
 turbo@latest:
   version "2.8.10"
-  resolved "https://registry.npmjs.org/turbo/-/turbo-2.8.10.tgz"
-  integrity sha512-OxbzDES66+x7nnKGg2MwBA1ypVsZoDTLHpeaP4giyiHSixbsiTaMyeJqbEyvBdp5Cm28fc+8GG6RdQtic0ijwQ==
   optionalDependencies:
     turbo-darwin-64 "2.8.10"
     turbo-darwin-arm64 "2.8.10"
