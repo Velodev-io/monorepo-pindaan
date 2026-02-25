@@ -1,7 +1,7 @@
 "use client";
 
 import { AuthGuard } from "@/lib/auth-guard";
-import { Users, LayoutDashboard, Bookmark, Settings, Menu, X, LogOut } from "lucide-react";
+import { Users, LayoutDashboard, Bookmark, Settings, Menu, X, LogOut, MapPin } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -12,6 +12,7 @@ const NAVIGATION = [
   { name: "Users", href: "/users", icon: Users },
   { name: "Bookings", href: "/bookings", icon: Bookmark },
   { name: "Services", href: "/services", icon: Settings },
+  { name: "Locations", href: "/locations", icon: MapPin },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

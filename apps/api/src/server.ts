@@ -41,7 +41,7 @@ app.get("/health", (req, res) => res.json({ status: "OK" }));
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/bookings", bookingRoutes);
 app.use("/api/v1/services", ritualRoutes);
-app.use("/api/admin/locations", locationRoutes);
+app.use("/api/v1/admin/locations", locationRoutes);
 app.use("/api/v1/locations", publicLocationRoutes);
 
 // Central Error Handler
