@@ -31,10 +31,11 @@ export default function Navbar() {
         <Link href="/orders" className="text-sm font-medium text-slate-500 hover:text-slate-800 transition-all font-sans">Orders</Link>
         {user ? (
           <div className="flex items-center gap-6">
+            <Link href="/profile" className="text-sm font-medium text-slate-500 hover:text-slate-800 transition-all font-sans">Profile</Link>
             <span className="text-sm text-slate-600 font-sans hidden sm:block">Hi, {user.displayName?.split(' ')[0] || 'User'}</span>
             <button 
               onClick={() => signOut(auth)}
-              className="text-sm font-bold text-red-500 hover:text-red-600 transition-colors font-sans"
+              className="text-sm font-bold text-slate-400 hover:text-red-500 transition-colors font-sans"
             >
               Sign Out
             </button>

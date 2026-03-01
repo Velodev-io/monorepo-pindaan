@@ -1,6 +1,15 @@
 import { z } from "zod";
 import { BookingStatus, PaymentStatus, OrderStatus } from "@pinddaan/types";
 
+export const ProofVideoSchema = z.object({
+    status: z.enum(["NOT_AVAILABLE", "PROCESSING", "AVAILABLE"]),
+    videoUrl: z.string().optional(),
+    thumbnailUrl: z.string().optional(),
+    recordedAt: z.string().optional(),
+    notes: z.string().optional(),
+    watermarkText: z.string().optional(),
+});
+
 export const createBookingSchema = z.object({
     serviceId: z.string(),
     locationId: z.string(),

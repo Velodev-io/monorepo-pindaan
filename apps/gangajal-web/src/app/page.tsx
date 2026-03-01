@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Droplets, Globe, PackageCheck, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Droplets, Globe, PackageCheck, ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
 
 export default function Home() {
   return (
@@ -181,9 +181,9 @@ export default function Home() {
                 desc: "Sourced with Vedic precision from the most auspicious Himalayan currents, preserving the water's sacred essence."
               },
               {
-                icon: <Globe size={28} />,
-                title: "Seamless Global Access",
-                desc: "Bringing the holy Ganges to your doorstep in over 150 countries through our dedicated international spiritual logistics."
+                icon: <ShieldCheck size={28} />,
+                title: "Verification Video",
+                desc: "A unique transparency measure showing your specific order being prepared and sealed with reverence."
               },
               {
                 icon: <PackageCheck size={28} />,
@@ -202,6 +202,29 @@ export default function Home() {
                 <p className="text-slate-600 text-sm leading-[1.8]">{feature.desc}</p>
               </div>
             ))}
+          </div>
+
+          {/* New USP Section: Transparency with Reverence */}
+          <div className="mt-20 bg-slate-900 rounded-[48px] p-8 md:p-16 relative overflow-hidden shadow-2xl">
+              <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
+                  <video autoPlay muted loop playsInline className="w-full h-full object-cover">
+                      <source src="/videos/hero-background.mp4" type="video/mp4" />
+                  </video>
+              </div>
+              <div className="relative z-10 max-w-2xl">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-saffron/20 text-saffron rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
+                      <ShieldCheck size={14} /> Trust Through Devotion
+                  </div>
+                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-serif">Transparency with Reverence</h2>
+                  <p className="text-white/70 text-lg mb-10 leading-relaxed font-light">
+                      For many orders, we provide a short verification video showing the preparation and sealing of your specific Gangajal—so you can feel assured with dignity and trust that the sacred essence has been handled with the utmost respect.
+                  </p>
+                  <Link href="/orders">
+                      <button className="bg-saffron hover:bg-saffron/90 text-white px-8 py-4 rounded-full font-bold transition-all transform hover:scale-105 active:scale-95">
+                          See How It Works
+                      </button>
+                  </Link>
+              </div>
           </div>
         </div>
       </section>

@@ -46,6 +46,15 @@ export interface Location {
     isActive: boolean;
 }
 
+export interface ProofVideo {
+    status: "NOT_AVAILABLE" | "PROCESSING" | "AVAILABLE";
+    videoUrl?: string;
+    thumbnailUrl?: string;
+    recordedAt?: string;
+    notes?: string;
+    watermarkText?: string;
+}
+
 export interface Booking {
     id: string;
     userId: string;
@@ -63,6 +72,7 @@ export interface Booking {
     cremationDate?: string | Date;
     fatherName?: string;
     adminNotes?: string;
+    proofVideo?: ProofVideo;
     createdAt: string | Date;
     updatedAt: string | Date;
 }
@@ -106,6 +116,7 @@ export interface Order {
     shippingAddress: ShippingAddress;
     trackingNumber?: string;
     carrier?: string;
+    proofVideo?: ProofVideo;
     createdAt: Date | string;
     updatedAt: Date | string;
 }

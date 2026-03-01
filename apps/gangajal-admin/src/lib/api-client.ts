@@ -1,20 +1,8 @@
 import { auth } from "./firebase";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api/v1";
-const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK_ADMIN_DATA === "true";
-
-// Mock responses for local development when no backend is running.
-// Toggle via NEXT_PUBLIC_USE_MOCK_ADMIN_DATA=true in .env
-const MOCK_RESPONSES: Record<string, unknown> = {
-    "/users/sync": { success: true },
-    "/users/me/role": { role: "ADMIN" },
-};
 
 export async function apiClient(endpoint: string, options: RequestInit = {}) {
-    if (USE_MOCK) {
-        return MOCK_RESPONSES[endpoint] ?? { success: true, data: [] };
-    }
-
     const user = auth.currentUser;
     const token = user ? await user.getIdToken() : "";
 

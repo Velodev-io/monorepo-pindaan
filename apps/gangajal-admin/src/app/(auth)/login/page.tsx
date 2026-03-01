@@ -20,20 +20,29 @@ export default function LoginPage() {
         setError("");
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
             
             // Explicitly sync the user into the Neon DB 
-            // This prevents an immediate AuthGuard 401 if they were added via Firebase Console instead of Web Registration!
-                        await apiClient("/users/sync", {
+            await apiClient("/users/sync", {
                 method: "POST",
-                body: JSON.stringify({}),
+                body: JSON.stringify({
+                    name: userCredential.user.displayName,
+                    email: userCredential.user.email,
+                }),
             });
 
-            // The AuthGuard will handle strict role verification upon redirect
             router.push("/");
-        } catch (err: unknown) {
-            console.error("Login failed:", err);
-            setError("Invalid credentials or unauthorized.");
+        } catch (err: any) {
+            console.error("Login failed:", err.code, err.message);
+            if (err.code === "auth/invalid-credential") {
+                setError("Incorrect email or password. Please check your credentials.");
+            } else if (err.code === "auth/user-not-found") {
+                setError("No account found with this email.");
+            } else if (err.code === "auth/too-many-requests") {
+                setError("Too many failed attempts. Please try again later.");
+            } else {
+                setError(err.message || "An unexpected error occurred during authentication.");
+            }
         } finally {
             setLoading(false);
         }
@@ -44,12 +53,15 @@ export default function LoginPage() {
         setError("");
 
         try {
-            await signInWithPopup(auth, googleProvider);
+            const userCredential = await signInWithPopup(auth, googleProvider);
             
             // Explicitly sync the user into the Neon DB 
             await apiClient("/users/sync", {
                 method: "POST",
-                body: JSON.stringify({}),
+                body: JSON.stringify({
+                    name: userCredential.user.displayName,
+                    email: userCredential.user.email,
+                }),
             });
 
             // The AuthGuard will handle strict role verification upon redirect

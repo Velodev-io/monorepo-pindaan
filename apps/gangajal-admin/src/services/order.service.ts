@@ -18,4 +18,7 @@ export const OrderService = {
             body: JSON.stringify(update),
         });
     },
+    async getRecentOrders(limit = 5): Promise<{ success: boolean; data: Order[] }> {
+        return apiClient(`/orders/recent?limit=${limit}`);
+    }
 };

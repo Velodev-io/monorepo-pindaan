@@ -13,6 +13,7 @@ const MOCK_ORDERS = [
     status: "SHIPPED",
     items: "Gangajal (500ml) × 1",
     total: "$25.00",
+    proofStatus: "AVAILABLE"
   },
 ];
 
@@ -62,15 +63,20 @@ function OrdersContent() {
                   <span className="px-3 py-1 rounded-full bg-slate-100 text-[10px] font-black text-slate-600 uppercase tracking-widest">
                     {order.status}
                   </span>
+                  <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${order.proofStatus === "AVAILABLE" ? "bg-saffron/10 text-saffron" : "bg-slate-100 text-slate-400"}`}>
+                    Verification: {order.proofStatus}
+                  </span>
                 </div>
                 <p className="text-slate-500 text-sm font-medium">{order.date} · {order.items}</p>
               </div>
             </div>
             <div className="text-right">
               <p className="font-black text-2xl text-slate-900 font-serif">{order.total}</p>
-              <button className="text-xs font-bold text-saffron mt-2 hover:text-saffron/80 transition-all uppercase tracking-widest">
-                View Details
-              </button>
+              <Link href={`/orders/${order.id}`}>
+                <button className="text-xs font-bold text-saffron mt-2 hover:text-saffron/80 transition-all uppercase tracking-widest">
+                  View Details
+                </button>
+              </Link>
             </div>
           </div>
         ))}
