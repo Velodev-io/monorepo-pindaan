@@ -1,0 +1,13 @@
+{
+    "name": "@pinddaan/email",
+    "version": "1.0.0",
+    "main": "index.ts",
+    "types": "index.ts",
+    "license": "MIT",
+    "dependencies": {
+        "nodemailer": "^8.0.1"
+    },
+    "devDependencies": {
+        "@types/nodemailer": "^7.0.11"
+    }
+}

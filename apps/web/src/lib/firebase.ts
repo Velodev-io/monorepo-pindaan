@@ -1,5 +1,4 @@
-import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getFirebaseApp, getFirebaseAuth, getGoogleProvider } from "@pinddaan/auth/client";
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -10,19 +9,8 @@ const firebaseConfig = {
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase safely on the client/server
-let app: FirebaseApp;
-try {
-    app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-} catch {
-    if (getApps().length) {
-        app = getApp();
-    } else {
-        // Last resort for build time
-        app = initializeApp({ ...firebaseConfig, apiKey: "dummy" });
-    }
-}
-const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
+const app = getFirebaseApp(firebaseConfig);
+const auth = getFirebaseAuth(app);
+const googleProvider = getGoogleProvider();
 
 export { app, auth, googleProvider };
