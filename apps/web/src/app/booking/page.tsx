@@ -8,6 +8,7 @@ import { Card, CardFooter } from "@/components/ui/Card"
 import { LOCATIONS_DATA } from "@/config/data"
 import { COUNTRY_CODES } from "@/config/countries"
 import { auth } from "@/lib/firebase"
+import { onAuthStateChanged } from "firebase/auth"
 import BackButton from "@/components/shared/BackButton"
 import { Loader2 } from "lucide-react"
 import { apiClient } from "@/lib/api-client"
@@ -44,6 +45,24 @@ function BookingForm() {
     contactPhone: "",
     notes: ""
   })
+
+  // Sync user with DB on load
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user: any) => {
+      if (user) {
+        try {
+          await apiClient("/users/sync", {
+            method: "POST",
+            body: JSON.stringify({ name: user.displayName, email: user.email })
+          });
+          console.log("User synced successfully");
+        } catch (err) {
+          console.error("User sync failed", err);
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   // Fetch alive services from DB
   useEffect(() => {
