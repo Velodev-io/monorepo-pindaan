@@ -1,26 +1,31 @@
 import nodemailer from "nodemailer";
 import { ENV } from "@pinddaan/config";
 
-const transporter = nodemailer.createTransport({
-    host: ENV.EMAIL_HOST,
-    port: Number(ENV.EMAIL_PORT),
-    secure: Number(ENV.EMAIL_PORT) === 465,
-    auth: {
-        user: ENV.EMAIL_USER,
-        pass: ENV.EMAIL_PASS,
-    },
-});
+// Create transporter lazily so it always reads the current process.env values
+// at send-time rather than stale undefined values captured at import-time.
+function createTransporter() {
+    return nodemailer.createTransport({
+        host: process.env.EMAIL_HOST || ENV.EMAIL_HOST,
+        port: Number(process.env.EMAIL_PORT || ENV.EMAIL_PORT || "587"),
+        secure: Number(process.env.EMAIL_PORT || ENV.EMAIL_PORT || "587") === 465,
+        auth: {
+            user: process.env.EMAIL_USER || ENV.EMAIL_USER,
+            pass: process.env.EMAIL_PASS || ENV.EMAIL_PASS,
+        },
+    });
+}
 
 export const EmailService = {
     async sendUserConfirmation(userEmail: string, userName: string, bookingDetails: any) {
+        const emailUser = process.env.EMAIL_USER || ENV.EMAIL_USER;
         console.log(`[EmailService] Attempting user confirmation for: ${userEmail}`);
-        if (!ENV.EMAIL_USER) {
-            console.warn("[EmailService] EMAIL_USER is missing from environment. Config keys:", Object.keys(ENV));
+        if (!emailUser) {
+            console.warn("[EmailService] EMAIL_USER is missing from environment. Skipping confirmation email.");
             return;
         }
 
         const mailOptions = {
-            from: `"Pinddaan | Sacred Rituals" <${ENV.EMAIL_USER}>`,
+            from: `"Pinddaan | Sacred Rituals" <${emailUser}>`,
             to: userEmail,
             subject: "Thank You for Your Trust - Your Ritual Booking is Confirmed",
             html: `
@@ -55,7 +60,7 @@ export const EmailService = {
         };
 
         try {
-            await transporter.sendMail(mailOptions);
+            await createTransporter().sendMail(mailOptions);
             console.log(`Confirmation email sent to ${userEmail}`);
         } catch (error) {
             console.error("Failed to send user email:", error);
@@ -63,15 +68,18 @@ export const EmailService = {
     },
 
     async sendAdminNotification(userDetails: any, bookingDetails: any) {
-        console.log(`[EmailService] Attempting admin notification to: ${ENV.ADMIN_EMAIL}`);
-        if (!ENV.EMAIL_USER) {
-            console.warn("[EmailService] EMAIL_USER is missing from environment.");
+        const emailUser = process.env.EMAIL_USER || ENV.EMAIL_USER;
+        const adminEmail = process.env.ADMIN_EMAIL || ENV.ADMIN_EMAIL;
+        const adminPanelUrl = process.env.ADMIN_PANEL_URL || ENV.ADMIN_PANEL_URL || "https://admin.pinddaan.store";
+        console.log(`[EmailService] Attempting admin notification to: ${adminEmail}`);
+        if (!emailUser) {
+            console.warn("[EmailService] EMAIL_USER is missing from environment. Skipping admin notification.");
             return;
         }
 
         const mailOptions = {
-            from: `"System Alert | Pinddaan" <${ENV.EMAIL_USER}>`,
-            to: ENV.ADMIN_EMAIL,
+            from: `"System Alert | Pinddaan" <${emailUser}>`,
+            to: adminEmail,
             subject: `New Booking Alert - ${userDetails.name}`,
             html: `
                 <div style="font-family: sans-serif; background-color: #f4f4f5; padding: 30px; border-radius: 10px;">
@@ -93,7 +101,7 @@ export const EmailService = {
                     </div>
                     
                     <p style="margin-top: 25px;">
-                        <a href="http://localhost:3002/bookings" style="background-color: #d97706; color: white; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+                        <a href="${adminPanelUrl}/bookings" style="background-color: #d97706; color: white; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-weight: bold;">
                             View in Admin Panel
                         </a>
                     </p>
@@ -102,8 +110,8 @@ export const EmailService = {
         };
 
         try {
-            await transporter.sendMail(mailOptions);
-            console.log(`Admin notification sent to ${ENV.ADMIN_EMAIL}`);
+            await createTransporter().sendMail(mailOptions);
+            console.log(`Admin notification sent to ${adminEmail}`);
         } catch (error) {
             console.error("Failed to send admin notification:", error);
         }

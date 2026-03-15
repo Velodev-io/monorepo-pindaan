@@ -36,20 +36,24 @@ export const createBooking = async (req: Request, res: Response, next: NextFunct
             }
         });
 
-        // Trigger Emails (Asynchronously)
-        EmailService.sendUserConfirmation(user.email, user.name, {
-            departedName: booking.departedName,
-            ritualDate: booking.ritualDate,
-            locationName: booking.location?.name
-        });
-
-        EmailService.sendAdminNotification(user, {
-            serviceName: booking.service?.name,
-            locationName: booking.location?.name,
-            departedName: booking.departedName,
-            gotra: booking.gotra,
-            ritualDate: booking.ritualDate
-        });
+        // Await both emails before responding — on Vercel serverless the container
+        // freezes the moment the HTTP response is sent, so fire-and-forget promises
+        // are killed before nodemailer can finish. Promise.allSettled ensures both
+        // complete (errors are caught internally inside each send method).
+        await Promise.allSettled([
+            EmailService.sendUserConfirmation(user.email, user.name, {
+                departedName: booking.departedName,
+                ritualDate: booking.ritualDate,
+                locationName: booking.location?.name
+            }),
+            EmailService.sendAdminNotification(user, {
+                serviceName: booking.service?.name,
+                locationName: booking.location?.name,
+                departedName: booking.departedName,
+                gotra: booking.gotra,
+                ritualDate: booking.ritualDate
+            })
+        ]);
 
         return res.status(201).json({ success: true, booking });
     } catch (error) {

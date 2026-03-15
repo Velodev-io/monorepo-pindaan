@@ -35,7 +35,8 @@ export const envSchema = z.object({
     EMAIL_PORT: z.string().optional().default("587"),
     EMAIL_USER: z.string().optional(),
     EMAIL_PASS: z.string().optional(),
-    ADMIN_EMAIL: z.string().optional().default("admin@pinddaan.store")
+    ADMIN_EMAIL: z.string().optional().default("admin@pinddaan.store"),
+    ADMIN_PANEL_URL: z.string().optional().default("https://admin.pinddaan.store")
 });
 
 export const validateEnv = () => {
