@@ -23,9 +23,9 @@ export default function HeroSection() {
         transition={{ duration: 1, ease: "easeOut" }}
         className="container relative z-10 mx-auto px-4 md:px-6 flex flex-col items-center text-center text-white"
       >
-        <span className="mb-4 text-amber-400 font-medium tracking-widest uppercase text-sm md:text-base">
+        <p className="mb-4 text-amber-400 font-medium tracking-widest uppercase text-sm md:text-base">
           Honoring Your Loved Ones
-        </span>
+        </p>
         <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold leading-tight max-w-4xl drop-shadow-lg text-white">
           Perform Sacred Hindu Rituals from Anywhere in the World
         </h1>

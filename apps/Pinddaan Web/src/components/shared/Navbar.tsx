@@ -1,14 +1,16 @@
 "use client"
 
+import dynamic from 'next/dynamic'
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
-import { Button } from "../ui/Button"
 import { Menu, UserCircle, LogOut, Home, LayoutDashboard, User, FileText, Video, ShieldCheck, X } from "lucide-react"
 import Image from "next/image"
 import { auth } from "@/lib/firebase"
 import { onAuthStateChanged, signOut, User as FirebaseUser } from "firebase/auth"
 import { useRouter } from "next/navigation"
+
+const Button = dynamic(() => import("../ui/Button").then(mod => mod.Button))
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -92,7 +94,8 @@ export default function Navbar() {
               variant="ghost" 
               size="icon" 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`md:hidden relative z-[80] ${isSolid ? "text-orange-950" : "text-white"}`}
+              className={`md:hidden relative z-[80] h-12 w-12 flex items-center justify-center ${isSolid ? "text-orange-950" : "text-white"}`}
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -122,7 +125,7 @@ export default function Navbar() {
                 <Link 
                   key={link.href} 
                   href={link.href}
-                  className={`text-sm font-medium transition-colors ${
+                  className={`text-sm font-medium transition-colors px-3 py-2 -mx-1 -my-1 rounded-md ${
                     isActive 
                       ? (isSolid ? "text-amber-600" : "text-amber-400") 
                       : (isSolid ? "text-orange-950/80 hover:text-amber-600" : "text-white/90 hover:text-white")
@@ -136,16 +139,16 @@ export default function Navbar() {
           
           <div className="flex items-center gap-2 md:gap-4">
             {user ? (
-              <Link href="/dashboard/profile">
+              <Link href="/dashboard/profile" className="p-1">
                 <div 
-                  className={`p-1 md:p-1.5 rounded-full border-2 transition-all cursor-pointer hover:scale-105 active:scale-95 ${
+                  className={`p-2.5 rounded-full border-2 transition-all cursor-pointer hover:scale-105 active:scale-95 flex items-center justify-center ${
                     isSolid 
                       ? "border-amber-500 bg-amber-50 text-amber-600" 
                       : "border-white/50 bg-white/10 text-white"
                   }`}
                   title="View Profile"
                 >
-                  <UserCircle className="h-5 w-5 md:h-6 md:w-6" />
+                  <UserCircle className="h-6 w-6" />
                 </div>
               </Link>
             ) : (

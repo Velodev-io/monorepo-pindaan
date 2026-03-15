@@ -1,10 +1,18 @@
+import dynamic from 'next/dynamic'
 import HeroSection from "@/components/shared/HeroSection"
-import TrustSection from "@/components/shared/TrustSection"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/Card"
-import { Button } from "@/components/ui/Button"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { SERVICES_DATA } from "@/config/data"
+
+// Dynamic imports for below-the-fold content
+const TrustSection = dynamic(() => import("@/components/shared/TrustSection"))
+const Button = dynamic(() => import("@/components/ui/Button").then(mod => mod.Button))
+const CardContent = dynamic(() => import("@/components/ui/Card").then(mod => mod.CardContent))
+const CardFooter = dynamic(() => import("@/components/ui/Card").then(mod => mod.CardFooter))
+const CardHeader = dynamic(() => import("@/components/ui/Card").then(mod => mod.CardHeader))
+const CardTitle = dynamic(() => import("@/components/ui/Card").then(mod => mod.CardTitle))
+const CardDescription = dynamic(() => import("@/components/ui/Card").then(mod => mod.CardDescription))
+const Card = dynamic(() => import("@/components/ui/Card").then(mod => mod.Card))
 
 export default function Home() {
 
@@ -19,7 +27,7 @@ export default function Home() {
           <div className="text-center mb-16">
             <h2 className="font-serif text-3xl md:text-5xl font-bold text-orange-950 mb-4">Our Sacred Services</h2>
             <div className="w-24 h-1 bg-amber-500 mx-auto rounded-full mb-6" />
-            <p className="max-w-2xl mx-auto text-orange-900/70 text-lg">
+            <p className="max-w-2xl mx-auto text-orange-900/90 text-lg">
               We coordinate authentic Shastric rites at Dashashwamedh Ghat, Har Ki Pauri, and Triveni Sangam.
             </p>
           </div>
@@ -63,19 +71,19 @@ export default function Home() {
             <div className="flex flex-col items-center">
               <div className="h-24 w-24 rounded-full bg-orange-50 border-4 border-white shadow-md flex items-center justify-center text-2xl font-serif text-amber-600 mb-6">1</div>
               <h3 className="text-xl font-bold text-orange-950 mb-2">Select Ritual</h3>
-              <p className="text-orange-900/60">Choose the required service and select the sacred location (Kashi, Haridwar).</p>
+              <p className="text-orange-900/80">Choose the required service and select the sacred location (Kashi, Haridwar).</p>
             </div>
             
             <div className="flex flex-col items-center">
               <div className="h-24 w-24 rounded-full bg-orange-50 border-4 border-white shadow-md flex items-center justify-center text-2xl font-serif text-amber-600 mb-6">2</div>
               <h3 className="text-xl font-bold text-orange-950 mb-2">Provide Details</h3>
-              <p className="text-orange-900/60">Share Gotra, departed soul name, and preferred Tithi dates securely.</p>
+              <p className="text-orange-900/80">Share Gotra, departed soul name, and preferred Tithi dates securely.</p>
             </div>
             
             <div className="flex flex-col items-center">
               <div className="h-24 w-24 rounded-full bg-orange-50 border-4 border-white shadow-md flex items-center justify-center text-2xl font-serif text-amber-600 mb-6">3</div>
               <h3 className="text-xl font-bold text-orange-950 mb-2">Witness remotely</h3>
-              <p className="text-orange-900/60">Receive Live Zoom links or a full edited 4K video of the Sankalp and vidhi.</p>
+              <p className="text-orange-900/80">Receive Live Zoom links or a full edited 4K video of the Sankalp and vidhi.</p>
             </div>
           </div>
         </div>

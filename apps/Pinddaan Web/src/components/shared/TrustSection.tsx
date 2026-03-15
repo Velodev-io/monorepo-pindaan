@@ -28,7 +28,7 @@ export default function TrustSection() {
               <div className="h-12 w-12 rounded-full bg-orange-100 flex items-center justify-center">
                 <item.icon className="h-6 w-6 text-amber-600" />
               </div>
-              <h3 className="font-semibold text-orange-950">{item.title}</h3>
+              <h2 className="font-semibold text-orange-950">{item.title}</h2>
               <p className="text-sm text-orange-900/70 max-w-xs">{item.desc}</p>
             </div>
           ))}

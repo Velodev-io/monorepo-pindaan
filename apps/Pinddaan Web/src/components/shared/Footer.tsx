@@ -16,7 +16,7 @@ export default function Footer() {
               className="object-contain h-36 w-auto drop-shadow-xl hover:scale-105 transition-transform origin-left"
             />
           </Link>
-          <p className="max-w-xs text-orange-200 text-sm leading-relaxed mt-6">
+          <p className="max-w-xs text-orange-100/90 text-sm leading-relaxed mt-6">
             Facilitating authentic, respectful, and transparent Hindu rituals at sacred Ganges Tirthas for families residing abroad.
           </p>
         </div>
