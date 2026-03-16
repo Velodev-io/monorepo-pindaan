@@ -1,4 +1,5 @@
 import { getFirebaseApp, getFirebaseAuth, getGoogleProvider } from "@pinddaan/auth/client";
+import { OAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,

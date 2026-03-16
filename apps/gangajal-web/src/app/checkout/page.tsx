@@ -7,6 +7,8 @@ import { paymentProvider } from "@pinddaan/payments";
 import { useRouter } from "next/navigation";
 import { Minus, Plus, ShoppingBag, Truck, ShieldCheck, HeartPulse, Loader2 } from "lucide-react";
 import { Product } from "@pinddaan/types";
+import { auth } from "@/lib/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function CheckoutPage() {
   const [volumes, setVolumes] = useState<any[]>([]);
@@ -25,8 +27,19 @@ export default function CheckoutPage() {
     landmark: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        router.push("/login?redirect=/checkout");
+      } else {
+        setLoading(false);
+      }
+    });
+    return () => unsubscribe();
+  }, [router]);
 
   useEffect(() => {
     fetch("http://localhost:3001/api/v1/products?isActive=true")

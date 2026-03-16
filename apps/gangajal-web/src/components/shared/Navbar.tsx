@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, User, signOut } from "firebase/auth";
@@ -12,19 +13,17 @@ export default function Navbar() {
     return onAuthStateChanged(auth, (u) => setUser(u));
   }, []);
 
-  const lotusIcon = (
-    <svg viewBox="0 0 24 24" className="w-7 h-7 fill-saffron drop-shadow-sm" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 22s-2.5-3.5-2.5-6.5S12 11 12 11s2.5 1.5 2.5 4.5-2.5 6.5-2.5 6.5zM7 20s-1.5-4-1.5-6S7 9 7 9s2.5 2.5 2.5 5-2.5 6-2.5 6zm10 0s1.5-4 1.5-6S17 9 17 9s-2.5 2.5-2.5 5 2.5 6 2.5 6zM4 14s.5-5 3.5-7S12 5 12 5s-5 0-8 2-3.5 7-3.5 7zm16 0s-.5-5-3.5-7S12 5 12 5s5 0 8 2 3.5 7 3.5 7z"/>
-    </svg>
-  );
-
   return (
     <nav className="h-20 border-b border-white/5 px-6 flex items-center justify-between sticky top-0 bg-nav-bg backdrop-blur-md z-50">
       <Link href="/" className="flex items-center gap-3 group">
-        {lotusIcon}
-        <span className="font-bold text-2xl tracking-tighter text-white font-serif group-hover:text-saffron transition-colors">
-          Hrid<span className="text-saffron italic">ganga</span>
-        </span>
+        <Image 
+          src="/images/logo.png" 
+          alt="Hridganga Logo" 
+          width={180} 
+          height={60} 
+          className="h-14 w-auto object-contain mix-blend-screen group-hover:scale-105 transition-transform" 
+          style={{ width: 'auto' }}
+        />
       </Link>
 
       <div className="flex items-center gap-8">

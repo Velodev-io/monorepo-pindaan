@@ -1,11 +1,25 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Droplets, Globe, PackageCheck, ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
 import ReviewButton from "../components/reviews/ReviewButton";
 import ReviewsList from "../components/reviews/ReviewsList";
 
 export default function Home() {
   return (
-    <div className="relative overflow-x-hidden font-sans">
+    <div className="relative overflow-x-hidden font-sans bg-background">
+      {/* 3D Background Elements - Floating Lotuses */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-[20%] left-[5%] w-64 h-64 opacity-20 animate-float-3d delay-700 blur-[2px]">
+          <Image src="/images/3d-lotus.png" alt="" width={256} height={256} className="w-full h-full object-contain" />
+        </div>
+        <div className="absolute top-[60%] right-[2%] w-80 h-80 opacity-15 animate-float-3d delay-1000 blur-[1px]">
+          <Image src="/images/3d-lotus.png" alt="" width={320} height={320} className="w-full h-full object-contain rotate-45" />
+        </div>
+        <div className="absolute bottom-[10%] left-[15%] w-48 h-48 opacity-10 animate-float-3d delay-300 blur-[3px]">
+          <Image src="/images/3d-lotus.png" alt="" width={192} height={192} className="w-full h-full object-contain -rotate-12" />
+        </div>
+      </div>
+
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* Video Background Fallback / Container */}
@@ -44,7 +58,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-16 max-w-sm mx-auto sm:max-w-none">
             <Link 
               href="/checkout" 
-              className="w-full sm:w-auto group relative overflow-hidden px-6 py-4 sm:px-10 sm:py-5 bg-saffron text-white rounded-full font-bold text-lg transition-all hover:bg-saffron/90 hover:scale-105 active:scale-95 shadow-xl shadow-saffron/20 font-sans"
+              className="w-full sm:w-auto group relative overflow-hidden px-8 py-4 sm:px-10 sm:py-5 bg-saffron text-white rounded-full font-bold text-lg transition-all hover:bg-saffron/90 hover:scale-105 active:scale-95 shadow-xl shadow-saffron/20 font-sans"
             >
               <span className="flex items-center justify-center gap-2 relative z-10 whitespace-nowrap">
                 Order Pure Gangajal <ArrowRight size={20} className="flex-shrink-0 transition-transform group-hover:translate-x-1" />
@@ -52,7 +66,7 @@ export default function Home() {
             </Link>
             <Link 
               href="/orders" 
-              className="w-full sm:w-auto px-6 py-4 sm:px-10 sm:py-5 border border-white/10 text-slate-300 bg-white/5 rounded-full font-semibold text-lg hover:bg-white/10 hover:border-saffron/30 hover:text-white transition-all backdrop-blur-sm shadow-sm font-sans flex items-center justify-center whitespace-nowrap"
+              className="w-full sm:w-auto px-8 py-4 sm:px-10 sm:py-5 border border-white/10 text-slate-300 bg-white/5 rounded-full font-semibold text-lg hover:bg-white/10 hover:border-saffron/30 hover:text-white transition-all backdrop-blur-sm shadow-sm font-sans flex items-center justify-center whitespace-nowrap"
             >
               Track My Order
             </Link>
@@ -102,12 +116,12 @@ export default function Home() {
                   { title: "Seal", detail: "Vedic Wax Sealing", icon: <PackageCheck size={20} /> },
                   { title: "Purity", detail: "Export Certified", icon: <CheckCircle2 size={20} /> }
                 ].map((item, idx) => (
-                  <div key={idx} className="flex flex-col gap-3 group">
-                    <div className="flex items-center gap-3 text-saffron">
+                  <div key={idx} className="flex flex-col gap-3 group perspective-1000">
+                    <div className="flex items-center gap-3 text-saffron transition-transform group-hover:translate-z-10">
                       {item.icon}
                       <span className="font-black text-[10px] uppercase tracking-[0.2em] text-slate-500">{item.title}</span>
                     </div>
-                    <span className="text-white font-bold text-lg">{item.detail}</span>
+                    <span className="text-white font-bold text-lg group-hover:text-saffron transition-colors">{item.detail}</span>
                   </div>
                 ))}
               </div>
@@ -121,13 +135,14 @@ export default function Home() {
               </Link>
             </div>
             
-            <div className="flex-1 relative w-full max-w-lg lg:max-w-none">
-              <div className="aspect-[4/5] bg-slate-900 rounded-[64px] overflow-hidden relative group border border-white/5 shadow-2xl">
+            <div className="flex-1 relative w-full max-w-lg lg:max-w-none perspective-1000">
+              <div className="aspect-[4/5] bg-slate-900 rounded-[64px] overflow-hidden relative group border border-white/5 shadow-2xl hover-3d preserve-3d">
                 {/* Gangotri Source Image */}
-                <img 
+                <Image 
                   src="/images/gangotri.png" 
                   alt="Sacred Gangotri Source" 
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-80"
+                  fill
+                  className="object-cover transition-transform duration-1000 group-hover:scale-110 opacity-80"
                 />
                 
                 {/* Saffron Glow Overlay */}
@@ -138,7 +153,7 @@ export default function Home() {
                 <div className="absolute -top-32 -left-32 w-96 h-96 bg-water-blue/10 rounded-full blur-[100px] animate-pulse delay-500" />
                 
                 {/* Heritage Label */}
-                <div className="absolute bottom-12 left-12 right-12 bg-black/40 backdrop-blur-xl border border-white/10 p-8 rounded-[32px] shadow-lg">
+                <div className="absolute bottom-12 left-12 right-12 bg-black/40 backdrop-blur-xl border border-white/10 p-8 rounded-[32px] shadow-lg translate-z-20">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Source Coordinates</p>
@@ -152,7 +167,7 @@ export default function Home() {
               </div>
               
               {/* Floating Review Card */}
-              <div className="absolute -top-10 -right-10 bg-slate-800/90 backdrop-blur-xl p-8 rounded-[32px] shadow-2xl border border-white/5 max-w-[280px] hidden xl:block animate-bounce-subtle">
+              <div className="absolute -top-10 -right-10 bg-slate-800/90 backdrop-blur-xl p-8 rounded-[32px] shadow-2xl border border-white/5 max-w-[280px] hidden xl:block animate-bounce-subtle translate-z-30">
                 <p className="text-slate-100 font-serif italic text-lg mb-4 leading-relaxed">"The water feels alive, as if the river is right here."</p>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-saffron/10 flex items-center justify-center text-[10px] font-black text-saffron border border-saffron/20">AK</div>
@@ -223,17 +238,17 @@ export default function Home() {
                 icon: "🏔️"
               }
             ].map((usage, idx) => (
-              <div key={idx} className="bg-slate-900/40 backdrop-blur-md border border-white/5 p-8 rounded-[32px] hover:border-saffron/20 transition-all group">
-                <div className="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300 ring-1 ring-white/10 w-16 h-16 rounded-2xl flex items-center justify-center bg-white/5">
+              <div key={idx} className="bg-slate-900/40 backdrop-blur-md border border-white/5 p-8 rounded-[32px] hover:border-saffron/20 transition-all group hover-3d preserve-3d perspective-1000">
+                <div className="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300 ring-1 ring-white/10 w-16 h-16 rounded-2xl flex items-center justify-center bg-white/5 translate-z-10">
                   {usage.icon}
                 </div>
-                <h4 className="text-xl font-bold text-white mb-4 font-serif">{usage.title}</h4>
+                <h4 className="text-xl font-bold text-white mb-4 font-serif group-hover:text-saffron transition-colors">{usage.title}</h4>
                 <p className="text-slate-400 text-sm leading-relaxed">{usage.description}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-20 p-12 bg-white/5 rounded-[48px] border border-white/5 backdrop-blur-sm relative overflow-hidden">
+          <div className="mt-20 p-12 bg-white/5 rounded-[48px] border border-white/5 backdrop-blur-sm relative overflow-hidden hover-3d transition-transform duration-500">
             <div className="absolute top-0 right-0 w-64 h-64 bg-saffron/10 rounded-full blur-[80px] -mr-32 -mt-32" />
             <div className="flex flex-col md:flex-row items-center gap-12 relative z-10">
               <div className="flex-1">
@@ -255,11 +270,11 @@ export default function Home() {
       </section>
 
       {/* Feature Cards Section */}
-      <section className="py-24 px-4 bg-background">
+      <section className="pt-24 pb-12 px-4 bg-background">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-foreground mb-4 font-serif tracking-tight">Why Devotees Trust Us</h2>
-            <div className="w-20 h-1 bg-gold mx-auto rounded-full opacity-60" />
+            <div className="w-20 h-1 bg-saffron mx-auto rounded-full opacity-60" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -282,25 +297,25 @@ export default function Home() {
             ].map((feature, i) => (
               <div 
                 key={i}
-                className="group p-10 bg-slate-900/50 backdrop-blur-sm border border-white/5 rounded-[24px] transition-all duration-300 hover:-translate-y-2 shadow-2xl hover:shadow-saffron/5"
+                className="group p-10 bg-slate-900/50 backdrop-blur-sm border border-white/5 rounded-[24px] transition-all duration-300 hover:shadow-2xl hover:shadow-saffron/5 hover-3d preserve-3d"
               >
-                <div className="w-16 h-16 bg-saffron/10 rounded-2xl flex items-center justify-center text-saffron mb-8 transition-colors group-hover:bg-saffron/20 group-hover:scale-110 duration-300">
+                <div className="w-16 h-16 bg-saffron/10 rounded-2xl flex items-center justify-center text-saffron mb-8 transition-colors group-hover:bg-saffron/20 group-hover:translate-z-10 duration-300">
                   {feature.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">{feature.title}</h3>
+                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-saffron transition-colors">{feature.title}</h3>
                 <p className="text-slate-400 text-sm leading-[1.8]">{feature.desc}</p>
               </div>
             ))}
           </div>
 
           {/* New USP Section: Transparency with Reverence */}
-          <div className="mt-20 bg-slate-900 rounded-[48px] p-8 md:p-16 relative overflow-hidden shadow-2xl">
+          <div className="mt-20 bg-slate-900 rounded-[48px] p-8 md:p-16 relative overflow-hidden shadow-2xl hover-3d transition-all duration-700">
               <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
                   <video autoPlay muted loop playsInline className="w-full h-full object-cover">
                       <source src="/videos/hero-background.mp4" type="video/mp4" />
                   </video>
               </div>
-              <div className="relative z-10 max-w-2xl">
+              <div className="relative z-10 max-w-2xl translate-z-10">
                   <div className="inline-flex items-center gap-2 px-4 py-2 bg-saffron/20 text-saffron rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
                       <ShieldCheck size={14} /> Trust Through Devotion
                   </div>
@@ -309,7 +324,7 @@ export default function Home() {
                       For many orders, we provide a short verification video showing the preparation and sealing of your specific Gangajal—so you can feel assured with dignity and trust that the sacred essence has been handled with the utmost respect.
                   </p>
                   <Link href="/orders">
-                      <button className="bg-saffron hover:bg-saffron/90 text-white px-8 py-4 rounded-full font-bold transition-all transform hover:scale-105 active:scale-95">
+                      <button className="bg-saffron hover:bg-saffron/90 text-white px-8 py-4 rounded-full font-bold transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-saffron/20">
                           See How It Works
                       </button>
                   </Link>
@@ -318,28 +333,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Section with Deep Blue Gradient */}
-      <section className="py-32 px-4 border-y border-white/5 bg-slate-900/30">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-20 tracking-tight">The Impact of Devotion</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8">
-            {[
-              { val: "10,000+", label: "Orders Delivered" },
-              { val: "150+", label: "Countries Reached" },
-              { val: "100%", label: "Pure Source Authenticated" }
-            ].map((stat, i) => (
-              <div key={i} className="flex flex-col items-center">
-                <span className="text-6xl font-black text-gold mb-4 font-serif italic underline decoration-gold/30 underline-offset-[12px]">{stat.val}</span>
-                <span className="text-sm font-bold tracking-[0.15em] text-slate-400 mt-2">{stat.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final Visual Touch */}
-      <div className="h-40 bg-background" />
     </div>
   );
 }

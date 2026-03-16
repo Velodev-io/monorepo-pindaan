@@ -88,3 +88,40 @@ body {
     transform: translateX(100%);
   }
 }
+
+/* 3D Utilities */
+@keyframes float-3d {
+  0%, 100% {
+    transform: translateY(0) rotateX(0) rotateY(0);
+  }
+  25% {
+    transform: translateY(-20px) rotateX(10deg) rotateY(10deg);
+  }
+  50% {
+    transform: translateY(-10px) rotateX(-5deg) rotateY(20deg);
+  }
+  75% {
+    transform: translateY(-25px) rotateX(10deg) rotateY(-10deg);
+  }
+}
+
+.animate-float-3d {
+  animation: float-3d 8s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.hover-3d {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-3d:hover {
+  transform: rotateX(10deg) rotateY(10deg) translateY(-8px);
+}

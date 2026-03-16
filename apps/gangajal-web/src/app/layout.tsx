@@ -13,6 +13,7 @@ const playfair = Playfair_Display({
 });
 
 import Navbar from "@/components/shared/Navbar";
+import Footer from "@/components/shared/Footer";
 
 export const metadata: Metadata = {
   title: "Gangajal.store | Sacred Pure Ganges Water Delivery",
@@ -33,6 +34,7 @@ export default function RootLayout({
         <main className="min-h-[calc(100vh-80px)]">
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   );
