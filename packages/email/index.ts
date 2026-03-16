@@ -69,7 +69,7 @@ export async function sendEmail(options: SendEmailOptions): Promise<void> {
 
     const transporter = createTransporter();
     await transporter.sendMail({
-        from: `"Gangajal.store 🪔" <${process.env.EMAIL_USER}>`,
+        from: `"Hridganga 🪔" <${process.env.EMAIL_USER}>`,
         to: options.to,
         subject: options.subject,
         html: options.html,
@@ -99,7 +99,7 @@ export function buildCustomerOrderEmail(data: OrderEmailData): string {
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Order Confirmed – Gangajal.store</title>
+  <title>Order Confirmed – Hridganga</title>
 </head>
 <body style="margin:0;padding:0;background-color:#fdf9f3;font-family:'Gill Sans','Trebuchet MS',sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#fdf9f3;padding:40px 20px;">
@@ -123,7 +123,7 @@ export function buildCustomerOrderEmail(data: OrderEmailData): string {
                 Namaste, <strong>${data.customerName}</strong> 🙏
               </p>
               <p style="margin:0;font-size:15px;color:#555;line-height:1.8;">
-                Thank you for placing your order with <strong>Gangajal.store</strong>. We are deeply honoured to be a part of your spiritual journey. Your sacred Gangajal — sourced from the pristine heights of the Gangotri Glacier in the Himalayas — will be prepared and dispatched with the utmost care and reverence.
+                Thank you for placing your order with <strong>Hridganga</strong>. We are deeply honoured to be a part of your spiritual journey. Your sacred Gangajal — sourced from the pristine heights of the Gangotri Glacier in the Himalayas — will be prepared and dispatched with the utmost care and reverence.
               </p>
             </td>
           </tr>
@@ -181,8 +181,8 @@ export function buildCustomerOrderEmail(data: OrderEmailData): string {
           <tr>
             <td style="background:#f7f2eb;padding:28px 40px;text-align:center;border-top:1px solid #ede8df;">
               <p style="margin:0 0 4px;font-size:13px;color:#999;">Need help? Reach us at</p>
-              <p style="margin:0;font-size:13px;"><a href="mailto:support@gangajal.store" style="color:#FF9933;text-decoration:none;font-weight:600;">support@gangajal.store</a></p>
-              <p style="margin:16px 0 0;font-size:11px;color:#bbb;">© ${new Date().getFullYear()} Gangajal.store · All rights reserved · Sourced from 10,000ft+</p>
+              <p style="margin:0;font-size:13px;"><a href="mailto:support@hridganga.com" style="color:#FF9933;text-decoration:none;font-weight:600;">support@hridganga.com</a></p>
+              <p style="margin:16px 0 0;font-size:11px;color:#bbb;">© ${new Date().getFullYear()} Hridganga · All rights reserved · Sourced from 10,000ft+</p>
             </td>
           </tr>
 
@@ -211,7 +211,7 @@ export function buildAdminNotificationEmail(data: OrderEmailData): string {
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>New Order – Gangajal Admin</title>
+  <title>New Order – Hridganga Admin</title>
 </head>
 <body style="margin:0;padding:0;background-color:#111;font-family:'Gill Sans','Trebuchet MS',sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#111;padding:40px 20px;">
@@ -223,8 +223,8 @@ export function buildAdminNotificationEmail(data: OrderEmailData): string {
           <tr>
             <td style="padding:32px 40px;border-bottom:1px solid #2a2a2a;">
               <div style="display:flex;align-items:center;gap:12px;">
-                <div style="width:36px;height:36px;background:#FF9933;border-radius:8px;display:inline-block;text-align:center;line-height:36px;font-size:18px;font-weight:800;color:#fff;">G</div>
-                <span style="font-size:18px;font-weight:700;color:#fff;margin-left:10px;">Gangajal Admin</span>
+                <div style="width:36px;height:36px;background:#FF9933;border-radius:8px;display:inline-block;text-align:center;line-height:36px;font-size:18px;font-weight:800;color:#fff;">H</div>
+                <span style="font-size:18px;font-weight:700;color:#fff;margin-left:10px;">Hridganga Admin</span>
                 <span style="background:#FF9933;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-left:10px;letter-spacing:0.1em;text-transform:uppercase;">New Order</span>
               </div>
             </td>
@@ -286,7 +286,7 @@ export function buildAdminNotificationEmail(data: OrderEmailData): string {
           <!-- Footer -->
           <tr>
             <td style="background:#161616;padding:20px 40px;text-align:center;border-top:1px solid #2a2a2a;">
-              <p style="margin:0;font-size:11px;color:#444;">Gangajal.store Admin Panel · Internal notification</p>
+              <p style="margin:0;font-size:11px;color:#444;">Hridganga Admin Panel · Internal notification</p>
             </td>
           </tr>
 

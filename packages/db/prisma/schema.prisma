@@ -151,3 +151,15 @@ model OrderItem {
   quantity  Int
   price     Float
 }
+
+model Review {
+  id          String   @id @default(uuid())
+  name        String
+  email       String
+  location    String?
+  rating      Int
+  text        String   @db.Text
+  isApproved  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

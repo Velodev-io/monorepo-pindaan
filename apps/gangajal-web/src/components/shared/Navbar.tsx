@@ -23,7 +23,7 @@ export default function Navbar() {
       <Link href="/" className="flex items-center gap-3 group">
         {lotusIcon}
         <span className="font-bold text-2xl tracking-tighter text-white font-serif group-hover:text-saffron transition-colors">
-          Sacred<span className="text-saffron italic">Gangajal</span>
+          Hrid<span className="text-saffron italic">ganga</span>
         </span>
       </Link>
 

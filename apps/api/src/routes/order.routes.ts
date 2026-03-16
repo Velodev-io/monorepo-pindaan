@@ -57,7 +57,7 @@ router.post("/", async (req: Request, res: Response) => {
         Promise.all([
             sendEmail({
                 to: customerEmail,
-                subject: `🪔 Your Sacred Gangajal Order is Confirmed – #${order.id}`,
+                subject: `🪔 Your Hridganga Order is Confirmed – #${order.id}`,
                 html: buildCustomerOrderEmail(emailData),
             }),
             process.env.ADMIN_EMAIL ? sendEmail({

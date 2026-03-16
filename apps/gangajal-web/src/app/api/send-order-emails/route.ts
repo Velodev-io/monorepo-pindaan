@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
         // 1) Send confirmation email to the customer
         await sendEmail({
             to: data.customerEmail,
-            subject: `🪔 Your Sacred Gangajal Order is Confirmed – #${data.orderId}`,
+            subject: `🪔 Your Hridganga Order is Confirmed – #${data.orderId}`,
             html: buildCustomerOrderEmail(data),
         });
 
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
         if (adminEmail) {
             await sendEmail({
                 to: adminEmail,
-                subject: `📦 New Gangajal Order Received – #${data.orderId} ($${data.total.toFixed(2)})`,
+                subject: `📦 New Hridganga Order Received – #${data.orderId} ($${data.total.toFixed(2)})`,
                 html: buildAdminNotificationEmail(data),
             });
         }

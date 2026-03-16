@@ -1,7 +1,7 @@
 "use client";
 
 import { AuthGuard } from "@/lib/auth-guard";
-import { Package, LayoutDashboard, Send, Settings, Menu, X, LogOut, ShoppingBag } from "lucide-react";
+import { Package, LayoutDashboard, Send, Settings, Menu, X, LogOut, ShoppingBag, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -11,6 +11,7 @@ const NAVIGATION = [
   { name: "Overview", href: "/", icon: LayoutDashboard },
   { name: "Products", href: "/products", icon: Package },
   { name: "Orders", href: "/orders", icon: ShoppingBag },
+  { name: "Reviews", href: "/reviews", icon: MessageSquare },
   { name: "Shipping", href: "/shipping", icon: Send },
   { name: "Settings", href: "/settings", icon: Settings },
 ];

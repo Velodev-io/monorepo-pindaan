@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Droplets, Globe, PackageCheck, ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
+import ReviewButton from "../components/ReviewButton";
+import ReviewsList from "../components/ReviewsList";
 
 export default function Home() {
   return (
@@ -31,7 +33,7 @@ export default function Home() {
           </div>
 
           <h1 className="text-5xl md:text-8xl font-bold mb-6 font-serif leading-[1.1] text-white tracking-tight drop-shadow-[0_2px_15px_rgba(34,211,238,0.3)]">
-            Sacred <span className="text-saffron">Gangajal</span>,<br />
+            Hrid<span className="text-saffron">ganga</span>,<br />
             <span className="text-slate-400 block mt-2 italic font-light text-4xl md:text-6xl">Delivered Worldwide.</span>
           </h1>
 
@@ -162,6 +164,27 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Voices of Devotion - Reviews Section */}
+      <section className="py-32 px-4 bg-background relative overflow-hidden">
+        {/* Background Glows */}
+        <div className="absolute top-1/2 left-0 w-96 h-96 bg-saffron/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-water-blue/5 rounded-full blur-[150px] translate-x-1/3 translate-y-1/3" />
+
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif tracking-tight">
+              Voices of <span className="text-saffron italic">Devotion.</span>
+            </h2>
+            <p className="text-slate-400 text-xl max-w-2xl mx-auto leading-relaxed font-light mb-10">
+              Devotees from across the globe share their experiences of receiving the sacred Himalayan currents.
+            </p>
+            <ReviewButton />
+          </div>
+
+          <ReviewsList />
         </div>
       </section>
 
