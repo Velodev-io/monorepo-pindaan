@@ -6,8 +6,8 @@
         "dev": "turbo run dev",
         "dev:gangajal-web": "turbo run dev --filter=gangajal-web",
         "dev:gangajal-admin": "turbo run dev --filter=gangajal-admin",
-        "dev:pinddaan-web": "turbo run dev --filter=web",
-        "dev:pinddaan-admin": "turbo run dev --filter=admin",
+        "dev:pinddaan-web": "turbo run dev --filter=pinddaan-web",
+        "dev:pinddaan-admin": "turbo run dev --filter=pinddaan-admin",
         "dev:all": "turbo run dev",
         "lint": "turbo run lint"
     },

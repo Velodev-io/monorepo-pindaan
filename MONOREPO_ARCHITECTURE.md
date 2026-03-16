@@ -9,9 +9,11 @@ This document defines the production-grade, highly scalable Monorepo architectur
 ```text
 pinddaan-monorepo/
 ├── apps/
-│   ├── web/                     # Next.js App Router (Customer Facing)
-│   ├── admin/                   # Next.js App Router (Internal Dashboard)
-│   └── api/                     # Node.js/Express Backend (or Next API)
+│   ├── pinddaan-web/             # Pinddaan Next.js App
+│   ├── pinddaan-admin/           # Pinddaan Admin Dashboard
+│   ├── gangajal-web/             # Gangajal Storefront
+│   ├── gangajal-admin/           # Gangajal Admin Dashboard
+│   └── api/                     # Unified Express Backend
 │       ├── src/
 │       │   ├── routes/          # Express Routers
 │       │   ├── controllers/     # Req/Res handling

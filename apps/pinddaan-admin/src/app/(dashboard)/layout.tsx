@@ -44,7 +44,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         >
           <div className="flex h-16 shrink-0 items-center px-6 gap-3 border-b border-zinc-200 dark:border-zinc-800 bg-amber-500/10">
             <div className="w-8 h-8 rounded bg-amber-500 flex items-center justify-center font-bold text-zinc-950">P</div>
-            <span className="font-bold text-xl tracking-tight hidden md:block dark:text-amber-500">Admin</span>
+            <span className="font-bold text-xl tracking-tight hidden md:block dark:text-amber-500">Pinddaan Admin</span>
           </div>
 
           <nav className="flex-1 overflow-y-auto pt-4 px-4 space-y-2">
@@ -86,7 +86,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <div className="md:hidden flex items-center justify-between h-16 shrink-0 px-4 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm z-30">
             <div className="flex items-center gap-3">
                <div className="w-8 h-8 rounded bg-amber-500 flex items-center justify-center font-bold text-zinc-950">P</div>
-               <span className="font-bold text-lg dark:text-amber-500">Admin</span>
+               <span className="font-bold text-lg dark:text-amber-500">Pinddaan Admin</span>
             </div>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

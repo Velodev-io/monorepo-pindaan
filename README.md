@@ -7,9 +7,11 @@ Hridganga (formerly Pinddaan) is a sacred digital ecosystem dedicated to deliver
 This project is a TypeScript monorepo managed with **Turbo**, structured as follows:
 
 ### Apps
-- **[gangajal-web](apps/gangajal-web)**: The public storefront and devotee experience portal. Built with Next.js and Tailwind CSS.
-- **[gangajal-admin](apps/gangajal-admin)**: The internal dashboard for managing products, orders, and devotee reviews. 
-- **[api](apps/api)**: The central Express server providing core business logic and database access.
+- **[pinddaan-web](apps/pinddaan-web)**: The dedicated portal for ancestor rites and spiritual services.
+- **[pinddaan-admin](apps/pinddaan-admin)**: Administrative console for Pinddaan service management.
+- **[gangajal-web](apps/gangajal-web)**: The public storefront for pure Himalayan Gangajal.
+- **[gangajal-admin](apps/gangajal-admin)**: The internal dashboard for product and order management. 
+- **[api](apps/api)**: The central Express server providing core services for both domains.
 
 ### Packages
 - **[db](packages/db)**: Shared Prisma client and database schema (PostgreSQL via Neon).

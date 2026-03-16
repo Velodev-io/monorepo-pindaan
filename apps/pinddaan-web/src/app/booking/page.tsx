@@ -55,7 +55,6 @@ function BookingForm() {
             method: "POST",
             body: JSON.stringify({ name: user.displayName, email: user.email })
           });
-          console.log("User synced successfully");
         } catch (err) {
           console.error("User sync failed", err);
         }
