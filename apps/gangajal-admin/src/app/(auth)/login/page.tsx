@@ -20,12 +20,10 @@ export default function LoginPage() {
         setError("");
 
         try {
-            console.log("Starting Email/Password authentication...");
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            console.log("Firebase Auth successful:", userCredential.user.email);
+            
             
             // Explicitly sync the user into the Neon DB 
-            console.log("Starting API sync...");
             await apiClient("/users/sync", {
                 method: "POST",
                 body: JSON.stringify({
@@ -57,9 +55,7 @@ export default function LoginPage() {
         setError("");
 
         try {
-            console.log("Starting Google login...");
             const userCredential = await signInWithPopup(auth, googleProvider);
-            console.log("Google login successful, syncing user:", userCredential.user.email);
             
             // Explicitly sync the user into the Neon DB 
             await apiClient("/users/sync", {

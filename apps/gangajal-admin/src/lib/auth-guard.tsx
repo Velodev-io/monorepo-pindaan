@@ -14,10 +14,8 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            console.log(`[AuthGuard] Auth state changed. User: ${user?.email || 'none'}`);
             if (!user) {
                 if (!pathname.includes("/login")) {
-                    console.log("[AuthGuard] No user found, redirecting to /login");
                     router.push("/login");
                 }
                 setIsLoading(false);
@@ -25,11 +23,9 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
             }
 
             try {
-                console.log("[AuthGuard] Verifying role for:", user.email);
                 // Verify Admin Role via our Express API Endpoint 
                 // which returns true if their DB role is ADMIN or SUPER_ADMIN
                 const { role } = await apiClient("/users/me/role");
-                console.log(`[AuthGuard] Role verified: ${role}`);
                 
                 if (role !== "ADMIN" && role !== "SUPER_ADMIN") {
                     console.warn(`[AuthGuard] Insufficient role: ${role}. Access denied.`);

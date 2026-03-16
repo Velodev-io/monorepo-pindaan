@@ -55,7 +55,6 @@ router.post("/", async (req: Request, res: Response) => {
 
         return res.status(201).json({ success: true, data: review });
     } catch (error: any) {
-        console.error("DEBUG [Review Routes]: Detailed Error:", error);
         res.status(500).json({ 
             error: "Failed to process review", 
             details: error.message,

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Droplets, Globe, PackageCheck, ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
-import ReviewButton from "../components/ReviewButton";
-import ReviewsList from "../components/ReviewsList";
+import ReviewButton from "../components/reviews/ReviewButton";
+import ReviewsList from "../components/reviews/ReviewsList";
 
 export default function Home() {
   return (
