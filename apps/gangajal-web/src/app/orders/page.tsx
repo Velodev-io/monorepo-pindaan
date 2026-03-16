@@ -38,10 +38,10 @@ function OrdersContent() {
       )}
 
       <div className="flex justify-between items-end mb-12">
-        <h1 className="text-4xl font-bold text-slate-900 font-serif tracking-tight">Your Orders</h1>
+        <h1 className="text-4xl font-bold text-white font-serif tracking-tight">Your Orders</h1>
         <Link
           href="/"
-          className="text-sm font-bold text-saffron hover:text-saffron/80 transition-colors uppercase tracking-[0.1em] border-b-2 border-saffron/20 pb-0.5"
+          className="text-sm font-bold text-saffron hover:text-white transition-colors uppercase tracking-[0.1em] border-b-2 border-saffron/20 pb-0.5"
         >
           Back to Shop
         </Link>
@@ -51,7 +51,7 @@ function OrdersContent() {
         {MOCK_ORDERS.map((order) => (
           <div
             key={order.id}
-            className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 transition-all hover:scale-[1.01]"
+            className="bg-slate-900/50 backdrop-blur-xl p-8 rounded-[32px] border border-white/5 shadow-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-6 transition-all hover:border-white/10"
           >
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-2xl bg-saffron/10 flex items-center justify-center text-saffron">
@@ -59,21 +59,21 @@ function OrdersContent() {
               </div>
               <div className="space-y-1">
                 <div className="flex items-center gap-3">
-                  <span className="font-bold text-lg text-slate-900">{order.id}</span>
-                  <span className="px-3 py-1 rounded-full bg-slate-100 text-[10px] font-black text-slate-600 uppercase tracking-widest">
+                  <span className="font-bold text-lg text-white">{order.id}</span>
+                  <span className="px-3 py-1 rounded-full bg-white/5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     {order.status}
                   </span>
-                  <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${order.proofStatus === "AVAILABLE" ? "bg-saffron/10 text-saffron" : "bg-slate-100 text-slate-400"}`}>
+                  <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${order.proofStatus === "AVAILABLE" ? "bg-saffron/20 text-saffron" : "bg-white/5 text-slate-500"}`}>
                     Verification: {order.proofStatus}
                   </span>
                 </div>
-                <p className="text-slate-500 text-sm font-medium">{order.date} · {order.items}</p>
+                <p className="text-slate-400 text-sm font-medium">{order.date} · {order.items}</p>
               </div>
             </div>
             <div className="text-right">
-              <p className="font-black text-2xl text-slate-900 font-serif">{order.total}</p>
+              <p className="font-black text-2xl text-white font-serif">{order.total}</p>
               <Link href={`/orders/${order.id}`}>
-                <button className="text-xs font-bold text-saffron mt-2 hover:text-saffron/80 transition-all uppercase tracking-widest">
+                <button className="text-xs font-bold text-saffron mt-2 hover:text-white transition-all uppercase tracking-widest">
                   View Details
                 </button>
               </Link>

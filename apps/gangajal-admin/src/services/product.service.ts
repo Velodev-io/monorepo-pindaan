@@ -1,27 +1,32 @@
 import { apiClient } from "../lib/api-client";
 import { Product } from "@pinddaan/types";
-import { ProductInput } from "@pinddaan/schemas";
 
 export const ProductService = {
-    async getAll(): Promise<{ data: Product[]; total: number }> {
-        return apiClient("/products");
+    async getAll(isActive?: boolean): Promise<{ success: boolean; data: Product[] }> {
+        let query = `/products`;
+        if (isActive !== undefined) {
+            query += `?isActive=${isActive}`;
+        }
+        return apiClient(query);
     },
-    async create(input: ProductInput): Promise<Product> {
-        return apiClient("/products", {
+    async getById(id: string): Promise<{ success: boolean; data: Product }> {
+        return apiClient(`/products/${id}`);
+    },
+    async create(data: Partial<Product>): Promise<{ success: boolean; data: Product }> {
+        return apiClient(`/products`, {
             method: "POST",
-            body: JSON.stringify(input),
+            body: JSON.stringify(data),
         });
     },
-    async update(id: string, input: Partial<ProductInput>): Promise<Product> {
+    async update(id: string, data: Partial<Product>): Promise<{ success: boolean; data: Product }> {
         return apiClient(`/products/${id}`, {
-            method: "PATCH",
-            body: JSON.stringify(input),
+            method: "PUT",
+            body: JSON.stringify(data),
         });
     },
-    async toggleActive(id: string, isActive: boolean): Promise<Product> {
-        return apiClient(`/products/${id}/status`, {
-            method: "PATCH",
-            body: JSON.stringify({ isActive }),
+    async delete(id: string): Promise<{ success: boolean; message: string }> {
+        return apiClient(`/products/${id}`, {
+            method: "DELETE",
         });
-    },
+    }
 };

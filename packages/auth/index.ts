@@ -3,14 +3,20 @@ import { verifyIdToken } from "./firebase-admin";
 
 export const verifyFirebaseTokenMiddleware = async (req: any, res: any, next: any) => {
     const authHeader = req.headers.authorization;
-    if (!authHeader?.startsWith("Bearer ")) return res.status(401).json({ error: "Unauthorized" });
+    if (!authHeader?.startsWith("Bearer ")) {
+        console.warn("[API Auth] Missing or malformed Authorization header");
+        return res.status(401).json({ error: "Unauthorized" });
+    }
 
     const token = authHeader.split(" ")[1];
     try {
+        console.log("[API Auth] Verifying token...");
         const decoded = await verifyIdToken(token);
+        console.log("[API Auth] Token verified successfully for:", decoded.email);
         req.firebaseUser = decoded;
         next();
-    } catch (err) {
+    } catch (err: any) {
+        console.error("[API Auth] Token verification failed:", err.message);
         return res.status(401).json({ error: "Invalid token" });
     }
 };

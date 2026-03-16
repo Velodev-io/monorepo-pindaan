@@ -22,7 +22,9 @@ export default function ShippingPage() {
                     <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Shipping Rates</h1>
                     <p className="text-zinc-500 mt-1">Manage delivery zones and fulfillment costs.</p>
                 </div>
-                <button className="flex items-center gap-2 px-4 py-2 bg-[#FF9933] text-white rounded-xl font-medium hover:bg-[#FF9933]/90 transition-all shadow-sm">
+                <button 
+                    onClick={() => alert("Add Shipping Zone dialog opening soon...")}
+                    className="flex items-center gap-2 px-4 py-2 bg-[#FF9933] text-white rounded-xl font-medium hover:bg-[#FF9933]/90 transition-all shadow-sm">
                     <Plus size={18} />
                     Add Zone
                 </button>
@@ -72,7 +74,9 @@ export default function ShippingPage() {
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 text-right">
-                                        <button className="text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+                                        <button 
+                                            onClick={() => alert(`Edit shipping zone: ${rate.zoneName}`)}
+                                            className="text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
                                             <MoreVertical size={18} />
                                         </button>
                                     </td>

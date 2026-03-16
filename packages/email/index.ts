@@ -29,8 +29,18 @@ export interface OrderEmailData {
 export interface SendEmailOptions {
     to: string;
     subject: string;
-    html: string;
+    html?: string;
+    template?: string;
+    data?: any;
 }
+
+// ─── Exported Service ────────────────────────────────────────────────────────
+
+export const emailService = {
+  sendEmail: async (options: SendEmailOptions) => {
+    return sendEmail(options);
+  }
+};
 
 // ─── Transporter ─────────────────────────────────────────────────────────────
 

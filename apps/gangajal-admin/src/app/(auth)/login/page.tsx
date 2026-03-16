@@ -20,9 +20,12 @@ export default function LoginPage() {
         setError("");
 
         try {
+            console.log("Starting Email/Password authentication...");
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            console.log("Firebase Auth successful:", userCredential.user.email);
             
             // Explicitly sync the user into the Neon DB 
+            console.log("Starting API sync...");
             await apiClient("/users/sync", {
                 method: "POST",
                 body: JSON.stringify({
@@ -30,10 +33,11 @@ export default function LoginPage() {
                     email: userCredential.user.email,
                 }),
             });
+            console.log("API sync successful, redirecting to home.");
 
             router.push("/");
         } catch (err: any) {
-            console.error("Login failed:", err.code, err.message);
+            console.error("Login process failed:", err.code || "API_ERROR", err.message);
             if (err.code === "auth/invalid-credential") {
                 setError("Incorrect email or password. Please check your credentials.");
             } else if (err.code === "auth/user-not-found") {
@@ -53,7 +57,9 @@ export default function LoginPage() {
         setError("");
 
         try {
+            console.log("Starting Google login...");
             const userCredential = await signInWithPopup(auth, googleProvider);
+            console.log("Google login successful, syncing user:", userCredential.user.email);
             
             // Explicitly sync the user into the Neon DB 
             await apiClient("/users/sync", {
@@ -63,12 +69,13 @@ export default function LoginPage() {
                     email: userCredential.user.email,
                 }),
             });
+            console.log("Sync successful, redirecting...");
 
             // The AuthGuard will handle strict role verification upon redirect
             router.push("/");
         } catch (err: unknown) {
-            console.error("Google login failed:", err);
-            setError("Google sign-in failed or was cancelled.");
+            console.error("Google login failed detail:", err);
+            setError(`Google sign-in failed: ${err instanceof Error ? err.message : String(err)}`);
         } finally {
             setLoading(false);
         }

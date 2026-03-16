@@ -1,23 +1,35 @@
 "use client";
 
-import { useState } from "react";
-import { Search, MoreVertical, Filter } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Search, Filter, Loader2 } from "lucide-react";
+import { OrderService } from "@/services/order.service";
+import { Order } from "@pinddaan/types";
 
 export default function OrdersPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState("ALL");
+    const [orders, setOrders] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
 
-    const mockOrders = [
-        { id: "ORD-1", date: "2023-10-24", customer: "Rahul Sharma", email: "rahul@example.com", total: 25.00, status: "PENDING", items: 1 },
-        { id: "ORD-2", date: "2023-10-23", customer: "Anjali K.", email: "anjali@example.com", total: 19.99, status: "PAID", items: 1 },
-        { id: "ORD-3", date: "2023-10-22", customer: "Vikram S.", email: "vikram@example.com", total: 149.99, status: "PACKED", items: 1 },
-        { id: "ORD-4", date: "2023-10-20", customer: "Priya M.", email: "priya@example.com", total: 69.98, status: "SHIPPED", items: 2 },
-    ];
+    useEffect(() => {
+        fetchOrders();
+    }, [statusFilter]);
 
-    const filtered = mockOrders.filter(o => {
-        const matchesSearch = o.id.toLowerCase().includes(searchTerm.toLowerCase()) || o.email.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesStatus = statusFilter === "ALL" || o.status === statusFilter;
-        return matchesSearch && matchesStatus;
+    const fetchOrders = async () => {
+        setLoading(true);
+        try {
+            const res = await OrderService.getAll(1, 50, statusFilter);
+            if (res.data) setOrders(res.data);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const filtered = orders.filter(o => {
+        const matchesSearch = o.id.toLowerCase().includes(searchTerm.toLowerCase()) || o.customerEmail.toLowerCase().includes(searchTerm.toLowerCase());
+        return matchesSearch;
     });
 
     const getStatusStyle = (status: string) => {
@@ -83,29 +95,39 @@ export default function OrdersPage() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800">
-                            {filtered.map(order => (
-                                <tr key={order.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
-                                    <td className="px-6 py-4 font-bold text-zinc-900 dark:text-zinc-100">{order.id}</td>
-                                    <td className="px-6 py-4 text-zinc-600 dark:text-zinc-400">{order.date}</td>
-                                    <td className="px-6 py-4">
-                                        <div className="font-medium text-zinc-900 dark:text-zinc-100">{order.customer}</div>
-                                        <div className="text-xs text-zinc-500">{order.email}</div>
+                            {loading && (
+                                <tr>
+                                    <td colSpan={7} className="px-6 py-12 text-center text-zinc-500 italic">
+                                        <Loader2 className="w-6 h-6 animate-spin mx-auto mb-2 text-[#FF9933]"/>
+                                        Loading orders...
                                     </td>
-                                    <td className="px-6 py-4 text-zinc-600 dark:text-zinc-400">{order.items}</td>
-                                    <td className="px-6 py-4 font-medium">${order.total.toFixed(2)}</td>
+                                </tr>
+                            )}
+                            {!loading && filtered.map(order => (
+                                <tr key={order.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
+                                    <td className="px-6 py-4 font-bold text-zinc-900 dark:text-zinc-100">{order.id.split('-')[0]}..</td>
+                                    <td className="px-6 py-4 text-zinc-600 dark:text-zinc-400">{new Date(order.createdAt).toLocaleDateString()}</td>
+                                    <td className="px-6 py-4">
+                                        <div className="font-medium text-zinc-900 dark:text-zinc-100">{order.customerName}</div>
+                                        <div className="text-xs text-zinc-500">{order.customerEmail}</div>
+                                    </td>
+                                    <td className="px-6 py-4 text-zinc-600 dark:text-zinc-400">{order.items?.length || 0}</td>
+                                    <td className="px-6 py-4 font-medium">${order.amount.toFixed(2)}</td>
                                     <td className="px-6 py-4">
                                         <span className={`px-2 py-1 rounded-full text-xs font-bold ${getStatusStyle(order.status)}`}>
                                             {order.status}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 text-right">
-                                        <button className="text-[#FF9933] hover:text-[#FF9933]/80 transition-colors font-medium">
+                                        <a 
+                                            href={`/orders/${order.id}`}
+                                            className="text-[#FF9933] hover:text-[#FF9933]/80 transition-colors font-medium">
                                             Update
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                             ))}
-                            {filtered.length === 0 && (
+                            {!loading && filtered.length === 0 && (
                                 <tr>
                                     <td colSpan={7} className="px-6 py-12 text-center text-zinc-500">
                                         No orders found.

@@ -19,7 +19,7 @@ export default function Home() {
           <div 
             className="absolute inset-0"
             style={{ 
-              background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.2) 100%)' 
+              background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, var(--background) 100%)' 
             }}
           />
         </div>
@@ -30,34 +30,34 @@ export default function Home() {
             <span className="text-sm">🏔️</span> Sourced from the Himalayas
           </div>
 
-          <h1 className="text-5xl md:text-8xl font-bold mb-6 font-serif leading-[1.1] text-slate-900 tracking-tight drop-shadow-[0_2px_15px_rgba(255,255,255,0.8)]">
+          <h1 className="text-5xl md:text-8xl font-bold mb-6 font-serif leading-[1.1] text-white tracking-tight drop-shadow-[0_2px_15px_rgba(34,211,238,0.3)]">
             Sacred <span className="text-saffron">Gangajal</span>,<br />
-            <span className="text-slate-500 block mt-2 italic font-light text-4xl md:text-6xl">Delivered Worldwide.</span>
+            <span className="text-slate-400 block mt-2 italic font-light text-4xl md:text-6xl">Delivered Worldwide.</span>
           </h1>
 
-          <p className="text-xl text-slate-600/90 max-w-[600px] mx-auto mb-14 leading-relaxed font-light">
+          <p className="text-xl text-slate-300 max-w-[600px] mx-auto mb-14 leading-relaxed font-light">
             Bringing the pure spiritual essence of the holy Ganges directly from the Himalayas to your home, preserved in its most pristine form.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-16 max-w-sm mx-auto sm:max-w-none">
             <Link 
               href="/checkout" 
-              className="group relative overflow-hidden px-10 py-5 bg-saffron text-white rounded-full font-bold text-lg transition-all hover:bg-saffron/90 hover:scale-105 active:scale-95 shadow-xl shadow-saffron/20 font-sans"
+              className="w-full sm:w-auto group relative overflow-hidden px-6 py-4 sm:px-10 sm:py-5 bg-saffron text-white rounded-full font-bold text-lg transition-all hover:bg-saffron/90 hover:scale-105 active:scale-95 shadow-xl shadow-saffron/20 font-sans"
             >
-              <span className="flex items-center gap-2 relative z-10">
-                Order Pure Gangajal <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
+              <span className="flex items-center justify-center gap-2 relative z-10 whitespace-nowrap">
+                Order Pure Gangajal <ArrowRight size={20} className="flex-shrink-0 transition-transform group-hover:translate-x-1" />
               </span>
             </Link>
             <Link 
               href="/orders" 
-              className="px-10 py-5 border border-slate-200 text-slate-700 bg-white/50 rounded-full font-semibold text-lg hover:bg-white hover:border-saffron/30 hover:text-saffron transition-all backdrop-blur-sm shadow-sm font-sans"
+              className="w-full sm:w-auto px-6 py-4 sm:px-10 sm:py-5 border border-white/10 text-slate-300 bg-white/5 rounded-full font-semibold text-lg hover:bg-white/10 hover:border-saffron/30 hover:text-white transition-all backdrop-blur-sm shadow-sm font-sans flex items-center justify-center whitespace-nowrap"
             >
               Track My Order
             </Link>
           </div>
 
           {/* Trust Badges */}
-          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-[11px] font-bold text-slate-600/70 tracking-[0.12em] uppercase mt-12 bg-white/30 backdrop-blur-md py-4 px-8 rounded-2xl border border-white/50 shadow-sm inline-flex">
+          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-[11px] font-bold text-slate-400 tracking-[0.12em] uppercase mt-12 bg-white/5 backdrop-blur-md py-4 px-8 rounded-2xl border border-white/10 shadow-sm inline-flex">
             <div className="flex items-center gap-2"><CheckCircle2 size={16} className="text-saffron" /> Export Certified</div>
             <span className="opacity-20 hidden md:block">•</span>
             <div className="flex items-center gap-2"><CheckCircle2 size={16} className="text-saffron" /> Tamper-Proof Sealed</div>
@@ -78,18 +78,18 @@ export default function Home() {
       </div>
 
       {/* Sacred Offering / Booking Details Section */}
-      <section className="py-32 px-4 bg-white relative overflow-hidden">
+      <section className="py-32 px-4 bg-background relative overflow-hidden">
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-20">
             <div className="flex-1 animate-in fade-in slide-in-from-left-8 duration-1000">
               <div className="inline-block px-5 py-2 bg-saffron/10 text-saffron rounded-full text-[10px] font-black tracking-[0.2em] uppercase mb-8 shadow-sm">
                 Limited Sacred Batch
               </div>
-              <h2 className="text-5xl md:text-6xl font-bold text-slate-900 mb-8 font-serif leading-[1.1] tracking-tight">
+              <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 font-serif leading-[1.1] tracking-tight">
                 High-Altitude <br/>
                 <span className="text-saffron italic">Sacred Extraction.</span>
               </h2>
-              <p className="text-slate-600 text-xl mb-12 leading-relaxed font-light">
+              <p className="text-slate-300 text-xl mb-12 leading-relaxed font-light">
                 Our Gangajal is hand-filled during the most auspicious <span className="text-saffron font-medium">Brahma Muhurta</span> hours, when the Himalayan currents are most potent and energetically pure.
               </p>
               
@@ -103,16 +103,16 @@ export default function Home() {
                   <div key={idx} className="flex flex-col gap-3 group">
                     <div className="flex items-center gap-3 text-saffron">
                       {item.icon}
-                      <span className="font-black text-[10px] uppercase tracking-[0.2em] text-slate-400">{item.title}</span>
+                      <span className="font-black text-[10px] uppercase tracking-[0.2em] text-slate-500">{item.title}</span>
                     </div>
-                    <span className="text-slate-900 font-bold text-lg">{item.detail}</span>
+                    <span className="text-white font-bold text-lg">{item.detail}</span>
                   </div>
                 ))}
               </div>
               
               <Link 
                 href="/checkout" 
-                className="group inline-flex items-center gap-4 px-12 py-6 bg-slate-900 text-white rounded-full font-bold text-xl hover:bg-slate-800 transition-all hover:scale-[1.02] shadow-2xl shadow-slate-400/20 active:scale-95"
+                className="group inline-flex items-center gap-4 px-12 py-6 bg-white text-slate-900 rounded-full font-bold text-xl hover:bg-slate-100 transition-all hover:scale-[1.02] shadow-2xl shadow-white/5 active:scale-95"
               >
                 Book This Batch <span className="opacity-40 font-light ml-2">|</span> <span className="text-saffron">$25.00</span>
                 <ArrowRight size={24} className="transition-transform group-hover:translate-x-2" />
@@ -120,27 +120,27 @@ export default function Home() {
             </div>
             
             <div className="flex-1 relative w-full max-w-lg lg:max-w-none">
-              <div className="aspect-[4/5] bg-slate-50 rounded-[64px] overflow-hidden relative group border border-slate-100 shadow-2xl">
+              <div className="aspect-[4/5] bg-slate-900 rounded-[64px] overflow-hidden relative group border border-white/5 shadow-2xl">
                 {/* Gangotri Source Image */}
                 <img 
                   src="/images/gangotri.png" 
                   alt="Sacred Gangotri Source" 
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-80"
                 />
                 
                 {/* Saffron Glow Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80" />
                 
                 {/* Saffron Glows */}
-                <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-saffron/20 rounded-full blur-[100px] animate-pulse" />
-                <div className="absolute -top-32 -left-32 w-96 h-96 bg-water-blue/20 rounded-full blur-[100px] animate-pulse delay-500" />
+                <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-saffron/10 rounded-full blur-[100px] animate-pulse" />
+                <div className="absolute -top-32 -left-32 w-96 h-96 bg-water-blue/10 rounded-full blur-[100px] animate-pulse delay-500" />
                 
                 {/* Heritage Label */}
-                <div className="absolute bottom-12 left-12 right-12 bg-white/60 backdrop-blur-xl border border-white/40 p-8 rounded-[32px] shadow-lg">
+                <div className="absolute bottom-12 left-12 right-12 bg-black/40 backdrop-blur-xl border border-white/10 p-8 rounded-[32px] shadow-lg">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-1">Source Coordinates</p>
-                      <p className="text-slate-900 font-bold text-sm tracking-tight italic">30.9947° N, 78.9398° E (Gangotri)</p>
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Source Coordinates</p>
+                      <p className="text-white font-bold text-sm tracking-tight italic">30.9947° N, 78.9398° E (Gangotri)</p>
                     </div>
                     <div className="w-10 h-10 rounded-full border border-saffron/30 flex items-center justify-center">
                       <div className="w-2 h-2 bg-saffron rounded-full animate-ping" />
@@ -150,15 +150,81 @@ export default function Home() {
               </div>
               
               {/* Floating Review Card */}
-              <div className="absolute -top-10 -right-10 bg-white p-8 rounded-[32px] shadow-2xl border border-slate-100 max-w-[280px] hidden xl:block animate-bounce-subtle">
-                <p className="text-slate-800 font-serif italic text-lg mb-4 leading-relaxed">"The water feels alive, as if the river is right here."</p>
+              <div className="absolute -top-10 -right-10 bg-slate-800/90 backdrop-blur-xl p-8 rounded-[32px] shadow-2xl border border-white/5 max-w-[280px] hidden xl:block animate-bounce-subtle">
+                <p className="text-slate-100 font-serif italic text-lg mb-4 leading-relaxed">"The water feels alive, as if the river is right here."</p>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-saffron/10 flex items-center justify-center text-[10px] font-black text-saffron border border-saffron/20">AK</div>
                   <div className="flex flex-col">
-                    <span className="text-xs font-black text-slate-900 uppercase tracking-widest">Anjali K.</span>
+                    <span className="text-xs font-black text-white uppercase tracking-widest">Anjali K.</span>
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Houston, USA</span>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sacred Traditions & Usage Section */}
+      <section className="py-32 px-4 bg-slate-900/20 relative overflow-hidden">
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif tracking-tight">
+              Sacred <span className="text-saffron italic">Traditions & Usage.</span>
+            </h2>
+            <p className="text-slate-400 text-xl max-w-3xl mx-auto leading-relaxed font-light">
+              For millennia, Gangajal has been the cornerstone of spiritual purity, used across generations to sanctify homes and elevate the soul.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                title: "Daily Puja",
+                description: "Used to purify the altar and home before daily prayers, inviting divine energy into the living space.",
+                icon: "✨"
+              },
+              {
+                title: "Life Sanskaras",
+                description: "Essential for births, weddings, and last rites, ensuring the presence of the holy Ganges during life's most sacred milestones.",
+                icon: "🌿"
+              },
+              {
+                title: "Spiritual Healing",
+                description: "Consumed or sprinkled for mental clarity and spiritual restoration, believed to wash away negative karmic vibrations.",
+                icon: "🕉️"
+              },
+              {
+                title: "Divine Heritage",
+                description: "Scientifically unique—the only water on Earth that remains fresh for years, carrying the minerals of the sacred Himalayas.",
+                icon: "🏔️"
+              }
+            ].map((usage, idx) => (
+              <div key={idx} className="bg-slate-900/40 backdrop-blur-md border border-white/5 p-8 rounded-[32px] hover:border-saffron/20 transition-all group">
+                <div className="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300 ring-1 ring-white/10 w-16 h-16 rounded-2xl flex items-center justify-center bg-white/5">
+                  {usage.icon}
+                </div>
+                <h4 className="text-xl font-bold text-white mb-4 font-serif">{usage.title}</h4>
+                <p className="text-slate-400 text-sm leading-relaxed">{usage.description}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-20 p-12 bg-white/5 rounded-[48px] border border-white/5 backdrop-blur-sm relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-saffron/10 rounded-full blur-[80px] -mr-32 -mt-32" />
+            <div className="flex flex-col md:flex-row items-center gap-12 relative z-10">
+              <div className="flex-1">
+                <h3 className="text-3xl font-bold text-white mb-6 font-serif">A Remarkable Quality</h3>
+                <p className="text-slate-300 leading-relaxed font-light">
+                  Known as <span className="text-saffron font-medium">"Prana-Shakti"</span>, the sacred Ganges water contains high levels of dissolved oxygen and unique bacteriophages. Even ancient travelers recorded that Gangajal sealed in copper vessels would remain pristine for years, retaining its spiritual and physical purity across oceans.
+                </p>
+              </div>
+              <div className="w-px h-32 bg-white/10 hidden md:block" />
+              <div className="flex-1">
+                <h3 className="text-3xl font-bold text-white mb-6 font-serif">Vedic Significance</h3>
+                <p className="text-slate-300 leading-relaxed font-light">
+                  In the Puranas, it is said that a single drop of Gangajal is enough to liberate the soul from the cycle of birth and death. It is the liquid form of the Divine Mother, descending to Earth to purify humanity.
+                </p>
               </div>
             </div>
           </div>
@@ -193,13 +259,13 @@ export default function Home() {
             ].map((feature, i) => (
               <div 
                 key={i}
-                className="group p-10 bg-white border-t-4 border-gold rounded-[24px] transition-all duration-300 hover:-translate-y-2 shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_50px_rgba(212,175,55,0.15)]"
+                className="group p-10 bg-slate-900/50 backdrop-blur-sm border border-white/5 rounded-[24px] transition-all duration-300 hover:-translate-y-2 shadow-2xl hover:shadow-saffron/5"
               >
                 <div className="w-16 h-16 bg-saffron/10 rounded-2xl flex items-center justify-center text-saffron mb-8 transition-colors group-hover:bg-saffron/20 group-hover:scale-110 duration-300">
                   {feature.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">{feature.title}</h3>
-                <p className="text-slate-600 text-sm leading-[1.8]">{feature.desc}</p>
+                <h3 className="text-2xl font-bold text-white mb-4">{feature.title}</h3>
+                <p className="text-slate-400 text-sm leading-[1.8]">{feature.desc}</p>
               </div>
             ))}
           </div>
@@ -229,10 +295,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Section with Light Blue Gradient */}
-      <section className="py-32 px-4 border-y border-black/5 bg-shimmer">
+      {/* Stats Section with Deep Blue Gradient */}
+      <section className="py-32 px-4 border-y border-white/5 bg-slate-900/30">
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-foreground mb-20 tracking-tight">The Impact of Devotion</h2>
+          <h2 className="text-3xl font-bold text-white mb-20 tracking-tight">The Impact of Devotion</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8">
             {[
@@ -242,7 +308,7 @@ export default function Home() {
             ].map((stat, i) => (
               <div key={i} className="flex flex-col items-center">
                 <span className="text-6xl font-black text-gold mb-4 font-serif italic underline decoration-gold/30 underline-offset-[12px]">{stat.val}</span>
-                <span className="text-sm font-bold tracking-[0.15em] text-foreground/70 mt-2">{stat.label}</span>
+                <span className="text-sm font-bold tracking-[0.15em] text-slate-400 mt-2">{stat.label}</span>
               </div>
             ))}
           </div>

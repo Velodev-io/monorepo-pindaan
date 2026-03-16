@@ -32,12 +32,12 @@ export const AddressForm: React.FC<AddressFormProps> = ({ formData, onChange, er
   }
 
   const inputClasses = (error?: string) => cn(
-    "mt-1.5 block w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-2xl text-sm font-medium transition-all duration-200",
-    "placeholder:text-slate-400 focus:outline-none focus:border-saffron focus:ring-4 focus:ring-saffron/10 focus:bg-white",
-    error && "border-red-500 focus:border-red-500 focus:ring-red-500/10"
+    "mt-1.5 block w-full px-5 py-4 bg-white/5 border border-white/10 rounded-2xl text-sm font-medium text-white transition-all duration-300 backdrop-blur-sm",
+    "placeholder:text-slate-500 focus:outline-none focus:border-saffron/50 focus:ring-4 focus:ring-saffron/10 focus:bg-white/10",
+    error && "border-red-500/50 focus:border-red-500 focus:ring-red-500/10 bg-red-500/5"
   );
 
-  const labelClasses = "block text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 ml-1";
+  const labelClasses = "block text-[10px] font-black uppercase tracking-[0.2em] text-slate-300 ml-1 mb-1";
 
   return (
     <div className="space-y-6">
@@ -158,14 +158,14 @@ export const AddressForm: React.FC<AddressFormProps> = ({ formData, onChange, er
             name="country"
             value={formData.country}
             onChange={handleChange}
-            className={cn(inputClasses(errors?.country), "appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%2364748b%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat")}
+            className={cn(inputClasses(errors?.country), "appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%23FB923C%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1rem_center] bg-no-repeat cursor-pointer")}
           >
-            <option value="">Select a country</option>
-            <option value="US">United States</option>
-            <option value="IN">India</option>
-            <option value="GB">United Kingdom</option>
-            <option value="CA">Canada</option>
-            <option value="AU">Australia</option>
+            <option value="" className="bg-slate-900 text-white">Select a country</option>
+            <option value="US" className="bg-slate-900 text-white">United States</option>
+            <option value="IN" className="bg-slate-900 text-white">India</option>
+            <option value="GB" className="bg-slate-900 text-white">United Kingdom</option>
+            <option value="CA" className="bg-slate-900 text-white">Canada</option>
+            <option value="AU" className="bg-slate-900 text-white">Australia</option>
           </select>
           {errors?.country && <p className="mt-1.5 text-[10px] font-bold text-red-500 ml-1 uppercase tracking-tight">{errors.country}</p>}
         </div>

@@ -109,3 +109,45 @@ enum BookingStatus {
   COMPLETED
   CANCELLED
 }
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  sku         String   @unique
+  volumeMl    Int
+  price       Float
+  currency    String   @default("USD")
+  isActive    Boolean  @default(true)
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Order {
+  id              String        @id @default(uuid())
+  userId          String?
+  customerName    String
+  customerEmail   String
+  amount          Float
+  currency        String        @default("USD")
+  status          String        @default("PENDING") // Using String to avoid enum migration issues with Prisma/Postgres if not needed, mapped to OrderStatus enum in app
+  paymentStatus   String        @default("PENDING")
+  shippingAddress Json
+  trackingNumber  String?
+  carrier         String?
+  adminNotes      String?
+  items           OrderItem[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  // product   Product @relation(fields: [productId], references: [id])
+  name      String
+  quantity  Int
+  price     Float
+}

@@ -19,23 +19,23 @@ export default function Navbar() {
   );
 
   return (
-    <nav className="h-20 border-b border-slate-100 px-6 flex items-center justify-between sticky top-0 bg-background/80 backdrop-blur-md z-50">
+    <nav className="h-20 border-b border-white/5 px-6 flex items-center justify-between sticky top-0 bg-nav-bg backdrop-blur-md z-50">
       <Link href="/" className="flex items-center gap-3 group">
         {lotusIcon}
-        <span className="font-bold text-2xl tracking-tighter text-slate-900 font-serif group-hover:text-saffron transition-colors">
+        <span className="font-bold text-2xl tracking-tighter text-white font-serif group-hover:text-saffron transition-colors">
           Sacred<span className="text-saffron italic">Gangajal</span>
         </span>
       </Link>
 
       <div className="flex items-center gap-8">
-        <Link href="/orders" className="text-sm font-medium text-slate-500 hover:text-slate-800 transition-all font-sans">Orders</Link>
+        <Link href="/orders" className="text-sm font-medium text-slate-400 hover:text-white transition-all font-sans">Orders</Link>
         {user ? (
           <div className="flex items-center gap-6">
-            <Link href="/profile" className="text-sm font-medium text-slate-500 hover:text-slate-800 transition-all font-sans">Profile</Link>
-            <span className="text-sm text-slate-600 font-sans hidden sm:block">Hi, {user.displayName?.split(' ')[0] || 'User'}</span>
+            <Link href="/profile" className="text-sm font-medium text-slate-400 hover:text-white transition-all font-sans">Profile</Link>
+            <span className="text-sm text-slate-300 font-sans hidden sm:block">Hi, {user.displayName?.split(' ')[0] || 'User'}</span>
             <button 
               onClick={() => signOut(auth)}
-              className="text-sm font-bold text-slate-400 hover:text-red-500 transition-colors font-sans"
+              className="text-sm font-bold text-slate-500 hover:text-red-400 transition-colors font-sans"
             >
               Sign Out
             </button>
@@ -43,7 +43,7 @@ export default function Navbar() {
         ) : (
           <Link 
             href="/login" 
-            className="px-8 py-2.5 bg-saffron/10 border border-saffron/30 text-saffron rounded-full text-sm font-semibold hover:bg-saffron hover:text-white transition-all font-sans active:scale-95 shadow-sm"
+            className="px-8 py-2.5 bg-saffron/20 border border-saffron/40 text-saffron rounded-full text-sm font-semibold hover:bg-saffron hover:text-white transition-all font-sans active:scale-95 shadow-lg shadow-saffron/10"
           >
             Sign In
           </Link>

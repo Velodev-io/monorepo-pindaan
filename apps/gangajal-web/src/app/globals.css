@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FFFFFF;
-  --foreground: #1E293B;
-  --gold: #D4AF37;
-  --saffron: #FF9933;
-  --water-blue: #0EA5E9;
-  --card-bg: #FFFFFF;
+  --background: #020617; /* Deep Navy */
+  --foreground: #F8FAFC; /* Slate White */
+  --gold: #FACC15;
+  --saffron: #FB923C;
+  --water-blue: #22D3EE;
+  --card-bg: #1E293B;
+  --nav-bg: rgba(2, 6, 23, 0.8);
 }
 
 @theme inline {
@@ -15,6 +16,7 @@
   --color-gold: var(--gold);
   --color-saffron: var(--saffron);
   --color-water-blue: var(--water-blue);
+  --color-card: var(--card-bg);
   --font-inter: var(--font-inter);
   --font-playfair: var(--font-playfair);
   --font-sans: var(--font-inter), ui-sans-serif, system-ui;
@@ -22,7 +24,7 @@
 }
 
 body {
-  background: var(--background);
+  background: radial-gradient(circle at 50% -20%, #0B1120 0%, var(--background) 100%);
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
   -webkit-font-smoothing: antialiased;

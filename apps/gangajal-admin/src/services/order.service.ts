@@ -1,21 +1,23 @@
 import { apiClient } from "../lib/api-client";
 import { Order, OrderStatus } from "@pinddaan/types";
-import { OrderStatusUpdateInput } from "@pinddaan/schemas";
 
 export const OrderService = {
     async getAll(
         page = 1,
         limit = 20,
-        status?: OrderStatus
+        status?: string
     ): Promise<{ data: Order[]; total: number }> {
         let query = `/orders?page=${page}&limit=${limit}`;
-        if (status) query += `&status=${status}`;
+        if (status && status !== "ALL") query += `&status=${status}`;
         return apiClient(query);
     },
-    async updateStatus(orderId: string, update: OrderStatusUpdateInput): Promise<Order> {
-        return apiClient(`/orders/${orderId}/status`, {
+    async getById(id: string): Promise<{ success: boolean; data: Order }> {
+        return apiClient(`/orders/${id}`);
+    },
+    async update(id: string, updateData: any): Promise<{ success: boolean; data: Order }> {
+        return apiClient(`/orders/${id}`, {
             method: "PATCH",
-            body: JSON.stringify(update),
+            body: JSON.stringify(updateData),
         });
     },
     async getRecentOrders(limit = 5): Promise<{ success: boolean; data: Order[] }> {

@@ -9,6 +9,8 @@ import ritualRoutes from "./routes/ritual.routes";
 import locationRoutes from "./routes/location.routes";
 import publicLocationRoutes from "./routes/public_location.routes";
 import gangajalRoutes from "./routes/gangajal.routes";
+import orderRoutes from "./routes/order.routes";
+import productRoutes from "./routes/product.routes";
 
 const app = express();
 
@@ -45,6 +47,8 @@ app.use("/api/v1/services", ritualRoutes);
 app.use("/api/v1/admin/locations", locationRoutes);
 app.use("/api/v1/locations", publicLocationRoutes);
 app.use("/api/v1/gangajal", gangajalRoutes);
+app.use("/api/v1/orders", orderRoutes);
+app.use("/api/v1/products", productRoutes);
 
 // Central Error Handler
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
