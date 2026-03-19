@@ -23,17 +23,26 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
             }
 
             try {
-                // Verify Admin Role via our Express API Endpoint 
-                // which returns true if their DB role is ADMIN or SUPER_ADMIN
-                const { role } = await apiClient("/users/me/role");
-                
+                // Verify admin access against backend role.
+                const roleResponse = await apiClient("/users/me/role");
+                const role = typeof roleResponse?.role === "string" ? roleResponse.role.toUpperCase() : "";
+
                 if (role !== "ADMIN" && role !== "SUPER_ADMIN") {
-                    console.warn(`[AuthGuard] Insufficient role: ${role}. Access denied.`);
-                    throw new Error("UNAUTHORIZED_ROLE");
+                    console.warn(`[AuthGuard] Insufficient role: ${role || "UNKNOWN"}. Access denied.`);
+                    await auth.signOut();
+                    router.push(`/login?error=forbidden${role ? `&role=${encodeURIComponent(role)}` : ""}`);
+                    return;
                 }
+
                 setIsAuthorized(true);
-            } catch (err: any) {
-                console.error("[AuthGuard] Authorization check failed:", err.message);
+            } catch (err: unknown) {
+                const message = err instanceof Error ? err.message : "Authorization check failed";
+                // Treat auth/permission failures as expected redirect paths in dev.
+                if (message.includes("Unauthorized") || message.includes("Forbidden")) {
+                    console.warn("[AuthGuard] Authorization check failed:", message);
+                } else {
+                    console.error("[AuthGuard] Authorization check failed:", message);
+                }
                 auth.signOut();
                 router.push("/login?error=forbidden");
             } finally {

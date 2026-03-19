@@ -1,10 +1,48 @@
 import { getAuth } from "firebase-admin/auth";
 import * as admin from "firebase-admin";
 
-const initializeFirebaseAdmin = () => {
+const decodeProjectIdFromToken = (token: string): string | undefined => {
+    try {
+        const [, payloadPart] = token.split(".");
+        if (!payloadPart) return undefined;
+
+        const base64 = payloadPart.replace(/-/g, "+").replace(/_/g, "/");
+        const padded = base64.padEnd(Math.ceil(base64.length / 4) * 4, "=");
+        const payload = JSON.parse(Buffer.from(padded, "base64").toString("utf8")) as {
+            aud?: string;
+            iss?: string;
+        };
+
+        if (payload.aud && typeof payload.aud === "string") {
+            return payload.aud;
+        }
+
+        if (payload.iss && typeof payload.iss === "string") {
+            const prefix = "https://securetoken.google.com/";
+            if (payload.iss.startsWith(prefix)) {
+                return payload.iss.slice(prefix.length);
+            }
+        }
+    } catch {
+        // Intentionally ignore decode errors and continue with env-based fallback.
+    }
+
+    return undefined;
+};
+
+const initializeFirebaseAdmin = (token?: string) => {
     if (!admin.apps.length) {
-        console.log("[FirebaseAdmin] Initializing with Project ID:", process.env.FIREBASE_PROJECT_ID || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID);
-        const projectId = process.env.FIREBASE_PROJECT_ID || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
+        const projectId =
+            process.env.FIREBASE_PROJECT_ID ||
+            process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ||
+            (token ? decodeProjectIdFromToken(token) : undefined);
+        console.log("[FirebaseAdmin] Initializing with Project ID:", projectId);
+
+        if (!projectId) {
+            throw new Error(
+                "Missing Firebase project ID. Set FIREBASE_PROJECT_ID or provide a valid Firebase ID token."
+            );
+        }
 
         if (process.env.FIREBASE_PRIVATE_KEY && process.env.FIREBASE_CLIENT_EMAIL) {
             console.log("[FirebaseAdmin] Using Service Account (Client Email):", process.env.FIREBASE_CLIENT_EMAIL);
@@ -21,13 +59,13 @@ const initializeFirebaseAdmin = () => {
             });
         } else {
             console.warn("[FirebaseAdmin] No service account found. Falling back to default project initialization.");
-            // Allows verifyIdToken to work without a full service account locally
+            // Works locally without a service account when projectId is known.
             admin.initializeApp({ projectId });
         }
     }
 };
 
 export const verifyIdToken = async (token: string) => {
-    initializeFirebaseAdmin();
+    initializeFirebaseAdmin(token);
     return await getAuth().verifyIdToken(token);
 };

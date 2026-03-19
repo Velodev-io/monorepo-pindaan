@@ -1,6 +1,6 @@
 import { auth } from "./firebase";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api/v1";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005/api/v1";
 
 export async function apiClient(endpoint: string, options: RequestInit = {}) {
     const user = auth.currentUser;
@@ -28,13 +28,23 @@ export async function apiClient(endpoint: string, options: RequestInit = {}) {
         throw new Error("Forbidden: You do not have permission.");
     }
 
-    try {
-        const data = await response.json();
-        if (!response.ok) {
-            throw new Error(data?.error || data?.message || "API request failed");
-        }
-        return data;
-    } catch {
-        return response;
+    let data: Record<string, unknown> | null = null;
+    const contentType = response.headers.get("content-type") || "";
+
+    if (contentType.includes("application/json")) {
+        data = await response.json().catch(() => null);
+    } else {
+        const text = await response.text().catch(() => "");
+        data = text ? { message: text } : null;
     }
+
+    if (!response.ok) {
+        const errorMessage =
+            (typeof data?.error === "string" && data.error) ||
+            (typeof data?.message === "string" && data.message) ||
+            `API request failed (${response.status})`;
+        throw new Error(errorMessage);
+    }
+
+    return data;
 }

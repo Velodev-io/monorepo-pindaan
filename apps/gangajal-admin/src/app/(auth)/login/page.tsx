@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "@/lib/firebase";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { LogIn } from "lucide-react";
 import { apiClient } from "@/lib/api-client";
 
@@ -13,6 +13,13 @@ export default function LoginPage() {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const accessError = searchParams.get("error");
+    const deniedRole = (searchParams.get("role") || "USER").toUpperCase();
+    const accessDeniedMessage =
+        accessError === "forbidden"
+            ? `This account has role ${deniedRole}. Only ADMIN or SUPER_ADMIN can access Gangajal Admin.`
+            : "";
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -21,11 +28,15 @@ export default function LoginPage() {
 
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const idToken = await userCredential.user.getIdToken();
             
             
             // Explicitly sync the user into the Neon DB 
             await apiClient("/users/sync", {
                 method: "POST",
+                headers: {
+                    Authorization: `Bearer ${idToken}`,
+                },
                 body: JSON.stringify({
                     name: userCredential.user.displayName,
                     email: userCredential.user.email,
@@ -34,16 +45,18 @@ export default function LoginPage() {
             console.log("API sync successful, redirecting to home.");
 
             router.push("/");
-        } catch (err: any) {
-            console.error("Login process failed:", err.code || "API_ERROR", err.message);
-            if (err.code === "auth/invalid-credential") {
+        } catch (err: unknown) {
+            const code = typeof err === "object" && err && "code" in err ? String(err.code) : "API_ERROR";
+            const message = err instanceof Error ? err.message : String(err);
+            console.error("Login process failed:", code, message);
+            if (code === "auth/invalid-credential") {
                 setError("Incorrect email or password. Please check your credentials.");
-            } else if (err.code === "auth/user-not-found") {
+            } else if (code === "auth/user-not-found") {
                 setError("No account found with this email.");
-            } else if (err.code === "auth/too-many-requests") {
+            } else if (code === "auth/too-many-requests") {
                 setError("Too many failed attempts. Please try again later.");
             } else {
-                setError(err.message || "An unexpected error occurred during authentication.");
+                setError(message || "An unexpected error occurred during authentication.");
             }
         } finally {
             setLoading(false);
@@ -56,10 +69,14 @@ export default function LoginPage() {
 
         try {
             const userCredential = await signInWithPopup(auth, googleProvider);
+            const idToken = await userCredential.user.getIdToken();
             
             // Explicitly sync the user into the Neon DB 
             await apiClient("/users/sync", {
                 method: "POST",
+                headers: {
+                    Authorization: `Bearer ${idToken}`,
+                },
                 body: JSON.stringify({
                     name: userCredential.user.displayName,
                     email: userCredential.user.email,
@@ -92,6 +109,11 @@ export default function LoginPage() {
                 {error && (
                     <div className="bg-red-500/10 border border-red-500/50 text-red-500 text-sm p-4 rounded-xl mb-6 text-center">
                         {error}
+                    </div>
+                )}
+                {!error && accessDeniedMessage && (
+                    <div className="bg-amber-500/10 border border-amber-500/50 text-amber-300 text-sm p-4 rounded-xl mb-6 text-center">
+                        {accessDeniedMessage}
                     </div>
                 )}
 
