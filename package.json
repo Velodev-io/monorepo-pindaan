@@ -2,14 +2,16 @@
     "name": "pinddaan-monorepo",
     "private": true,
     "scripts": {
-        "build": "turbo run build",
-        "dev": "turbo run dev",
-        "dev:gangajal-web": "turbo run dev --filter=gangajal-web",
-        "dev:gangajal-admin": "turbo run dev --filter=gangajal-admin",
-        "dev:pinddaan-web": "turbo run dev --filter=pinddaan-web",
-        "dev:pinddaan-admin": "turbo run dev --filter=pinddaan-admin",
-        "dev:all": "turbo run dev",
-        "lint": "turbo run lint"
+        "build": "npx turbo run build",
+        "dev": "npx turbo run dev",
+        "dev:gangajal-web": "npx turbo run dev --filter=gangajal-web",
+        "dev:gangajal-admin": "npx turbo run dev --filter=gangajal-admin",
+        "dev:api": "npx turbo run dev --filter=api",
+        "dev:gangajal": "npx turbo run dev --filter=gangajal-web --filter=gangajal-admin --filter=api",
+        "dev:pinddaan-web": "npx turbo run dev --filter=pinddaan-web",
+        "dev:pinddaan-admin": "npx turbo run dev --filter=pinddaan-admin",
+        "dev:all": "npx turbo run dev",
+        "lint": "npx turbo run lint"
     },
     "devDependencies": {
         "turbo": "latest"
@@ -18,5 +20,5 @@
         "apps/*",
         "packages/*"
     ],
-    "packageManager": "yarn@1.22.21"
+    "packageManager": "npm@11.11.0"
 }

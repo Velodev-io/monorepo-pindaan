@@ -42,7 +42,8 @@ export default function CheckoutPage() {
   }, [router]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/v1/products?isActive=true")
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005/api/v1";
+    fetch(`${apiUrl}/products?isActive=true`)
       .then(res => res.json())
       .then(data => {
         if (data.success && data.data.length > 0) {
@@ -90,7 +91,8 @@ export default function CheckoutPage() {
       }];
 
       // Save order to DB and trigger emails via API
-      const res = await fetch("http://localhost:3001/api/v1/orders", {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005/api/v1";
+      const res = await fetch(`${apiUrl}/orders`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

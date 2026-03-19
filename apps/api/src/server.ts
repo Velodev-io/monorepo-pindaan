@@ -12,6 +12,7 @@ import gangajalRoutes from "./routes/gangajal.routes";
 import orderRoutes from "./routes/order.routes";
 import productRoutes from "./routes/product.routes";
 import reviewRoutes from "./routes/review.routes";
+import { sendEmail } from "@pinddaan/email";
 
 const app = express();
 
@@ -40,6 +41,20 @@ app.use(
 
 // Healthcheck
 app.get("/health", (req, res) => res.json({ status: "OK" }));
+
+// Diagnostic Email Test
+app.get("/api/v1/test-email", async (req, res) => {
+    try {
+        await sendEmail({
+            to: process.env.ADMIN_EMAIL || (process.env.EMAIL_USER as string),
+            subject: "Hridganga Connection Test 🪔",
+            html: `<h1>SMTP Test Successful</h1><p>Time: ${new Date().toISOString()}</p><p>Sent to: ${process.env.ADMIN_EMAIL}</p>`
+        });
+        res.json({ success: true, message: "Test email sent successfully" });
+    } catch (error: any) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
 
 // Routes Layer
 app.use("/api/v1/users", userRoutes);
@@ -72,6 +87,7 @@ const PORT = ENV.PORT || 3001;
 if (process.env.VERCEL !== '1') {
     app.listen(PORT, () => {
         console.log(`🚀 API Server running securely on port ${PORT}`);
+        console.log(`📧 Email Service Config: HOST=${process.env.EMAIL_HOST}, USER=${process.env.EMAIL_USER}, PASS_SET=${!!process.env.EMAIL_PASS}, ADMIN=${process.env.ADMIN_EMAIL}`);
     });
 }
 

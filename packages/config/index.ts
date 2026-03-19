@@ -25,7 +25,7 @@ if (isNode) {
 // Basic schema with optional fields for flexibility
 export const envSchema = z.object({
     DATABASE_URL: z.string().url().optional(), // Make optional for build-time safety
-    PORT: z.string().default("3001"),
+    PORT: z.string().default("3005"),
     FIREBASE_PROJECT_ID: z.string().optional(),
     FIREBASE_CLIENT_EMAIL: z.string().email().optional(),
     FIREBASE_PRIVATE_KEY: z.string().optional(),

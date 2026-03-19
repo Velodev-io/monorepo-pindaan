@@ -102,17 +102,17 @@ export default function Home() {
                 Limited Sacred Batch
               </div>
               <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 font-serif leading-[1.1] tracking-tight">
-                High-Altitude <br/>
-                <span className="text-saffron italic">Sacred Extraction.</span>
+                Gateway to the <br/>
+                <span className="text-saffron italic">Divine Rishikesh.</span>
               </h2>
               <p className="text-slate-300 text-xl mb-12 leading-relaxed font-light">
-                Our Gangajal is hand-filled during the most auspicious <span className="text-saffron font-medium">Brahma Muhurta</span> hours, when the Himalayan currents are most potent and energetically pure.
+                Our Gangajal is hand-filled from the sacred banks of Rishikesh—the Gateway to the Gods. Easily reachable from Delhi, this sacred site offers the most accessible yet pure Himalayan currents for your spiritual rituals.
               </p>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-10 gap-x-12 mb-16">
                 {[
                   { title: "Volume", detail: "500ml Sacred Flow", icon: <Droplets size={20} /> },
-                  { title: "Heritage", detail: "10,000+ ft Altitude", icon: <Globe size={20} /> },
+                  { title: "Heritage", detail: "Gateway to the Gods", icon: <Globe size={20} /> },
                   { title: "Seal", detail: "Vedic Wax Sealing", icon: <PackageCheck size={20} /> },
                   { title: "Purity", detail: "Export Certified", icon: <CheckCircle2 size={20} /> }
                 ].map((item, idx) => (
@@ -135,14 +135,14 @@ export default function Home() {
               </Link>
             </div>
             
-            <div className="flex-1 relative w-full max-w-lg lg:max-w-none perspective-1000">
-              <div className="aspect-[4/5] bg-slate-900 rounded-[64px] overflow-hidden relative group border border-white/5 shadow-2xl hover-3d preserve-3d">
-                {/* Gangotri Source Image */}
+            <div className="flex-1 relative w-full max-w-lg lg:max-w-none">
+              <div className="aspect-[4/5] bg-slate-900 rounded-[64px] overflow-hidden relative group border border-white/5 shadow-2xl">
+                {/* Rishikesh Source Image */}
                 <Image 
-                  src="/images/gangotri.png" 
-                  alt="Sacred Gangotri Source" 
+                  src="/images/rishikesh.png" 
+                  alt="Sacred Rishikesh Bank" 
                   fill
-                  className="object-cover transition-transform duration-1000 group-hover:scale-110 opacity-80"
+                  className="object-cover opacity-80"
                 />
                 
                 {/* Saffron Glow Overlay */}
@@ -153,11 +153,11 @@ export default function Home() {
                 <div className="absolute -top-32 -left-32 w-96 h-96 bg-water-blue/10 rounded-full blur-[100px] animate-pulse delay-500" />
                 
                 {/* Heritage Label */}
-                <div className="absolute bottom-12 left-12 right-12 bg-black/40 backdrop-blur-xl border border-white/10 p-8 rounded-[32px] shadow-lg translate-z-20">
+                <div className="absolute bottom-12 left-12 right-12 bg-black/40 backdrop-blur-xl border border-white/10 p-8 rounded-[32px] shadow-lg">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Source Coordinates</p>
-                      <p className="text-white font-bold text-sm tracking-tight italic">30.9947° N, 78.9398° E (Gangotri)</p>
+                      <p className="text-white font-bold text-sm tracking-tight italic">30.1225° N, 78.3129° E (Rishikesh)</p>
                     </div>
                     <div className="w-10 h-10 rounded-full border border-saffron/30 flex items-center justify-center">
                       <div className="w-2 h-2 bg-saffron rounded-full animate-ping" />
@@ -167,7 +167,7 @@ export default function Home() {
               </div>
               
               {/* Floating Review Card */}
-              <div className="absolute -top-10 -right-10 bg-slate-800/90 backdrop-blur-xl p-8 rounded-[32px] shadow-2xl border border-white/5 max-w-[280px] hidden xl:block animate-bounce-subtle translate-z-30">
+              <div className="absolute -top-10 -right-10 bg-slate-800/90 backdrop-blur-xl p-8 rounded-[32px] shadow-2xl border border-white/5 max-w-[280px] hidden xl:block animate-bounce-subtle">
                 <p className="text-slate-100 font-serif italic text-lg mb-4 leading-relaxed">"The water feels alive, as if the river is right here."</p>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-saffron/10 flex items-center justify-center text-[10px] font-black text-saffron border border-saffron/20">AK</div>

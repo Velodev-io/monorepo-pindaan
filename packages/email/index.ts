@@ -45,35 +45,65 @@ export const emailService = {
 // ─── Transporter ─────────────────────────────────────────────────────────────
 
 function createTransporter() {
-    return nodemailer.createTransport({
-        host: process.env.EMAIL_HOST || "smtp.gmail.com",
+    const isGmail = (process.env.EMAIL_HOST || "smtp.gmail.com").includes("gmail");
+    
+    console.log("[EMAIL] Creating transporter for:", isGmail ? "Gmail Service" : process.env.EMAIL_HOST);
+
+    const config: any = isGmail ? {
+        service: "gmail",
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+        }
+    } : {
+        host: process.env.EMAIL_HOST,
         port: parseInt(process.env.EMAIL_PORT || "587"),
-        secure: false,
+        secure: process.env.EMAIL_PORT === "465",
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
         },
-    });
+        tls: {
+            rejectUnauthorized: false
+        }
+    };
+
+    return nodemailer.createTransport(config);
 }
 
 // ─── Core send ────────────────────────────────────────────────────────────────
 
 export async function sendEmail(options: SendEmailOptions): Promise<void> {
+    console.log(`[EMAIL] Attempting to send email to ${options.to} - Subject: ${options.subject}`);
+    
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-        console.log("[EMAIL SKIPPED] No SMTP credentials found. Would have sent:", {
+        console.warn("[EMAIL SKIPPED] No SMTP credentials found in process.env. Please check your .env file.");
+        console.log("[EMAIL DATA]:", {
             to: options.to,
             subject: options.subject,
         });
         return;
     }
 
-    const transporter = createTransporter();
-    await transporter.sendMail({
-        from: `"Hridganga 🪔" <${process.env.EMAIL_USER}>`,
-        to: options.to,
-        subject: options.subject,
-        html: options.html,
-    });
+    try {
+        const transporter = createTransporter();
+        
+        // Verify connection configuration
+        await transporter.verify();
+        console.log("[EMAIL] Transporter verified successfully.");
+
+        const info = await transporter.sendMail({
+            from: `"Hridganga 🪔" <${process.env.EMAIL_USER}>`,
+            to: options.to,
+            subject: options.subject,
+            html: options.html,
+        });
+
+        console.log(`[EMAIL SUCCESS] Message sent to ${options.to}. MessageID: ${info.messageId}`);
+    } catch (error: any) {
+        console.error(`[EMAIL ERROR] Failed to send email to ${options.to}:`, error);
+        throw error; // Re-throw to let the caller handle it if needed
+    }
 }
 
 // ─── Templates ───────────────────────────────────────────────────────────────
